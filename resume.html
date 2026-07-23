@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Resume for Ali Abdelghani, IT Technician and cybersecurity professional." />
+  <title>Ali Abdelghani | Resume</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --navy: #07111f;
+      --cyan: #16d9e3;
+      --white: #ffffff;
+      --page: #f2f6fb;
+      --text: #18253a;
+      --muted: #65738a;
+      --border: #dce5f0;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      color: var(--text);
+      background: var(--page);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .resume-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      padding: 16px max(20px, calc((100% - 980px) / 2));
+      background: rgba(7,17,31,0.96);
+      color: var(--white);
+      backdrop-filter: blur(12px);
+    }
+
+    .toolbar-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 17px;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+      color: var(--white);
+      background: transparent;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .button-primary {
+      color: var(--navy);
+      border-color: var(--cyan);
+      background: var(--cyan);
+    }
+
+    .resume {
+      width: min(calc(100% - 28px), 980px);
+      margin: 34px auto;
+      padding: 54px;
+      background: var(--white);
+      box-shadow: 0 18px 50px rgba(7,17,31,0.12);
+    }
+
+    .resume-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 30px;
+      padding-bottom: 26px;
+      border-bottom: 4px solid var(--cyan);
+    }
+
+    h1, h2, h3 {
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--navy);
+    }
+
+    h1 {
+      margin: 0 0 5px;
+      font-size: 2.6rem;
+      line-height: 1;
+    }
+
+    .headline {
+      color: #087f8c;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .contact-list {
+      text-align: right;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .contact-list a { display: block; }
+
+    section {
+      margin-top: 34px;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      padding-bottom: 7px;
+      border-bottom: 1px solid var(--border);
+      font-size: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .entry {
+      margin-bottom: 24px;
+    }
+
+    .entry-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 6px;
+    }
+
+    .entry h3 {
+      margin: 0;
+      font-size: 1.06rem;
+    }
+
+    .date {
+      color: var(--muted);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    p { margin: 7px 0; }
+
+    ul {
+      margin: 9px 0 0;
+      padding-left: 20px;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .skills span {
+      padding: 7px 10px;
+      border-radius: 8px;
+      background: #edf4f8;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    @media (max-width: 700px) {
+      .resume { padding: 30px 23px; }
+      .resume-header { grid-template-columns: 1fr; }
+      .contact-list { text-align: left; }
+      .entry-heading { flex-direction: column; gap: 3px; }
+      .resume-toolbar { align-items: flex-start; }
+    }
+
+    @media print {
+      body { background: white; }
+      .resume-toolbar { display: none; }
+      .resume {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- =========================================================
+       RESUME EDITING GUIDE
+       - Edit any text between the HTML tags below.
+       - Add or remove <li> bullet points as needed.
+       - Use the Print / Save PDF button to save this page as a PDF.
+       - Keep this file named resume.html beside index.html.
+       ========================================================= -->
+
+  <div class="resume-toolbar">
+    <strong>Ali Abdelghani — Resume</strong>
+    <div class="toolbar-links">
+      <a class="button" href="index.html">Back to Portfolio</a>
+      <button class="button button-primary" type="button" onclick="window.print()">Print / Save PDF</button>
+    </div>
+  </div>
+
+  <main class="resume">
+    <!-- EDITING NOTE: Change your name, title, and contact information here. -->
+    <header class="resume-header">
+      <div>
+        <h1>Ali Abdelghani</h1>
+        <div class="headline">IT Technician | Aspiring SOC Analyst</div>
+      </div>
+
+      <div class="contact-list">
+        <a href="tel:+12673918443">+1 (267) 391-8443</a>
+        <a href="mailto:abdelghaniali07@gmail.com">abdelghaniali07@gmail.com</a>
+        <a href="https://github.com/" target="_blank">GitHub Profile</a>
+        <a href="https://www.linkedin.com/" target="_blank">LinkedIn Profile</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>Professional Summary</h2>
+      <!-- EDITING NOTE: Replace this summary with your preferred version. -->
+      <p>
+        IT Technician and aspiring SOC Analyst with hands-on cybersecurity experience from home labs,
+        Hack The Box, SIEM investigations, network traffic analysis, and cloud security projects.
+        Experienced with Windows and Linux administration, endpoint support, threat detection,
+        incident response fundamentals, and technical troubleshooting.
+      </p>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+
+      <div class="entry">
+        <div class="entry-heading">
+          <div>
+            <h3>IT Technician — EVO Motors</h3>
+            <strong>Tampa, Florida</strong>
+          </div>
+          <span class="date">2025 – Present</span>
+        </div>
+        <ul>
+          <li>Troubleshoot, secure, and maintain company endpoints, user accounts, software, and network-connected devices.</li>
+          <li>Detected and mitigated phishing attempts and malware infections, helping prevent potential data loss and downtime.</li>
+          <li>Improved patch compliance by establishing a consistent update and maintenance schedule.</li>
+          <li>Supported employees with technical issues while documenting resolutions and recurring problems.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Education & Training</h2>
+
+      <div class="entry">
+        <div class="entry-heading">
+          <div>
+            <h3>Cybersecurity Bootcamp — University of Pennsylvania</h3>
+          </div>
+          <span class="date">November 2021</span>
+        </div>
+        <p>
+          Training included Linux and Windows administration, Bash scripting, networking,
+          cryptography, cloud security, SIEMs, penetration testing, forensics, and GRC.
+        </p>
+      </div>
+
+      <div class="entry">
+        <div class="entry-heading">
+          <div>
+            <h3>Google Technical Support Fundamentals Certificate</h3>
+          </div>
+          <span class="date">May 2023</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Projects</h2>
+      <ul>
+        <li><strong>SOC Home Lab:</strong> Built an ELK-based monitoring environment and analyzed Windows and Linux telemetry.</li>
+        <li><strong>Wireshark Packet Analysis:</strong> Investigated Nmap scanning activity and TCP/IP behavior.</li>
+        <li><strong>Stuxbot Investigation:</strong> Hunted for persistence, file staging, and PowerShell Remoting activity.</li>
+        <li><strong>Cloud Security Risk Assessment:</strong> Assessed mock AWS and Azure environments for misconfigurations.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Technical Skills</h2>
+      <!-- EDITING NOTE: Add or remove skill tags below. -->
+      <div class="skills">
+        <span>Windows</span>
+        <span>Linux</span>
+        <span>ELK Stack</span>
+        <span>Kibana</span>
+        <span>Wazuh</span>
+        <span>Sysmon</span>
+        <span>Wireshark</span>
+        <span>Nmap</span>
+        <span>KQL</span>
+        <span>Bash</span>
+        <span>PowerShell</span>
+        <span>AWS</span>
+        <span>Azure</span>
+        <span>MITRE ATT&CK</span>
+        <span>Incident Response</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Certifications in Progress</h2>
+      <ul>
+        <li>CompTIA Security+</li>
+        <li>Hack The Box CJCA Path</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Languages</h2>
+      <p>English and Arabic</p>
+    </section>
+  </main>
+</body>
+</html>
