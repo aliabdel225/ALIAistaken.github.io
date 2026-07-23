@@ -1,9 +1,1580 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>ALI ABDELGHANI</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ali Abdelghani — Cybersecurity portfolio featuring SOC investigations, SIEM labs, network analysis, and cloud security projects." />
+  <meta name="theme-color" content="#07111f" />
+
+  <title>Ali Abdelghani | Cybersecurity Portfolio</title>
+
+  <!-- Fonts and icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <style>
+    :root {
+      --navy: #07111f;
+      --navy-2: #0b1729;
+      --navy-3: #10213a;
+      --cyan: #16d9e3;
+      --cyan-soft: #a6f7fa;
+      --blue: #2986ff;
+      --white: #ffffff;
+      --off-white: #f5f8fc;
+      --text: #18253a;
+      --muted: #65738a;
+      --border: #dce5f0;
+      --success: #35d07f;
+      --shadow: 0 18px 45px rgba(7, 17, 31, 0.12);
+      --radius: 22px;
+      --max-width: 1180px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 95px;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin-inline: auto;
+    }
+
+    .section {
+      padding: 100px 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 15px;
+      color: #087f8c;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      background: var(--cyan);
+    }
+
+    .section-heading {
+      max-width: 700px;
+      margin-bottom: 46px;
+    }
+
+    .section-heading h2 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2rem, 4vw, 3.35rem);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+
+    .section-heading p {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 0 24px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-weight: 800;
+      transition: 0.25s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      color: var(--navy);
+      background: var(--cyan);
+      box-shadow: 0 12px 30px rgba(22, 217, 227, 0.22);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      background: #4cebf2;
+    }
+
+    .btn-outline {
+      color: var(--white);
+      border-color: rgba(255,255,255,0.34);
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-outline:hover {
+      transform: translateY(-3px);
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    /* Top information bar */
+    .topbar {
+      background: #030a13;
+      color: #aab9cc;
+      font-size: 0.8rem;
+    }
+
+    .topbar-inner {
+      min-height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .topbar-items {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .topbar i {
+      color: var(--cyan);
+      margin-right: 7px;
+    }
+
+    .availability {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #d8e5f5;
+    }
+
+    .availability-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 0 5px rgba(53, 208, 127, 0.12);
+    }
+
+    /* Navigation */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(7, 17, 31, 0.92);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--white);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.12rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-mark {
+      width: 41px;
+      height: 41px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: var(--navy);
+      background: linear-gradient(145deg, var(--cyan), #70f6ec);
+      box-shadow: 0 8px 22px rgba(22, 217, 227, 0.2);
+    }
+
+    .logo small {
+      display: block;
+      margin-top: -3px;
+      color: #8496ad;
+      font-family: "Inter", sans-serif;
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      position: relative;
+      color: #d6e1ee;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 0;
+      height: 2px;
+      background: var(--cyan);
+      transition: width 0.22s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--white);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .nav-contact {
+      min-height: 43px;
+      padding: 0 18px;
+      color: var(--navy);
+      background: var(--cyan);
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    
+    .menu-btn span{
+      display:block;
+      width:20px;
+      height:2px;
+      background:#fff;
+      margin:4px auto;
+      border-radius:2px;
+      transition:.25s;
+    }
+
+
+    .menu-btn {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 10px;
+      color: var(--white);
+      background: transparent;
+      cursor: pointer;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 760px;
+      display: flex;
+      align-items: center;
+      color: var(--white);
+      background:
+        linear-gradient(90deg, rgba(3, 10, 19, 0.97) 0%, rgba(3, 10, 19, 0.9) 45%, rgba(3, 10, 19, 0.38) 100%),
+        url("https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=2000&q=88") center/cover no-repeat;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(rgba(22, 217, 227, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(22, 217, 227, 0.055) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to right, black, transparent 78%);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 160px;
+      background: linear-gradient(to top, rgba(7,17,31,0.85), transparent);
+      z-index: -1;
+    }
+
+    .hero-content {
+      max-width: 780px;
+      padding: 90px 0 135px;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      margin-bottom: 23px;
+      border: 1px solid rgba(22, 217, 227, 0.28);
+      border-radius: 999px;
+      color: var(--cyan-soft);
+      background: rgba(22, 217, 227, 0.08);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      max-width: 750px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(3.2rem, 7vw, 6.35rem);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      margin-bottom: 23px;
+    }
+
+    .hero h1 span {
+      color: var(--cyan);
+    }
+
+    .hero-copy {
+      max-width: 650px;
+      margin-bottom: 34px;
+      color: #c4d1e0;
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .hero-stats {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: min(calc(100% - 40px), var(--max-width));
+      transform: translate(-50%, 50%);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+      color: var(--text);
+    }
+
+    .stat {
+      padding: 27px 24px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat:last-child {
+      border-right: 0;
+    }
+
+    .stat strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--navy);
+      font-size: 1.75rem;
+      line-height: 1;
+      margin-bottom: 7px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Services / specialties */
+    .specialties {
+      padding-top: 170px;
+      background: var(--off-white);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .service-card {
+      position: relative;
+      min-height: 310px;
+      padding: 32px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: 0 10px 30px rgba(7, 17, 31, 0.055);
+      transition: 0.28s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-7px);
+      box-shadow: var(--shadow);
+      border-color: rgba(22, 217, 227, 0.55);
+    }
+
+    .service-card::after {
+      content: "";
+      position: absolute;
+      right: -45px;
+      bottom: -65px;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: rgba(22, 217, 227, 0.07);
+    }
+
+    .service-icon {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 28px;
+      border-radius: 16px;
+      color: #087b87;
+      background: #ddfbfd;
+      font-size: 1.45rem;
+    }
+
+    .service-card h3 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.35rem;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .service-card p {
+      color: var(--muted);
+      margin-bottom: 23px;
+    }
+
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #087f8c;
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+
+    .text-link i {
+      transition: transform 0.2s ease;
+    }
+
+    .text-link:hover i {
+      transform: translateX(4px);
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+      min-height: 560px;
+    }
+
+    .about-main-image {
+      height: 510px;
+      object-fit: cover;
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .about-badge {
+      position: absolute;
+      right: -15px;
+      bottom: 8px;
+      width: 215px;
+      padding: 24px;
+      border-radius: 20px;
+      color: var(--white);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .about-badge i {
+      color: var(--cyan);
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+
+    .about-badge strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.12rem;
+      line-height: 1.25;
+      margin-bottom: 7px;
+    }
+
+    .about-badge span {
+      color: #aab9cc;
+      font-size: 0.8rem;
+    }
+
+    .about-copy h2 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+
+    .about-copy > p {
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .check-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 18px;
+      margin: 30px 0 34px;
+      list-style: none;
+    }
+
+    .check-list li {
+      display: flex;
+      gap: 10px;
+      color: #34435a;
+      font-weight: 700;
+      font-size: 0.91rem;
+    }
+
+    .check-list i {
+      color: #08aebc;
+      margin-top: 4px;
+    }
+
+    /* Projects */
+    .projects {
+      background: var(--navy);
+    }
+
+    .projects .section-heading h2 {
+      color: var(--white);
+    }
+
+    .projects .section-heading p {
+      color: #96a8be;
+    }
+
+    .projects .eyebrow {
+      color: var(--cyan);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .project-card {
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      background: var(--navy-2);
+      transition: 0.28s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(22, 217, 227, 0.45);
+      box-shadow: 0 18px 42px rgba(0,0,0,0.3);
+    }
+
+    .project-image {
+      position: relative;
+      height: 260px;
+      overflow: hidden;
+    }
+
+    .project-image img {
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.45s ease;
+    }
+
+    .project-card:hover .project-image img {
+      transform: scale(1.05);
+    }
+
+    .project-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(7,17,31,0.7), transparent 60%);
+    }
+
+    .project-tag {
+      position: absolute;
+      z-index: 2;
+      left: 20px;
+      bottom: 18px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      color: var(--navy);
+      background: var(--cyan);
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .project-body {
+      padding: 27px;
+    }
+
+    .project-body h3 {
+      color: var(--white);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.38rem;
+      margin-bottom: 11px;
+    }
+
+    .project-body p {
+      color: #94a6bc;
+      margin-bottom: 20px;
+    }
+
+    .tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .tech-list span {
+      padding: 6px 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      color: #c5d2e1;
+      background: rgba(255,255,255,0.04);
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 19px;
+    }
+
+    .project-links a {
+      color: var(--cyan);
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    /* Process */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .process-step {
+      position: relative;
+      padding: 28px 24px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--white);
+    }
+
+    .step-number {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 22px;
+      border-radius: 50%;
+      color: var(--navy);
+      background: var(--cyan);
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 800;
+    }
+
+    .process-step h3 {
+      color: var(--navy);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 10px;
+    }
+
+    .process-step p {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    /* Skills */
+    .skills {
+      background: var(--off-white);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 58px;
+      align-items: start;
+    }
+
+    .skills-intro {
+      position: sticky;
+      top: 125px;
+    }
+
+    .skills-intro h2 {
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--navy);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 18px;
+    }
+
+    .skills-intro p {
+      color: var(--muted);
+      margin-bottom: 26px;
+    }
+
+    .skill-panels {
+      display: grid;
+      gap: 16px;
+    }
+
+    .skill-panel {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--white);
+    }
+
+    .skill-panel h3 {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--navy);
+      font-family: "Space Grotesk", sans-serif;
+      margin-bottom: 15px;
+    }
+
+    .skill-panel h3 i {
+      color: #09a4b0;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .skill-tags span {
+      padding: 8px 11px;
+      border-radius: 9px;
+      color: #40516a;
+      background: #eef4f9;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    /* Contact CTA */
+    .contact {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(7,17,31,0.97), rgba(7,17,31,0.78)),
+        url("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1800&q=85") center/cover;
+      color: var(--white);
+    }
+
+    .contact::after {
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      right: -150px;
+      top: -180px;
+      border: 1px solid rgba(22,217,227,0.18);
+      border-radius: 50%;
+      box-shadow: 0 0 0 70px rgba(22,217,227,0.035), 0 0 0 140px rgba(22,217,227,0.025);
+    }
+
+    .contact-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 35px;
+      align-items: center;
+    }
+
+    .contact h2 {
+      max-width: 720px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1.04;
+      letter-spacing: -0.045em;
+      margin-bottom: 17px;
+    }
+
+    .contact p {
+      max-width: 620px;
+      color: #aebed0;
+    }
+
+    /* Footer */
+    footer {
+      padding: 68px 0 28px;
+      color: #a5b3c4;
+      background: #030a13;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 0.7fr 0.7fr;
+      gap: 55px;
+      padding-bottom: 45px;
+    }
+
+    .footer-about p {
+      max-width: 430px;
+      margin: 20px 0;
+      font-size: 0.9rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,0.11);
+      border-radius: 10px;
+      color: var(--white);
+      transition: 0.2s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--navy);
+      border-color: var(--cyan);
+      background: var(--cyan);
+      transform: translateY(-3px);
+    }
+
+    .footer-column h3 {
+      color: var(--white);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1rem;
+      margin-bottom: 18px;
+    }
+
+    .footer-column ul {
+      display: grid;
+      gap: 10px;
+      list-style: none;
+    }
+
+    .footer-column a:hover {
+      color: var(--cyan);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.78rem;
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1000px) {
+      .nav-links {
+        position: fixed;
+        inset: 112px 20px auto;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 18px;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 16px;
+        background: #081321;
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 14px 10px;
+      }
+
+      .nav-links a::after {
+        display: none;
+      }
+
+      .menu-btn {
+        display: grid;
+        place-items: center;
+      }
+
+      .nav-contact {
+        display: none;
+      }
+
+      .card-grid,
+      .process-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .about-grid,
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skills-intro {
+        position: static;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .topbar-inner,
+      .topbar-items {
+        justify-content: center;
+      }
+
+      .topbar-items span:nth-child(2) {
+        display: none;
+      }
+
+      .availability {
+        display: none;
+      }
+
+      .hero {
+        min-height: 700px;
+        background-position: 65% center;
+      }
+
+      .hero-content {
+        padding-top: 75px;
+      }
+
+      .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
+        transform: translate(-50%, 65%);
+      }
+
+      .stat:nth-child(2) {
+        border-right: 0;
+      }
+
+      .stat:nth-child(-n+2) {
+        border-bottom: 1px solid var(--border);
+      }
+
+      .specialties {
+        padding-top: 210px;
+      }
+
+      .project-grid,
+      .contact-inner,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-inner {
+        align-items: start;
+      }
+
+      .footer-grid {
+        gap: 32px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        width: min(calc(100% - 28px), var(--max-width));
+      }
+
+      .section {
+        padding: 76px 0;
+      }
+
+      .hero h1 {
+        font-size: 3.05rem;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .card-grid,
+      .process-grid,
+      .check-list {
+        grid-template-columns: 1fr;
+      }
+
+      .about-visual {
+        min-height: 500px;
+      }
+
+      .about-main-image {
+        height: 430px;
+      }
+
+      .about-badge {
+        right: 10px;
+        bottom: 0;
+      }
+
+      .project-image {
+        height: 220px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<h2>Hello World</h2>
+  <!-- Small contact bar inspired by the reference site's information strip -->
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <div class="topbar-items">
+        <span><i class="fa-solid fa-phone"></i> +1 (267) 391-8443</span>
+        <span><i class="fa-solid fa-envelope"></i> abdelghaniali07@gmail.com</span>
+      </div>
+      <div class="availability">
+        <span class="availability-dot"></span>
+        Open to SOC Analyst Opportunities
+      </div>
+    </div>
+  </div>
+
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="logo" href="#home" aria-label="Homepage">
+        <span class="logo-mark"><i class="fa-solid fa-shield-halved"></i></span>
+        <span>
+          ALI ABDELGHANI
+          <small>Cybersecurity Portfolio</small>
+        </span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#specialties">Expertise</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Replace #contact with your preferred contact destination if needed -->
+        <a class="nav-contact" href="#contact"><i class="fa-solid fa-paper-plane"></i> Contact Me</a>
+        <button class="menu-btn" id="menuBtn" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content reveal">
+          <div class="hero-kicker"><i class="fa-solid fa-circle-nodes"></i> SOC • Detection • Incident Response</div>
+          <h1>Protecting systems through <span>hands-on security.</span></h1>
+          <p class="hero-copy">
+            I build practical cybersecurity labs and investigations focused on SIEM monitoring,
+            threat detection, network analysis, incident response, and defensive security.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">
+              View My Projects <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <!-- Replace resume.pdf with the exact name of your resume file -->
+            <a class="btn btn-outline" href="resume.pdf" target="_blank">
+              <i class="fa-solid fa-file-arrow-down"></i> View Resume
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat"><strong>4+</strong><span>Security Projects</span></div>
+        <div class="stat"><strong>10+</strong><span>Security Tools</span></div>
+        <div class="stat"><strong>2</strong><span>Cloud Platforms</span></div>
+        <div class="stat"><strong>24/7</strong><span>Learning Mindset</span></div>
+      </div>
+    </section>
+
+    <section class="section specialties" id="specialties">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Core Expertise</span>
+          <h2>Security skills built through real labs and investigations</h2>
+          <p>
+            My portfolio demonstrates practical Blue Team workflows—from collecting telemetry
+            to investigating suspicious activity and documenting defensible findings.
+          </p>
+        </div>
+
+        <div class="card-grid">
+          <article class="service-card reveal">
+            <div class="service-icon"><i class="fa-solid fa-chart-line"></i></div>
+            <h3>SIEM & Threat Detection</h3>
+            <p>Collecting and analyzing Windows, Sysmon, PowerShell, and network logs using ELK Stack, Kibana, and Wazuh.</p>
+            <a class="text-link" href="#projects">See investigations <i class="fa-solid fa-arrow-right"></i></a>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon"><i class="fa-solid fa-network-wired"></i></div>
+            <h3>Network Analysis</h3>
+            <p>Capturing and analyzing traffic with Wireshark to identify scans, suspicious connections, and protocol behavior.</p>
+            <a class="text-link" href="#projects">See packet analysis <i class="fa-solid fa-arrow-right"></i></a>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon"><i class="fa-solid fa-shield-virus"></i></div>
+            <h3>Incident Response</h3>
+            <p>Investigating alerts, assessing risk, mapping activity to MITRE ATT&CK, and documenting containment and recovery steps.</p>
+            <a class="text-link" href="#projects">See response work <i class="fa-solid fa-arrow-right"></i></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <div class="about-visual reveal">
+          <img
+            class="about-main-image"
+            src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=85"
+            alt="Cybersecurity analyst working at a computer"
+          />
+          <div class="about-badge">
+            <i class="fa-solid fa-user-shield"></i>
+            <strong>Focused on defensive security</strong>
+            <span>Turning telemetry into clear, actionable findings.</span>
+          </div>
+        </div>
+
+        <div class="about-copy reveal">
+          <span class="eyebrow">About Me</span>
+          <h2>Aspiring SOC Analyst with practical, project-based experience</h2>
+          <p>
+            I am a cybersecurity professional with hands-on experience gained through home labs,
+            Hack The Box, technical projects, and my work as an IT Technician.
+          </p>
+          <p>
+            My focus is on monitoring network activity, investigating security events, developing
+            detection logic, and explaining findings in a way both technical teams and recruiters can understand.
+          </p>
+
+          <ul class="check-list">
+            <li><i class="fa-solid fa-circle-check"></i> University of Pennsylvania Cybersecurity Bootcamp</li>
+            <li><i class="fa-solid fa-circle-check"></i> CompTIA Security+ in progress</li>
+            <li><i class="fa-solid fa-circle-check"></i> Hack The Box CJCA path</li>
+            <li><i class="fa-solid fa-circle-check"></i> English and Arabic</li>
+          </ul>
+
+          <a class="btn btn-primary" href="#skills">Explore My Skills <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section projects" id="projects">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Featured Work</span>
+          <h2>Hands-on cybersecurity projects</h2>
+          <p>
+            Each project includes the investigation process, tools used, technical findings,
+            screenshots, MITRE ATT&CK mapping, and lessons learned.
+          </p>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card reveal">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=85" alt="Security operations dashboard" />
+              <span class="project-tag">SIEM Investigation</span>
+            </div>
+            <div class="project-body">
+              <h3>Hunting for Stuxbot</h3>
+              <p>
+                Investigated file staging, registry persistence, and PowerShell Remoting activity
+                using Elastic telemetry and structured threat-hunting queries.
+              </p>
+              <div class="tech-list">
+                <span>Elastic</span><span>Kibana</span><span>Sysmon</span><span>KQL</span><span>MITRE ATT&CK</span>
+              </div>
+              <div class="project-links">
+                <!-- Replace # with the URL of this GitHub repository -->
+                <a href="#" target="_blank"><i class="fa-brands fa-github"></i> View Repository</a>
+                <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i> Case Study</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=85" alt="Network cables and network infrastructure" />
+              <span class="project-tag">Packet Analysis</span>
+            </div>
+            <div class="project-body">
+              <h3>Network Scanning & Wireshark Analysis</h3>
+              <p>
+                Simulated Nmap reconnaissance and analyzed the resulting traffic to identify
+                SYN scanning behavior, source and destination hosts, and protocol-level evidence.
+              </p>
+              <div class="tech-list">
+                <span>Wireshark</span><span>Nmap</span><span>TCP/IP</span><span>Linux</span><span>T1595</span>
+              </div>
+              <div class="project-links">
+                <a href="#" target="_blank"><i class="fa-brands fa-github"></i> View Repository</a>
+                <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i> Case Study</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=85" alt="Cloud technology visualization" />
+              <span class="project-tag">Cloud Security</span>
+            </div>
+            <div class="project-body">
+              <h3>AWS & Azure Risk Assessment</h3>
+              <p>
+                Built mock cloud environments, identified security misconfigurations, documented
+                risks, and proposed practical remediation steps.
+              </p>
+              <div class="tech-list">
+                <span>AWS</span><span>Azure</span><span>IAM</span><span>Risk Assessment</span><span>NIST</span>
+              </div>
+              <div class="project-links">
+                <a href="#" target="_blank"><i class="fa-brands fa-github"></i> View Repository</a>
+                <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i> Case Study</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-image">
+              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=85" alt="Computer hardware and digital systems" />
+              <span class="project-tag">Home Lab</span>
+            </div>
+            <div class="project-body">
+              <h3>SOC Home Lab with ELK Stack</h3>
+              <p>
+                Designed a virtual SOC environment, onboarded Windows telemetry, simulated attacks,
+                and investigated events through Kibana dashboards and searches.
+              </p>
+              <div class="tech-list">
+                <span>Elasticsearch</span><span>Logstash</span><span>Kibana</span><span>Filebeat</span><span>Windows</span>
+              </div>
+              <div class="project-links">
+                <a href="#" target="_blank"><i class="fa-brands fa-github"></i> View Repository</a>
+                <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i> Case Study</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">Investigation Workflow</span>
+          <h2>A structured approach to security analysis</h2>
+          <p>I follow a repeatable process to move from raw telemetry to clear findings and recommendations.</p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-step reveal">
+            <div class="step-number">01</div>
+            <h3>Collect Evidence</h3>
+            <p>Gather relevant endpoint, authentication, PowerShell, SIEM, and network telemetry.</p>
+          </article>
+
+          <article class="process-step reveal">
+            <div class="step-number">02</div>
+            <h3>Analyze Activity</h3>
+            <p>Build queries, establish timelines, validate anomalies, and eliminate false positives.</p>
+          </article>
+
+          <article class="process-step reveal">
+            <div class="step-number">03</div>
+            <h3>Map the Threat</h3>
+            <p>Connect observed behavior to MITRE ATT&CK techniques and assess business risk.</p>
+          </article>
+
+          <article class="process-step reveal">
+            <div class="step-number">04</div>
+            <h3>Document Findings</h3>
+            <p>Present evidence, impact, response actions, recommendations, and lessons learned.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section skills" id="skills">
+      <div class="container skills-grid">
+        <div class="skills-intro reveal">
+          <span class="eyebrow">Technical Skills</span>
+          <h2>Tools and technologies I work with</h2>
+          <p>
+            My experience combines foundational IT administration with practical defensive
+            cybersecurity tooling and investigation workflows.
+          </p>
+          <!-- Replace the URL below with your real GitHub profile -->
+          <a class="btn btn-primary" href="https://github.com/" target="_blank">
+            <i class="fa-brands fa-github"></i> Visit My GitHub
+          </a>
+        </div>
+
+        <div class="skill-panels">
+          <div class="skill-panel reveal">
+            <h3><i class="fa-solid fa-binoculars"></i> Security Operations</h3>
+            <div class="skill-tags">
+              <span>Threat Detection</span><span>Incident Response</span><span>Log Analysis</span>
+              <span>Alert Triage</span><span>MITRE ATT&CK</span><span>NIST</span>
+            </div>
+          </div>
+
+          <div class="skill-panel reveal">
+            <h3><i class="fa-solid fa-chart-simple"></i> SIEM & Telemetry</h3>
+            <div class="skill-tags">
+              <span>ELK Stack</span><span>Kibana</span><span>Wazuh</span><span>Sysmon</span>
+              <span>Windows Event Logs</span><span>Zeek</span><span>KQL</span>
+            </div>
+          </div>
+
+          <div class="skill-panel reveal">
+            <h3><i class="fa-solid fa-code"></i> Systems & Scripting</h3>
+            <div class="skill-tags">
+              <span>Linux</span><span>Windows</span><span>Bash</span><span>PowerShell</span>
+              <span>Active Directory</span><span>VirtualBox</span>
+            </div>
+          </div>
+
+          <div class="skill-panel reveal">
+            <h3><i class="fa-solid fa-cloud"></i> Networking & Cloud</h3>
+            <div class="skill-tags">
+              <span>Wireshark</span><span>Nmap</span><span>TCP/IP</span><span>AWS</span>
+              <span>Microsoft Azure</span><span>IAM</span><span>Cloud Risk</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="container contact-inner">
+        <div class="reveal">
+          <span class="eyebrow">Let's Connect</span>
+          <h2>Looking for a motivated junior cybersecurity professional?</h2>
+          <p>
+            I am open to SOC Analyst, Junior Security Analyst, and related cybersecurity opportunities.
+            Let’s discuss how my practical experience and learning mindset can support your team.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <a class="btn btn-primary" href="mailto:abdelghaniali07@gmail.com">
+            Email Me <i class="fa-solid fa-paper-plane"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="logo" href="#home">
+            <span class="logo-mark"><i class="fa-solid fa-shield-halved"></i></span>
+            <span>
+              ALI ABDELGHANI
+              <small>Cybersecurity Portfolio</small>
+            </span>
+          </a>
+          <p>
+            Practical cybersecurity projects focused on SOC operations, SIEM analysis,
+            network investigation, cloud security, and incident response.
+          </p>
+
+          <div class="social-links">
+            <!-- Replace placeholder URLs with your real profiles -->
+            <a href="https://github.com/" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="mailto:abdelghaniali07@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h3>Navigation</h3>
+          <ul>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Technical Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Focus Areas</h3>
+          <ul>
+            <li>Security Operations</li>
+            <li>Threat Detection</li>
+            <li>Incident Response</li>
+            <li>Network Analysis</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> Ali Abdelghani. All rights reserved.</span>
+        <span>Built for GitHub Pages.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+      menuBtn.innerHTML = navLinks.classList.contains("open")
+        ? '<i class="fa-solid fa-xmark"></i>'
+        : '<span></span><span></span><span></span>';
+    });
+
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuBtn.innerHTML = '<span></span><span></span><span></span>';
+      });
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
+
+    const sections = document.querySelectorAll("section[id]");
+    const navAnchors = document.querySelectorAll(".nav-links a");
+
+    window.addEventListener("scroll", () => {
+      let current = "home";
+      sections.forEach((section) => {
+        if (window.scrollY >= section.offsetTop - 140) current = section.id;
+      });
+
+      navAnchors.forEach((anchor) => {
+        anchor.classList.toggle("active", anchor.getAttribute("href") === `#${current}`);
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
