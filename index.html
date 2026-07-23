@@ -642,10 +642,17 @@
 
     .project-card {
       overflow: hidden;
+      cursor: pointer;
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 24px;
       background: var(--navy-2);
       transition: 0.28s ease;
+    }
+
+
+    .project-card:focus {
+      outline: 3px solid var(--cyan);
+      outline-offset: 4px;
     }
 
     .project-card:hover {
@@ -1399,8 +1406,12 @@
           </p>
         </div>
 
+        <!-- EDITING NOTE:
+             Each project card below uses data-project-url="page-name.html".
+             Change that filename if you rename a project blog page.
+         -->
         <div class="project-grid">
-          <article class="project-card reveal">
+          <article class="project-card reveal" tabindex="0" role="link" data-project-url="project-stuxbot.html" aria-label="Open Hunting for Stuxbot project blog">
             <div class="project-image">
               <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=85" alt="Security operations dashboard" />
               <span class="project-tag">SIEM Investigation</span>
@@ -1418,7 +1429,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card reveal" tabindex="0" role="link" data-project-url="project-wireshark.html" aria-label="Open Wireshark project blog">
             <div class="project-image">
               <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=85" alt="Network cables and network infrastructure" />
               <span class="project-tag">Packet Analysis</span>
@@ -1436,7 +1447,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card reveal" tabindex="0" role="link" data-project-url="project-cloud-security.html" aria-label="Open cloud security project blog">
             <div class="project-image">
               <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=85" alt="Cloud technology visualization" />
               <span class="project-tag">Cloud Security</span>
@@ -1454,7 +1465,7 @@
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card reveal" tabindex="0" role="link" data-project-url="project-soc-home-lab.html" aria-label="Open SOC home lab project blog">
             <div class="project-image">
               <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=85" alt="Computer hardware and digital systems" />
               <span class="project-tag">Home Lab</span>
@@ -1761,6 +1772,31 @@
       card.addEventListener("click", (event) => {
         if (event.target.closest("a")) return;
         window.location.href = projectLink.getAttribute("href");
+      });
+    });
+
+
+
+    /* =========================
+       CLICKABLE PROJECT CARDS
+       EDITING NOTE:
+       Each card opens the filename stored in its data-project-url attribute.
+       ========================= */
+    document.querySelectorAll(".project-card[data-project-url]").forEach((card) => {
+      const openProject = () => {
+        window.location.href = card.dataset.projectUrl;
+      };
+
+      card.addEventListener("click", (event) => {
+        if (event.target.closest("a")) return;
+        openProject();
+      });
+
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openProject();
+        }
       });
     });
 
