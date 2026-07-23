@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hunting for Stuxbot cybersecurity project case study by Ali Abdelghani.">
+  <title>Hunting for Stuxbot | Ali Abdelghani</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Permanent+Marker&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0b1e5b;
+      --blue: #173fc5;
+      --paper: #fffef8;
+      --line: rgba(50, 105, 190, 0.18);
+      --redline: rgba(220, 55, 55, 0.35);
+      --black: #20232a;
+      --muted: #505a68;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--black);
+      background:
+        linear-gradient(90deg, transparent 0 88px, var(--redline) 88px 90px, transparent 90px),
+        repeating-linear-gradient(
+          to bottom,
+          var(--paper) 0,
+          var(--paper) 31px,
+          var(--line) 32px,
+          var(--paper) 33px
+        );
+      font-family: "Patrick Hand", cursive;
+      font-size: 1.22rem;
+      line-height: 1.55;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: 34px;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          #0d1117 0 9px,
+          transparent 9px 27px
+        );
+      box-shadow: 8px 0 0 #d7d7d7, 11px 0 0 #111;
+      z-index: 3;
+    }
+
+    a { color: inherit; }
+
+    .top-actions {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      padding: 14px 34px 14px 110px;
+      border-bottom: 2px solid rgba(11,30,91,.15);
+      background: rgba(255,254,248,.94);
+      backdrop-filter: blur(8px);
+      font-family: "Inter", sans-serif;
+      font-size: .88rem;
+    }
+
+    .top-actions a {
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .page {
+      width: min(calc(100% - 48px), 1040px);
+      margin: 38px auto 90px;
+      padding-left: 70px;
+    }
+
+    .notebook-label {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding-bottom: 4px;
+      border-bottom: 3px solid var(--blue);
+      font-size: 1.05rem;
+      letter-spacing: .04em;
+    }
+
+    .hero-title {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Permanent Marker", cursive;
+      font-size: clamp(3rem, 8vw, 6.8rem);
+      line-height: .92;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      text-shadow: 2px 2px 0 rgba(23,63,197,.12);
+    }
+
+    .hero-title span {
+      display: block;
+    }
+
+    .subtitle {
+      display: inline-block;
+      margin: 22px 0 8px;
+      padding: 0 8px 5px;
+      border-bottom: 5px solid var(--blue);
+      font-size: clamp(1.5rem, 3vw, 2.4rem);
+    }
+
+    .meta-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 34px 0 42px;
+    }
+
+    .meta-card {
+      padding: 14px;
+      border-right: 2px solid rgba(11,30,91,.2);
+      text-align: center;
+    }
+
+    .meta-card:last-child { border-right: 0; }
+
+    .meta-card strong {
+      display: block;
+      color: var(--blue);
+      font-size: 1.15rem;
+    }
+
+    .sketch-panel {
+      margin: 26px 0 34px;
+      padding: 24px;
+      border: 3px solid var(--ink);
+      border-radius: 4px 14px 5px 12px;
+      background: rgba(255,255,255,.62);
+      box-shadow: 7px 8px 0 rgba(11,30,91,.1);
+      transform: rotate(-.25deg);
+    }
+
+    h2 {
+      display: inline-block;
+      margin: 44px 0 14px;
+      color: var(--ink);
+      font-family: "Permanent Marker", cursive;
+      font-size: 2rem;
+      border-bottom: 4px solid var(--blue);
+      line-height: 1.2;
+    }
+
+    h3 {
+      color: var(--ink);
+      font-size: 1.45rem;
+      margin: 24px 0 8px;
+    }
+
+    p { margin: 10px 0 18px; }
+
+    ul, ol { padding-left: 28px; }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin: 26px 0;
+    }
+
+    .workflow div {
+      position: relative;
+      padding: 16px 10px;
+      border: 2px solid var(--ink);
+      border-radius: 10px 4px 11px 5px;
+      text-align: center;
+      background: rgba(255,255,255,.7);
+    }
+
+    .workflow div:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -15px;
+      top: 50%;
+      color: var(--blue);
+      font-weight: 700;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+
+    .evidence-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0 28px;
+      background: rgba(255,255,255,.64);
+    }
+
+    .evidence-table th,
+    .evidence-table td {
+      padding: 12px;
+      border: 2px solid rgba(11,30,91,.45);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .evidence-table th {
+      color: var(--ink);
+      background: rgba(23,63,197,.08);
+    }
+
+    .note {
+      margin: 28px 0;
+      padding: 18px 22px;
+      border-left: 6px solid var(--blue);
+      background: rgba(23,63,197,.07);
+      font-size: 1.28rem;
+    }
+
+    .quote {
+      margin: 48px 0 20px;
+      color: var(--ink);
+      font-size: 1.55rem;
+      text-align: center;
+    }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: rgba(11,30,91,.08);
+      font-family: monospace;
+      font-size: .9rem;
+    }
+
+    pre {
+      overflow-x: auto;
+      padding: 18px;
+      border: 2px dashed var(--blue);
+      background: rgba(255,255,255,.65);
+      font-family: monospace;
+      font-size: .86rem;
+      line-height: 1.45;
+    }
+
+    .edit-note {
+      margin-top: 50px;
+      padding: 16px;
+      border: 2px dashed rgba(11,30,91,.45);
+      color: var(--muted);
+      font-family: "Inter", sans-serif;
+      font-size: .82rem;
+    }
+
+    footer {
+      padding: 30px 20px 50px 90px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    @media (max-width: 760px) {
+      body {
+        background:
+          linear-gradient(90deg, transparent 0 50px, var(--redline) 50px 52px, transparent 52px),
+          repeating-linear-gradient(to bottom, var(--paper) 0, var(--paper) 31px, var(--line) 32px, var(--paper) 33px);
+      }
+
+      body::before { width: 20px; }
+      .top-actions { padding-left: 68px; }
+      .page { padding-left: 38px; }
+      .meta-strip { grid-template-columns: repeat(2, 1fr); }
+      .workflow { grid-template-columns: 1fr; }
+      .workflow div::after { display: none; }
+      .evidence-table { font-size: .95rem; }
+    }
+  </style>
+
+</head>
+<body>
+  <!-- EDITING NOTE: This project page is intentionally styled like a handwritten DFIR notebook. -->
+  <nav class="top-actions">
+    <a href="index.html">← Back to Portfolio</a>
+    <a href="mailto:abdelghaniali07@gmail.com">Contact Ali</a>
+  </nav>
+
+  <main class="page">
+    <div class="notebook-label">Cybersecurity Project Notebook</div>
+
+    <!-- EDITING NOTE: Change the project title and subtitle below. -->
+    <h1 class="hero-title">Hunting for Stuxbot</h1>
+    <div class="subtitle">Elastic SIEM Threat-Hunting Investigation</div>
+
+    <div class="meta-strip">
+      <div class="meta-card"><strong>Collect</strong>Evidence</div>
+      <div class="meta-card"><strong>Preserve</strong>Integrity</div>
+      <div class="meta-card"><strong>Analyze</strong>Activity</div>
+      <div class="meta-card"><strong>Report</strong>Findings</div>
+    </div>
+
+    <section class="sketch-panel">
+      <h3>Project Overview</h3>
+      <p>This investigation examined suspicious Windows activity associated with Stuxbot behavior. The analysis focused on tools staged in C:\Users\Public, registry-based persistence, and PowerShell Remoting used for lateral movement.</p>
+    </section>
+
+    <h2>Investigation Workflow</h2>
+    <div class="workflow"><div><strong>1</strong><br>Collect Logs</div><div><strong>2</strong><br>Build Queries</div><div><strong>3</strong><br>Correlate Events</div><div><strong>4</strong><br>Map Techniques</div><div><strong>5</strong><br>Report Findings</div></div>
+
+    <h2>Tools Used</h2>
+    <ul><li>Elastic Stack</li><li>Kibana</li><li>KQL</li><li>Sysmon</li><li>Windows Event Logs</li><li>PowerShell Logs</li><li>Zeek</li></ul>
+
+    <h2>Key Findings</h2>
+    <table class="evidence-table">
+      <thead>
+        <tr><th>Finding</th><th>Evidence</th><th>Why It Matters</th></tr>
+      </thead>
+      <tbody><tr><td>Tool staging</td><td>Executables and utilities appeared under C:\Users\Public.</td><td>Public directories are frequently abused because they are writable and accessible.</td></tr>
+<tr><td>Persistence</td><td>Registry Run keys referenced suspicious programs.</td><td>Run keys can automatically launch malware when a user signs in.</td></tr>
+<tr><td>Lateral movement</td><td>PowerShell Remoting activity targeted additional systems.</td><td>Remote PowerShell may indicate movement toward privileged hosts.</td></tr></tbody>
+    </table>
+
+    <h2>MITRE ATT&amp;CK Mapping</h2>
+    <ul><li>T1105 — Ingress Tool Transfer</li><li>T1060 / T1547.001 — Registry Run Keys</li><li>T1021.006 — Windows Remote Management</li></ul>
+
+    <div class="note">
+      <strong>Analyst Note:</strong> The goal of this project was not only to find suspicious activity,
+      but to explain how the evidence supports the conclusion and what defenders should do next.
+    </div>
+
+    <h2>Lessons Learned</h2>
+    <ul><li>Correlating multiple log sources produces stronger conclusions than relying on one event.</li><li>File paths, parent processes, command lines, and user context should be reviewed together.</li><li>Threat-hunting reports should include both evidence and response recommendations.</li></ul>
+
+    <p class="quote">“Every security event tells a story. The analyst’s job is to preserve it, understand it, and report it clearly.”</p>
+
+    <div class="edit-note">
+      <strong>EDITING NOTE:</strong> Open this file in a text editor and search for “EDITING NOTE.”
+      You can add screenshots, queries, findings, and repository links anywhere in this page.
+      Keep this file in the same folder as <code>index.html</code>.
+    </div>
+  </main>
+
+  <footer>© Ali Abdelghani — Cybersecurity Project Portfolio</footer>
+</body>
+</html>
