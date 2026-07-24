@@ -359,6 +359,49 @@
       }
     }
   </style>
+
+  <style id="black-red-theme">
+    :root {
+      --navy:#090909 !important;
+      --navy-2:#151515 !important;
+      --navy-3:#202020 !important;
+      --cyan:#dc2626 !important;
+      --cyan-soft:#fecaca !important;
+      --blue:#ef4444 !important;
+      --page:#0d0d0d !important;
+      --off-white:#111111 !important;
+      --text:#f5f5f5 !important;
+      --muted:#a3a3a3 !important;
+      --border:#2a2a2a !important;
+      --success:#ef4444 !important;
+      --shadow:0 18px 48px rgba(0,0,0,.48) !important;
+    }
+    body { background:#0d0d0d !important; color:#f5f5f5 !important; }
+    ::selection { background:#dc2626; color:#fff; }
+    a:focus-visible, button:focus-visible { outline:3px solid #ef4444; outline-offset:3px; }
+  </style>
+
+  <style id="black-red-resume-theme">
+    .toolbar { background:rgba(8,8,8,.97) !important; border-bottom-color:#2a2a2a !important; }
+    .resume { background:#141414 !important; box-shadow:0 18px 48px rgba(0,0,0,.55) !important; }
+    .resume-header { background:radial-gradient(circle at top right,rgba(220,38,38,.28),transparent 38%),linear-gradient(135deg,#050505,#181818) !important; }
+    .resume-body { background:#141414 !important; }
+    .section-title,.entry-heading h3,.side-card h3,.project h3 { color:#f5f5f5 !important; }
+    .objective,.entry p,li,.project p,.cert-item,.skill-item { color:#c7c7c7 !important; }
+    .entry-heading strong,.contact-row i,.section-title i,.github-note a { color:#ef4444 !important; }
+    .side-card,.project { background:#1b1b1b !important; border-color:#303030 !important; }
+    .cert-item,.skill-item { background:#222 !important; border-color:#343434 !important; }
+    .project { border-left-color:#dc2626 !important; }
+    .github-note { background:#080808 !important; border:1px solid #2d2d2d !important; }
+    .btn { border-color:#dc2626 !important; }
+    .btn:hover { background:#dc2626 !important; }
+    @media print {
+      body,.resume,.resume-body { background:#fff !important; color:#111 !important; }
+      .section-title,.entry-heading h3,.side-card h3,.project h3 { color:#111 !important; }
+      .objective,.entry p,li,.project p,.cert-item,.skill-item { color:#333 !important; }
+      .side-card,.project,.cert-item,.skill-item { background:#fff !important; border-color:#ddd !important; }
+    }
+  </style>
 </head>
 
 <body>
