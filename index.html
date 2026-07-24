@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Ali Abdelghani — Cybersecurity portfolio featuring SOC investigations, SIEM labs, network analysis, and cloud security projects." />
-  <meta name="theme-color" content="#07111f" />
+  <meta name="theme-color" content="#080808" />
 
   <title>Ali Abdelghani | Cybersecurity Portfolio</title>
 
@@ -1377,6 +1377,135 @@
       }
     }
 
+  </style>
+
+  <style id="black-red-theme">
+    :root {
+      --navy:#090909 !important;
+      --navy-2:#151515 !important;
+      --navy-3:#202020 !important;
+      --cyan:#dc2626 !important;
+      --cyan-soft:#fecaca !important;
+      --blue:#ef4444 !important;
+      --page:#0d0d0d !important;
+      --off-white:#111111 !important;
+      --text:#f5f5f5 !important;
+      --muted:#a3a3a3 !important;
+      --border:#2a2a2a !important;
+      --success:#ef4444 !important;
+      --shadow:0 18px 48px rgba(0,0,0,.48) !important;
+    }
+    body { background:#0d0d0d !important; color:#f5f5f5 !important; }
+    ::selection { background:#dc2626; color:#fff; }
+    a:focus-visible, button:focus-visible { outline:3px solid #ef4444; outline-offset:3px; }
+  </style>
+
+  <style id="black-red-index-theme">
+    .topbar,.navbar,footer,.contact { background:#080808 !important; }
+    .hero { background:
+      radial-gradient(circle at 82% 18%,rgba(220,38,38,.24),transparent 30%),
+      linear-gradient(135deg,#050505,#111 62%,#160606) !important; }
+    .section,.specialties,.projects,.skills,.snake-section { background:#0d0d0d !important; }
+    .service-card,.project-card,.process-step,.skill-panel,.snake-shell,.contact-modal-card {
+      background:#171717 !important; border-color:#2d2d2d !important; color:#f5f5f5 !important;
+    }
+    .service-card:hover,.project-card:hover,.process-step:hover,.skill-panel:hover {
+      border-color:#dc2626 !important; box-shadow:0 18px 45px rgba(220,38,38,.16) !important;
+    }
+    .section-heading h2,.service-card h3,.project-body h3,.process-step h3,.skills-intro h2,
+    .skill-panel h3,.snake-shell h2,.contact h2 { color:#f5f5f5 !important; }
+    .section-heading p,.service-card p,.project-body p,.process-step p,.skills-intro p,
+    .contact p,.footer-about p { color:#a3a3a3 !important; }
+    .btn-primary,.project-tag,.logo-mark,.step-number,.service-icon { background:#dc2626 !important; color:#fff !important; }
+    .btn-outline,.nav-contact,.btn { border-color:#dc2626 !important; color:#fff !important; }
+    .btn-outline:hover,.nav-contact:hover,.btn:hover { background:#dc2626 !important; color:#fff !important; }
+    .eyebrow,.hero-kicker,.text-link,.project-links a,.social-links a,.contact-detail i,
+    .footer-column a:hover,.nav-links a:hover { color:#ef4444 !important; }
+    .tech-list span,.skill-tags span,.snake-stat { background:#202020 !important; border-color:#343434 !important; color:#ddd !important; }
+    .project-image::after { background:linear-gradient(to top,rgba(9,9,9,.9),transparent 68%) !important; }
+    .snake-board-wrap { border-color:#dc2626 !important; box-shadow:0 0 32px rgba(220,38,38,.18) !important; }
+  </style>
+
+  <style id="black-red-premium-polish">
+    /* Premium black-and-red site polish */
+    body {
+      background:
+        radial-gradient(circle at 88% 8%, rgba(220,38,38,.12), transparent 24rem),
+        #0a0a0a !important;
+    }
+
+    .navbar {
+      background: rgba(8,8,8,.94) !important;
+      border-bottom: 1px solid rgba(239,68,68,.18) !important;
+      box-shadow: 0 10px 35px rgba(0,0,0,.28) !important;
+    }
+
+    .logo-mark,
+    .contact-detail i {
+      color: #fff !important;
+      background: linear-gradient(145deg,#ef4444,#991b1b) !important;
+      box-shadow: 0 0 22px rgba(220,38,38,.28);
+    }
+
+    .menu-btn {
+      border-color: rgba(239,68,68,.45) !important;
+      background: #151515 !important;
+    }
+    .menu-btn span { background: #ef4444 !important; }
+
+    /* Mobile/top-right navigation popup */
+    @media (max-width: 900px) {
+      .nav-links {
+        background: rgba(12,12,12,.98) !important;
+        border: 1px solid rgba(239,68,68,.32) !important;
+        box-shadow: 0 22px 55px rgba(0,0,0,.58), 0 0 30px rgba(220,38,38,.08) !important;
+      }
+      .nav-links a {
+        color: #f5f5f5 !important;
+        border-bottom-color: rgba(255,255,255,.07) !important;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: #ef4444 !important;
+        background: rgba(220,38,38,.09) !important;
+      }
+    }
+
+    /* Contact popup */
+    .contact-modal {
+      background: rgba(0,0,0,.84) !important;
+      backdrop-filter: blur(12px) !important;
+    }
+    .contact-modal-card {
+      overflow: hidden;
+      border: 1px solid rgba(239,68,68,.38) !important;
+      background:
+        radial-gradient(circle at top right, rgba(220,38,38,.18), transparent 43%),
+        linear-gradient(145deg,#171717,#0c0c0c) !important;
+      box-shadow: 0 30px 90px rgba(0,0,0,.7), 0 0 36px rgba(220,38,38,.12) !important;
+    }
+    .contact-modal-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 4px;
+      background: linear-gradient(90deg,#7f1d1d,#ef4444,#7f1d1d);
+    }
+    .contact-modal-card h2 { color:#fff !important; }
+    .contact-modal-card > p { color:#b8b8b8 !important; }
+    .contact-detail { border-top-color: rgba(255,255,255,.09) !important; }
+    .contact-detail strong { color:#ef4444 !important; }
+    .contact-detail a { color:#f5f5f5 !important; }
+    .contact-detail a:hover { color:#ef4444 !important; }
+    .close-modal {
+      color:#fff !important;
+      border-color:rgba(239,68,68,.42) !important;
+      background:#181818 !important;
+    }
+    .close-modal:hover {
+      background:#dc2626 !important;
+      box-shadow:0 0 18px rgba(220,38,38,.35);
+    }
   </style>
 </head>
 
