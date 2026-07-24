@@ -268,6 +268,42 @@
       .hero h1 { font-size: 2.8rem; }
     }
   </style>
+
+  <style id="black-red-theme">
+    :root {
+      --navy:#090909 !important;
+      --navy-2:#151515 !important;
+      --navy-3:#202020 !important;
+      --cyan:#dc2626 !important;
+      --cyan-soft:#fecaca !important;
+      --blue:#ef4444 !important;
+      --page:#0d0d0d !important;
+      --off-white:#111111 !important;
+      --text:#f5f5f5 !important;
+      --muted:#a3a3a3 !important;
+      --border:#2a2a2a !important;
+      --success:#ef4444 !important;
+      --shadow:0 18px 48px rgba(0,0,0,.48) !important;
+    }
+    body { background:#0d0d0d !important; color:#f5f5f5 !important; }
+    ::selection { background:#dc2626; color:#fff; }
+    a:focus-visible, button:focus-visible { outline:3px solid #ef4444; outline-offset:3px; }
+  </style>
+
+  <style id="black-red-projects-theme">
+    .navbar,footer { background:#080808 !important; }
+    .hero { background:radial-gradient(circle at top right,rgba(220,38,38,.22),transparent 35%),#0d0d0d !important; }
+    .project-card { background:#171717 !important; border-color:#2d2d2d !important; }
+    .project-card:hover { border-color:#dc2626 !important; box-shadow:0 18px 45px rgba(220,38,38,.16) !important; }
+    .project-body h2 { color:#f5f5f5 !important; }
+    .project-body p,.hero p,.future-note { color:#a3a3a3 !important; }
+    .project-tag,.logo-mark { background:#dc2626 !important; color:#fff !important; }
+    .project-link,.eyebrow,.back-link:hover { color:#ef4444 !important; }
+    .back-link { border-color:#444 !important; }
+    .tech-list span { background:#202020 !important; border-color:#343434 !important; color:#ddd !important; }
+    .future-note { background:#151515 !important; border-color:rgba(220,38,38,.5) !important; }
+    .project-image::after { background:linear-gradient(to top,rgba(9,9,9,.92),transparent 65%) !important; }
+  </style>
 </head>
 <body>
   <header class="navbar">
