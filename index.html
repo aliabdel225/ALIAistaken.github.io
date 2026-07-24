@@ -1,52 +1,47 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="Ali Abdelghani — Cybersecurity portfolio featuring SOC investigations, SIEM labs, network analysis, and cloud security projects." name="description"/>
-<meta content="#080808" name="theme-color"/>
-<title>Ali Abdelghani | Cybersecurity Portfolio</title>
-<!-- Fonts and icons -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ali Abdelghani cybersecurity portfolio featuring hands-on SOC investigations, SIEM labs, network analysis, and cloud security projects." />
+  <meta name="theme-color" content="#050607" />
+  <title>Ali Abdelghani | Cybersecurity Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+  <style>
     :root {
-      --navy: #07111f;
-      --navy-2: #0b1729;
-      --navy-3: #10213a;
-      --cyan: #16d9e3;
-      --cyan-soft: #a6f7fa;
-      --blue: #2986ff;
-      --white: #ffffff;
-      --off-white: #f5f8fc;
-      --text: #18253a;
-      --muted: #65738a;
-      --border: #dce5f0;
-      --success: #35d07f;
-      --shadow: 0 18px 45px rgba(7, 17, 31, 0.12);
-      --radius: 22px;
-      --max-width: 1180px;
+      --background: #050607;
+      --surface: #0b0d0f;
+      --surface-soft: #111315;
+      --text: #f7f7f7;
+      --muted: #b7b7b7;
+      --red: #ff2f34;
+      --red-dark: #cf1118;
+      --border: rgba(255, 255, 255, 0.12);
+      --max-width: 1540px;
     }
 
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 95px;
     }
 
     body {
-      font-family: "Inter", sans-serif;
+      min-height: 100vh;
       color: var(--text);
-      background: var(--white);
-      line-height: 1.6;
+      background:
+        radial-gradient(circle at 76% 28%, rgba(255, 26, 32, 0.12), transparent 28%),
+        linear-gradient(135deg, #020304 0%, #080a0c 55%, #050607 100%);
+      font-family: "Inter", sans-serif;
       overflow-x: hidden;
     }
 
@@ -55,2870 +50,389 @@
       text-decoration: none;
     }
 
-    img {
-      display: block;
-      width: 100%;
-    }
-
-    button,
-    input,
-    textarea {
-      font: inherit;
-    }
-
-    .container {
-      width: min(calc(100% - 40px), var(--max-width));
-      margin-inline: auto;
-    }
-
-    .section {
-      padding: 100px 0;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      margin-bottom: 15px;
-      color: #087f8c;
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 28px;
-      height: 2px;
-      background: var(--cyan);
-    }
-
-    .section-heading {
-      max-width: 700px;
-      margin-bottom: 46px;
-    }
-
-    .section-heading h2 {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: clamp(2rem, 4vw, 3.35rem);
-      line-height: 1.08;
-      letter-spacing: -0.04em;
-      color: var(--navy);
-      margin-bottom: 16px;
-    }
-
-    .section-heading p {
-      max-width: 650px;
-      color: var(--muted);
-      font-size: 1.04rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-height: 52px;
-      padding: 0 24px;
-      border: 1px solid transparent;
-      border-radius: 999px;
-      font-weight: 800;
-      transition: 0.25s ease;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      color: var(--navy);
-      background: var(--cyan);
-      box-shadow: 0 12px 30px rgba(22, 217, 227, 0.22);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      background: #4cebf2;
-    }
-
-    .btn-outline {
-      color: var(--white);
-      border-color: rgba(255,255,255,0.34);
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(10px);
-    }
-
-    .btn-outline:hover {
-      transform: translateY(-3px);
-      border-color: var(--cyan);
-      color: var(--cyan);
-    }
-
-    /* Top information bar */
-    .topbar {
-      background: #030a13;
-      color: #aab9cc;
-      font-size: 0.8rem;
-    }
-
-    .topbar-inner {
-      min-height: 36px;
+    .page-shell {
+      min-height: 100vh;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
+      flex-direction: column;
     }
 
-    .topbar-items {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 22px;
-    }
-
-    .topbar i {
-      color: var(--cyan);
-      margin-right: 7px;
-    }
-
-    .availability {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #d8e5f5;
-    }
-
-    .availability-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--success);
-      box-shadow: 0 0 0 5px rgba(53, 208, 127, 0.12);
-    }
-
-    /* Navigation */
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(7, 17, 31, 0.92);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(16px);
-    }
-
-    .nav-inner {
-      min-height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 28px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--white);
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 1.12rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .logo-mark {
-      width: 41px;
-      height: 41px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      color: var(--navy);
-      background: linear-gradient(145deg, var(--cyan), #70f6ec);
-      box-shadow: 0 8px 22px rgba(22, 217, 227, 0.2);
-    }
-
-    .logo small {
-      display: block;
-      margin-top: -3px;
-      color: #8496ad;
-      font-family: "Inter", sans-serif;
-      font-size: 0.63rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      position: relative;
-      color: #d6e1ee;
-      font-size: 0.9rem;
-      font-weight: 700;
-      transition: color 0.2s ease;
-    }
-
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -10px;
-      width: 0;
-      height: 2px;
-      background: var(--cyan);
-      transition: width 0.22s ease;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--white);
-    }
-
-    .nav-links a:hover::after,
-    .nav-links a.active::after {
-      width: 100%;
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-    }
-
-    .nav-contact {
-      min-height: 43px;
-      padding: 0 18px;
-      color: var(--navy);
-      background: var(--cyan);
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.82rem;
-      font-weight: 800;
-    }
-
-    
-    .menu-btn span{
-      display:block;
-      width:20px;
-      height:2px;
-      background:#fff;
-      margin:4px auto;
-      border-radius:2px;
-      transition:.25s;
-    }
-
-
-    .menu-btn {
-      display: none;
-      width: 42px;
-      height: 42px;
-      border: 1px solid rgba(255,255,255,0.16);
-      border-radius: 10px;
-      color: var(--white);
-      background: transparent;
-      cursor: pointer;
-    }
-
-    /* Hero */
     .hero {
       position: relative;
-      min-height: 760px;
-      display: flex;
+      flex: 1;
+      display: grid;
       align-items: center;
-      color: var(--white);
-      background:
-        linear-gradient(90deg, rgba(3, 10, 19, 0.97) 0%, rgba(3, 10, 19, 0.9) 45%, rgba(3, 10, 19, 0.38) 100%),
-        url("https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=2000&q=88") center/cover no-repeat;
+      min-height: 72vh;
       isolation: isolate;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255, 47, 52, 0.72);
     }
 
     .hero::before {
       content: "";
       position: absolute;
       inset: 0;
-      z-index: -1;
-      background-image:
-        linear-gradient(rgba(22, 217, 227, 0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(22, 217, 227, 0.055) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: linear-gradient(to right, black, transparent 78%);
+      z-index: -3;
+      background:
+        linear-gradient(90deg, rgba(2, 3, 4, 0.98) 0%, rgba(2, 3, 4, 0.95) 36%, rgba(2, 3, 4, 0.43) 62%, rgba(2, 3, 4, 0.12) 100%),
+        url("a_dark_modern_cybersecurity_portfolio_webpage_spl.png") center 37% / cover no-repeat;
+      transform: scale(1.015);
     }
 
     .hero::after {
       content: "";
       position: absolute;
-      inset: auto 0 0;
-      height: 160px;
-      background: linear-gradient(to top, rgba(7,17,31,0.85), transparent);
-      z-index: -1;
+      inset: 0;
+      z-index: -2;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.13), rgba(0,0,0,0.22)),
+        radial-gradient(circle at 18% 46%, rgba(255,255,255,0.025), transparent 35%);
+      pointer-events: none;
     }
 
     .hero-content {
-      max-width: 780px;
-      padding: 90px 0 135px;
-    }
-
-    .hero-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 14px;
-      margin-bottom: 23px;
-      border: 1px solid rgba(22, 217, 227, 0.28);
-      border-radius: 999px;
-      color: var(--cyan-soft);
-      background: rgba(22, 217, 227, 0.08);
-      font-size: 0.75rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .hero h1 {
-      max-width: 750px;
-      font-family: "Space Grotesk", sans-serif;
-      font-size: clamp(3.2rem, 7vw, 6.35rem);
-      line-height: 0.98;
-      letter-spacing: -0.055em;
-      margin-bottom: 23px;
-    }
-
-    .hero h1 span {
-      color: var(--cyan);
+      width: min(calc(100% - 44px), var(--max-width));
+      margin: 0 auto;
+      padding: 92px 6.6% 80px;
     }
 
     .hero-copy {
-      max-width: 650px;
-      margin-bottom: 34px;
-      color: #c4d1e0;
-      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      width: min(650px, 52vw);
+      animation: fade-up 0.7s ease both;
     }
 
-    .hero-subtitle {
-      max-width: 700px;
-      margin: -5px 0 18px;
-      color: var(--cyan);
-      font-size: clamp(1rem, 2vw, 1.22rem);
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      margin-bottom: 22px;
+      color: #d7d7d7;
+      font-size: 0.83rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    .technology-stack {
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      width: min(calc(100% - 40px), var(--max-width));
-      transform: translate(-50%, 50%);
-      padding: 24px 28px;
-      border: 1px solid rgba(220, 38, 38, 0.35);
-      border-radius: 20px;
-      background: rgba(12, 12, 12, 0.97);
-      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.5), 0 0 28px rgba(220, 38, 38, 0.1);
-      backdrop-filter: blur(14px);
-    }
-
-    .technology-stack h2 {
-      margin-bottom: 17px;
-      color: #f5f5f5;
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 0.82rem;
-      text-align: center;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
-    .technology-stack h2 i {
-      margin-right: 8px;
-      color: #ef4444;
+    h1 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(4rem, 7vw, 7.2rem);
+      line-height: 0.94;
+      letter-spacing: -0.065em;
+      text-shadow: 0 5px 24px rgba(0,0,0,0.7);
     }
 
-    .tech-badges {
+    .title-line {
+      width: 64px;
+      height: 6px;
+      margin: 30px 0 42px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--red), #ff5357);
+      box-shadow: 0 0 22px rgba(255, 47, 52, 0.48);
+    }
+
+    .intro {
+      max-width: 620px;
+      color: #dddddd;
+      font-size: clamp(1rem, 1.38vw, 1.35rem);
+      line-height: 1.88;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.85);
+    }
+
+    .actions {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
+      gap: 22px;
+      margin-top: 45px;
     }
 
-    .tech-badge {
+    .button {
+      min-height: 64px;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 9px 14px;
-      border: 1px solid rgba(220, 38, 38, 0.65);
-      border-radius: 999px;
-      color: #ededed;
-      background: #171717;
-      font-size: 0.78rem;
+      justify-content: center;
+      gap: 13px;
+      padding: 0 30px;
+      border: 1px solid var(--red);
+      border-radius: 11px;
+      font-size: 1.05rem;
       font-weight: 700;
-      transition: 0.25s ease;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
     }
 
-    .tech-badge i {
-      color: #ef4444;
+    .button-primary {
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      box-shadow: 0 10px 30px rgba(255, 47, 52, 0.24);
     }
 
-    .tech-badge:hover {
-      color: #ffffff;
-      background: #b91c1c;
-      border-color: #ef4444;
+    .button-secondary {
+      background: rgba(7, 8, 9, 0.78);
+      backdrop-filter: blur(9px);
+    }
+
+    .button:hover {
       transform: translateY(-3px);
-      box-shadow: 0 0 18px rgba(220, 38, 38, 0.35);
+      box-shadow: 0 14px 34px rgba(255, 47, 52, 0.32);
     }
 
-    .tech-badge:hover i {
-      color: #ffffff;
+    .footer {
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,47,52,0.055), transparent 38%),
+        linear-gradient(180deg, #0b0d0f, #070809);
+      padding: 30px 24px 26px;
     }
 
-    /* Services / specialties */
-    .specialties {
-      padding-top: 210px;
-      background: var(--off-white);
-    }
-
-    .card-grid {
+    .social-row {
+      width: min(600px, 100%);
+      margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
+      align-items: stretch;
     }
 
-    .service-card {
+    .social-link {
       position: relative;
-      min-height: 310px;
-      padding: 32px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--white);
-      box-shadow: 0 10px 30px rgba(7, 17, 31, 0.055);
-      transition: 0.28s ease;
-    }
-
-    .service-card:hover {
-      transform: translateY(-7px);
-      box-shadow: var(--shadow);
-      border-color: rgba(22, 217, 227, 0.55);
-    }
-
-    .service-card::after {
-      content: "";
-      position: absolute;
-      right: -45px;
-      bottom: -65px;
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      background: rgba(22, 217, 227, 0.07);
-    }
-
-    .service-icon {
-      width: 58px;
-      height: 58px;
-      display: grid;
-      place-items: center;
-      margin-bottom: 28px;
-      border-radius: 16px;
-      color: #087b87;
-      background: #ddfbfd;
-      font-size: 1.45rem;
-    }
-
-    .service-card h3 {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 1.35rem;
-      color: var(--navy);
-      margin-bottom: 12px;
-    }
-
-    .service-card p {
-      color: var(--muted);
-      margin-bottom: 23px;
-    }
-
-    .text-link {
-      display: inline-flex;
+      min-height: 78px;
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 8px;
-      color: #087f8c;
-      font-weight: 800;
-      font-size: 0.9rem;
-    }
-
-    .text-link i {
-      transition: transform 0.2s ease;
-    }
-
-    .text-link:hover i {
-      transform: translateX(4px);
-    }
-
-    /* About */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 70px;
-      align-items: center;
-    }
-
-    .about-visual {
-      position: relative;
-      min-height: 560px;
-    }
-
-    .about-main-image {
-      height: 510px;
-      object-fit: cover;
-      border-radius: 28px;
-      box-shadow: var(--shadow);
-    }
-
-    .about-badge {
-      position: absolute;
-      right: -15px;
-      bottom: 8px;
-      width: 215px;
-      padding: 24px;
-      border-radius: 20px;
-      color: var(--white);
-      background: var(--navy);
-      box-shadow: var(--shadow);
-    }
-
-    .about-badge i {
-      color: var(--cyan);
-      font-size: 1.5rem;
-      margin-bottom: 16px;
-    }
-
-    .about-badge strong {
-      display: block;
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 1.12rem;
-      line-height: 1.25;
-      margin-bottom: 7px;
-    }
-
-    .about-badge span {
-      color: #aab9cc;
-      font-size: 0.8rem;
-    }
-
-    .about-copy h2 {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: clamp(2rem, 4vw, 3.3rem);
-      line-height: 1.08;
-      letter-spacing: -0.04em;
-      color: var(--navy);
-      margin-bottom: 20px;
-    }
-
-    .about-copy > p {
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
-
-    .check-list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px 18px;
-      margin: 30px 0 34px;
-      list-style: none;
-    }
-
-    .check-list li {
-      display: flex;
-      gap: 10px;
-      color: #34435a;
-      font-weight: 700;
-      font-size: 0.91rem;
-    }
-
-    .check-list i {
-      color: #08aebc;
-      margin-top: 4px;
-    }
-
-    /* Projects */
-    .projects {
-      background: var(--navy);
-    }
-
-    .projects .section-heading h2 {
-      color: var(--white);
-    }
-
-    .projects .section-heading p {
-      color: #96a8be;
-    }
-
-    .projects .eyebrow {
-      color: var(--cyan);
-    }
-
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 28px;
-    }
-
-    .project-card {
-      overflow: hidden;
-      cursor: pointer;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 24px;
-      background: var(--navy-2);
-      transition: 0.28s ease;
-    }
-
-
-    .project-card:focus {
-      outline: 3px solid var(--cyan);
-      outline-offset: 4px;
-    }
-
-    .project-card:hover {
-      transform: translateY(-7px);
-      border-color: rgba(22, 217, 227, 0.45);
-      box-shadow: 0 18px 42px rgba(0,0,0,0.3);
-    }
-
-    .project-image {
-      position: relative;
-      height: 260px;
-      overflow: hidden;
-    }
-
-    .project-image img {
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.45s ease;
-    }
-
-    .project-card:hover .project-image img {
-      transform: scale(1.05);
-    }
-
-    .project-image::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(7,17,31,0.7), transparent 60%);
-    }
-
-    .project-tag {
-      position: absolute;
-      z-index: 2;
-      left: 20px;
-      bottom: 18px;
-      padding: 7px 11px;
-      border-radius: 999px;
-      color: var(--navy);
-      background: var(--cyan);
-      font-size: 0.68rem;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .project-body {
-      padding: 27px;
-    }
-
-    .project-body h3 {
-      color: var(--white);
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 1.38rem;
-      margin-bottom: 11px;
-    }
-
-    .project-body p {
-      color: #94a6bc;
-      margin-bottom: 20px;
-    }
-
-    .tech-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 22px;
-    }
-
-    .tech-list span {
-      padding: 6px 10px;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 999px;
-      color: #c5d2e1;
-      background: rgba(255,255,255,0.04);
-      font-size: 0.72rem;
-      font-weight: 700;
-    }
-
-    .project-links {
-      display: flex;
-      gap: 19px;
-    }
-
-    .project-links a {
-      color: var(--cyan);
-      font-size: 0.86rem;
-      font-weight: 800;
-    }
-
-
-    /* EDITING NOTE: Project cards open dedicated blog pages. */
-    .project-card {
-      cursor: pointer;
-    }
-
-    .project-card:focus-within {
-      outline: 3px solid var(--cyan);
-      outline-offset: 4px;
-    }
-
-    .project-links a {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-
-    .projects-view-all {
-      display: flex;
       justify-content: center;
-      margin-top: 38px;
+      gap: 7px;
+      color: #f8f8f8;
+      transition: color 180ms ease, transform 180ms ease;
     }
 
-    .projects-view-all .btn {
-      min-width: 220px;
-    }
-
-
-    /* Process */
-    .process-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-
-    .process-step {
-      position: relative;
-      padding: 28px 24px;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      background: var(--white);
-    }
-
-    .step-number {
-      width: 44px;
-      height: 44px;
-      display: grid;
-      place-items: center;
-      margin-bottom: 22px;
-      border-radius: 50%;
-      color: var(--navy);
-      background: var(--cyan);
-      font-family: "Space Grotesk", sans-serif;
-      font-weight: 800;
-    }
-
-    .process-step h3 {
-      color: var(--navy);
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 1.08rem;
-      margin-bottom: 10px;
-    }
-
-    .process-step p {
-      color: var(--muted);
-      font-size: 0.88rem;
-    }
-
-    /* Skills */
-    .skills {
-      background: var(--off-white);
-    }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 58px;
-      align-items: start;
-    }
-
-    .skills-intro {
-      position: sticky;
-      top: 125px;
-    }
-
-    .skills-intro h2 {
-      font-family: "Space Grotesk", sans-serif;
-      color: var(--navy);
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1.1;
-      letter-spacing: -0.04em;
-      margin-bottom: 18px;
-    }
-
-    .skills-intro p {
-      color: var(--muted);
-      margin-bottom: 26px;
-    }
-
-    .skill-panels {
-      display: grid;
-      gap: 16px;
-    }
-
-    .skill-panel {
-      padding: 24px;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: var(--white);
-    }
-
-    .skill-panel h3 {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      color: var(--navy);
-      font-family: "Space Grotesk", sans-serif;
-      margin-bottom: 15px;
-    }
-
-    .skill-panel h3 i {
-      color: #09a4b0;
-    }
-
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-    }
-
-    .skill-tags span {
-      padding: 8px 11px;
-      border-radius: 9px;
-      color: #40516a;
-      background: #eef4f9;
-      font-size: 0.78rem;
-      font-weight: 700;
-    }
-
-    /* Contact CTA */
-    .contact {
-      position: relative;
-      overflow: hidden;
-      background:
-        linear-gradient(90deg, rgba(7,17,31,0.97), rgba(7,17,31,0.78)),
-        url("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1800&q=85") center/cover;
-      color: var(--white);
-    }
-
-    .contact::after {
+    .social-link:not(:last-child)::after {
       content: "";
       position: absolute;
-      width: 420px;
-      height: 420px;
-      right: -150px;
-      top: -180px;
-      border: 1px solid rgba(22,217,227,0.18);
-      border-radius: 50%;
-      box-shadow: 0 0 0 70px rgba(22,217,227,0.035), 0 0 0 140px rgba(22,217,227,0.025);
+      top: 14px;
+      right: 0;
+      width: 1px;
+      height: 50px;
+      background: rgba(255,255,255,0.17);
     }
 
-    .contact-inner {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 35px;
-      align-items: center;
+    .social-link i {
+      font-size: 2rem;
     }
 
-    .contact h2 {
-      max-width: 720px;
-      font-family: "Space Grotesk", sans-serif;
-      font-size: clamp(2rem, 5vw, 4rem);
-      line-height: 1.04;
-      letter-spacing: -0.045em;
-      margin-bottom: 17px;
+    .social-link span {
+      font-size: 0.94rem;
+      color: #d3d3d3;
     }
 
-    .contact p {
-      max-width: 620px;
-      color: #aebed0;
-    }
-
-    /* Footer */
-    footer {
-      padding: 68px 0 28px;
-      color: #a5b3c4;
-      background: #030a13;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.6fr 0.7fr 0.7fr;
-      gap: 55px;
-      padding-bottom: 45px;
-    }
-
-    .footer-about p {
-      max-width: 430px;
-      margin: 20px 0;
-      font-size: 0.9rem;
-    }
-
-    .social-links {
-      display: flex;
-      gap: 10px;
-    }
-
-    .social-links a {
-      width: 40px;
-      height: 40px;
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(255,255,255,0.11);
-      border-radius: 10px;
-      color: var(--white);
-      transition: 0.2s ease;
-    }
-
-    .social-links a:hover {
-      color: var(--navy);
-      border-color: var(--cyan);
-      background: var(--cyan);
+    .social-link:hover {
+      color: var(--red);
       transform: translateY(-3px);
     }
 
-    .footer-column h3 {
-      color: var(--white);
+    .identity {
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    .identity h2 {
       font-family: "Space Grotesk", sans-serif;
+      font-size: 1.55rem;
+      letter-spacing: -0.025em;
+    }
+
+    .identity p {
+      margin-top: 8px;
+      color: #a9a9a9;
       font-size: 1rem;
-      margin-bottom: 18px;
     }
 
-    .footer-column ul {
-      display: grid;
-      gap: 10px;
-      list-style: none;
+    .identity p strong {
+      color: var(--red);
+      font-weight: 500;
     }
 
-    .footer-column a:hover {
-      color: var(--cyan);
+    .copyright {
+      margin-top: 27px;
+      color: #8f8f8f;
+      text-align: center;
+      font-size: 0.9rem;
     }
 
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      font-size: 0.78rem;
-    }
-
-
-    /* =========================
-       CONTACT POPUP
-       EDITING NOTE:
-       - Change colors, spacing, or size here.
-       - The actual phone/email text is near the bottom of the HTML.
-       ========================= */
-    .contact-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 3000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      background: rgba(3, 10, 19, 0.78);
-      backdrop-filter: blur(8px);
-    }
-
-    .contact-modal.open {
-      display: flex;
-    }
-
-    .contact-modal-card {
-      position: relative;
-      width: min(100%, 480px);
-      padding: 34px;
-      border: 1px solid rgba(22, 217, 227, 0.25);
-      border-radius: 24px;
-      background: var(--navy);
-      color: var(--white);
-      box-shadow: 0 25px 70px rgba(0,0,0,0.45);
-    }
-
-    .contact-modal-card h2 {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-
-    .contact-modal-card > p {
-      color: #aebed0;
-      margin-bottom: 24px;
-    }
-
-    .contact-detail {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 15px 0;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .contact-detail i {
-      width: 36px;
-      height: 36px;
-      display: grid;
-      place-items: center;
-      border-radius: 10px;
-      color: var(--navy);
-      background: var(--cyan);
-    }
-
-    .contact-detail strong {
-      display: block;
-      font-size: 0.77rem;
-      color: #8fa2b8;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .contact-detail a {
-      color: var(--white);
-      font-weight: 700;
-    }
-
-    .close-modal {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      width: 38px;
-      height: 38px;
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 10px;
-      color: var(--white);
-      background: transparent;
-      cursor: pointer;
-    }
-
-
-    /* Reveal animation */
-    .reveal {
-      opacity: 0;
-      transform: translateY(26px);
-      transition: 0.7s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 1000px) {
-      .nav-links {
-        position: fixed;
-        inset: 112px 20px auto;
-        display: none;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-        padding: 18px;
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 16px;
-        background: #081321;
-        box-shadow: var(--shadow);
+    @keyframes fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
       }
-
-      .nav-links.open {
-        display: flex;
-      }
-
-      .nav-links a {
-        display: block;
-        padding: 14px 10px;
-      }
-
-      .nav-links a::after {
-        display: none;
-      }
-
-      .menu-btn {
-        display: grid;
-        place-items: center;
-      }
-
-      .nav-contact {
-        display: none;
-      }
-
-      .card-grid,
-      .process-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .about-grid,
-      .skills-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .skills-intro {
-        position: static;
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
-    @media (max-width: 760px) {
-      .topbar-inner,
-      .topbar-items {
-        justify-content: center;
-      }
-
-      .topbar-items span:nth-child(2) {
-        display: none;
-      }
-
-      .availability {
-        display: none;
-      }
-
+    @media (max-width: 980px) {
       .hero {
-        min-height: 700px;
-        background-position: 65% center;
+        min-height: 680px;
+      }
+
+      .hero::before {
+        background:
+          linear-gradient(90deg, rgba(2,3,4,0.98) 0%, rgba(2,3,4,0.9) 52%, rgba(2,3,4,0.42) 100%),
+          url("a_dark_modern_cybersecurity_portfolio_webpage_spl.png") 58% center / cover no-repeat;
       }
 
       .hero-content {
-        padding-top: 75px;
+        padding-left: 3%;
+        padding-right: 3%;
       }
 
-      .technology-stack {
-        position: relative;
-        left: auto;
-        bottom: auto;
-        width: min(calc(100% - 28px), var(--max-width));
-        margin: 38px auto 0;
-        transform: none;
-        padding: 22px 18px;
+      .hero-copy {
+        width: min(680px, 84vw);
       }
-
-      .specialties {
-        padding-top: 95px;
-      }
-
-      .specialties {
-        padding-top: 210px;
-      }
-
-      .project-grid,
-      .contact-inner,
-      .footer-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .contact-inner {
-        align-items: start;
-      }
-
-      .footer-grid {
-        gap: 32px;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .container {
-        width: min(calc(100% - 28px), var(--max-width));
-      }
-
-      .section {
-        padding: 76px 0;
-      }
-
-      .hero h1 {
-        font-size: 3.05rem;
-      }
-
-      .hero-actions .btn {
-        width: 100%;
-      }
-
-      .card-grid,
-      .process-grid,
-      .check-list {
-        grid-template-columns: 1fr;
-      }
-
-      .about-visual {
-        min-height: 500px;
-      }
-
-      .about-main-image {
-        height: 430px;
-      }
-
-      .about-badge {
-        right: 10px;
-        bottom: 0;
-      }
-
-      .project-image {
-        height: 220px;
-      }
-
-      .footer-bottom {
-        flex-direction: column;
-      }
-    }
-  
-    /* =========================
-       SNAKE GAME
-       ========================= */
-    .snake-section {
-      padding: 95px 0;
-      background:
-        radial-gradient(circle at top left, rgba(22, 217, 227, 0.09), transparent 32%),
-        var(--navy);
-      color: var(--white);
-    }
-
-    .snake-section .section-heading h2,
-    .snake-section .section-heading p {
-      color: var(--white);
-    }
-
-    .snake-section .section-heading p {
-      color: #b9c8da;
-    }
-
-    .snake-shell {
-      width: min(calc(100% - 34px), 760px);
-      margin: 38px auto 0;
-      padding: 26px;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 24px;
-      background: rgba(255,255,255,0.045);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.26);
-      backdrop-filter: blur(12px);
-    }
-
-    .snake-toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-      margin-bottom: 20px;
-    }
-
-    .snake-stat {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .snake-stat span {
-      color: #92a7bd;
-      font-size: 0.76rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .snake-stat strong {
-      color: var(--cyan);
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 1.8rem;
-    }
-
-    .snake-board-wrap {
-      display: grid;
-      place-items: center;
-      padding: 14px;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
-      background: #020913;
-    }
-
-    #snakeCanvas {
-      display: block;
-      width: min(100%, 420px);
-      height: auto;
-      aspect-ratio: 1;
-      border-radius: 12px;
-      background:
-        linear-gradient(rgba(22,217,227,0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(22,217,227,0.045) 1px, transparent 1px),
-        #06101d;
-      background-size: 21px 21px;
-      touch-action: none;
-    }
-
-    .snake-message {
-      min-height: 24px;
-      margin: 16px 0 0;
-      text-align: center;
-      color: #b9c8da;
-      font-size: 0.9rem;
-      font-weight: 700;
-    }
-
-    .snake-controls {
-      display: none;
-      margin-top: 18px;
-      text-align: center;
-    }
-
-    .snake-controls > button,
-    .snake-controls div button {
-      width: 54px;
-      height: 48px;
-      margin: 4px;
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 12px;
-      color: var(--white);
-      background: rgba(255,255,255,0.07);
-      font-size: 1.25rem;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    .snake-controls button:active {
-      transform: scale(0.96);
-      background: rgba(22,217,227,0.18);
     }
 
     @media (max-width: 700px) {
-      .snake-controls {
-        display: block;
+      .hero {
+        min-height: auto;
       }
 
-      .snake-toolbar {
-        align-items: flex-start;
-      }
-    }
-
-  </style>
-<style id="black-red-theme">
-    :root {
-      --navy:#090909 !important;
-      --navy-2:#151515 !important;
-      --navy-3:#202020 !important;
-      --cyan:#dc2626 !important;
-      --cyan-soft:#fecaca !important;
-      --blue:#ef4444 !important;
-      --page:#0d0d0d !important;
-      --off-white:#111111 !important;
-      --text:#f5f5f5 !important;
-      --muted:#a3a3a3 !important;
-      --border:#2a2a2a !important;
-      --success:#ef4444 !important;
-      --shadow:0 18px 48px rgba(0,0,0,.48) !important;
-    }
-    body { background:#0d0d0d !important; color:#f5f5f5 !important; }
-    ::selection { background:#dc2626; color:#fff; }
-    a:focus-visible, button:focus-visible { outline:3px solid #ef4444; outline-offset:3px; }
-  </style>
-<style id="black-red-index-theme">
-    .topbar,.navbar,footer,.contact { background:#080808 !important; }
-    .hero { background:
-      radial-gradient(circle at 82% 18%,rgba(220,38,38,.24),transparent 30%),
-      linear-gradient(135deg,#050505,#111 62%,#160606) !important; }
-    .section,.specialties,.projects,.skills,.snake-section { background:#0d0d0d !important; }
-    .service-card,.project-card,.process-step,.skill-panel,.snake-shell,.contact-modal-card {
-      background:#171717 !important; border-color:#2d2d2d !important; color:#f5f5f5 !important;
-    }
-    .service-card:hover,.project-card:hover,.process-step:hover,.skill-panel:hover {
-      border-color:#dc2626 !important; box-shadow:0 18px 45px rgba(220,38,38,.16) !important;
-    }
-    .section-heading h2,.service-card h3,.project-body h3,.process-step h3,.skills-intro h2,
-    .skill-panel h3,.snake-shell h2,.contact h2 { color:#f5f5f5 !important; }
-    .section-heading p,.service-card p,.project-body p,.process-step p,.skills-intro p,
-    .contact p,.footer-about p { color:#a3a3a3 !important; }
-    .btn-primary,.project-tag,.logo-mark,.step-number,.service-icon { background:#dc2626 !important; color:#fff !important; }
-    .btn-outline,.nav-contact,.btn { border-color:#dc2626 !important; color:#fff !important; }
-    .btn-outline:hover,.nav-contact:hover,.btn:hover { background:#dc2626 !important; color:#fff !important; }
-    .eyebrow,.hero-kicker,.text-link,.project-links a,.social-links a,.contact-detail i,
-    .footer-column a:hover,.nav-links a:hover { color:#ef4444 !important; }
-    .tech-list span,.skill-tags span,.snake-stat { background:#202020 !important; border-color:#343434 !important; color:#ddd !important; }
-    .project-image::after { background:linear-gradient(to top,rgba(9,9,9,.9),transparent 68%) !important; }
-    .snake-board-wrap { border-color:#dc2626 !important; box-shadow:0 0 32px rgba(220,38,38,.18) !important; }
-  </style>
-<style id="black-red-premium-polish">
-    /* Premium black-and-red site polish */
-    body {
-      background:
-        radial-gradient(circle at 88% 8%, rgba(220,38,38,.12), transparent 24rem),
-        #0a0a0a !important;
-    }
-
-    .navbar {
-      background: rgba(8,8,8,.94) !important;
-      border-bottom: 1px solid rgba(239,68,68,.18) !important;
-      box-shadow: 0 10px 35px rgba(0,0,0,.28) !important;
-    }
-
-    .logo-mark,
-    .contact-detail i {
-      color: #fff !important;
-      background: linear-gradient(145deg,#ef4444,#991b1b) !important;
-      box-shadow: 0 0 22px rgba(220,38,38,.28);
-    }
-
-    .menu-btn {
-      border-color: rgba(239,68,68,.45) !important;
-      background: #151515 !important;
-    }
-    .menu-btn span { background: #ef4444 !important; }
-
-    /* Mobile/top-right navigation popup */
-    @media (max-width: 900px) {
-      .nav-links {
-        background: rgba(12,12,12,.98) !important;
-        border: 1px solid rgba(239,68,68,.32) !important;
-        box-shadow: 0 22px 55px rgba(0,0,0,.58), 0 0 30px rgba(220,38,38,.08) !important;
-      }
-      .nav-links a {
-        color: #f5f5f5 !important;
-        border-bottom-color: rgba(255,255,255,.07) !important;
-      }
-      .nav-links a:hover,
-      .nav-links a.active {
-        color: #ef4444 !important;
-        background: rgba(220,38,38,.09) !important;
-      }
-    }
-
-    /* Contact popup */
-    .contact-modal {
-      background: rgba(0,0,0,.84) !important;
-      backdrop-filter: blur(12px) !important;
-    }
-    .contact-modal-card {
-      overflow: hidden;
-      border: 1px solid rgba(239,68,68,.38) !important;
-      background:
-        radial-gradient(circle at top right, rgba(220,38,38,.18), transparent 43%),
-        linear-gradient(145deg,#171717,#0c0c0c) !important;
-      box-shadow: 0 30px 90px rgba(0,0,0,.7), 0 0 36px rgba(220,38,38,.12) !important;
-    }
-    .contact-modal-card::before {
-      content: "";
-      position: absolute;
-      inset: 0 0 auto 0;
-      height: 4px;
-      background: linear-gradient(90deg,#7f1d1d,#ef4444,#7f1d1d);
-    }
-    .contact-modal-card h2 { color:#fff !important; }
-    .contact-modal-card > p { color:#b8b8b8 !important; }
-    .contact-detail { border-top-color: rgba(255,255,255,.09) !important; }
-    .contact-detail strong { color:#ef4444 !important; }
-    .contact-detail a { color:#f5f5f5 !important; }
-    .contact-detail a:hover { color:#ef4444 !important; }
-    .close-modal {
-      color:#fff !important;
-      border-color:rgba(239,68,68,.42) !important;
-      background:#181818 !important;
-    }
-    .close-modal:hover {
-      background:#dc2626 !important;
-      box-shadow:0 0 18px rgba(220,38,38,.35);
-    }
-  </style>
-<style id="snake-game-color-fix">
-    .snake-toolbar .snake-stat {
-      padding: 0 !important;
-      border: 0 !important;
-      border-radius: 0 !important;
-      background: transparent !important;
-      box-shadow: none !important;
-    }
-
-    .snake-toolbar .snake-stat span {
-      color: #a3a3a3 !important;
-    }
-
-    .snake-toolbar .snake-stat strong {
-      color: #ef4444 !important;
-      text-shadow: 0 0 16px rgba(239, 68, 68, 0.38);
-    }
-
-    .snake-start-btn {
-      min-width: 172px;
-      border: 1px solid #ef4444 !important;
-      color: #ffffff !important;
-      background: linear-gradient(135deg, #dc2626, #991b1b) !important;
-      box-shadow: 0 10px 28px rgba(220, 38, 38, 0.26);
-    }
-
-    .snake-start-btn:hover {
-      border-color: #f87171 !important;
-      background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
-      transform: translateY(-2px);
-      box-shadow: 0 14px 34px rgba(220, 38, 38, 0.4) !important;
-    }
-
-    .snake-start-btn:active {
-      transform: translateY(0) scale(0.98);
-    }
-
-    .snake-start-btn i {
-      color: #ffffff !important;
-    }
-
-    #snakeCanvas {
-      background:
-        linear-gradient(rgba(239, 68, 68, 0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(239, 68, 68, 0.055) 1px, transparent 1px),
-        #080808 !important;
-      background-size: 21px 21px !important;
-    }
-
-    .snake-message {
-      color: #b8b8b8 !important;
-    }
-
-    .snake-controls > button,
-    .snake-controls div button {
-      border-color: rgba(239, 68, 68, 0.45) !important;
-      background: #171717 !important;
-    }
-
-    .snake-controls button:hover,
-    .snake-controls button:active {
-      border-color: #ef4444 !important;
-      background: #b91c1c !important;
-      box-shadow: 0 0 16px rgba(220, 38, 38, 0.3);
-    }
-
-    @media (max-width: 520px) {
-      .snake-toolbar {
-        flex-direction: column;
-        align-items: stretch !important;
+      .hero::before {
+        background:
+          linear-gradient(180deg, rgba(2,3,4,0.88) 0%, rgba(2,3,4,0.97) 48%, #020304 100%),
+          url("a_dark_modern_cybersecurity_portfolio_webpage_spl.png") 68% top / auto 54% no-repeat;
       }
 
-      .snake-start-btn {
-        width: 100%;
+      .hero-content {
+        width: min(calc(100% - 28px), var(--max-width));
+        padding: 330px 0 65px;
       }
-    }
-  </style>
-<style id="projects-button-fix">
-    .projects-view-all .projects-all-btn {
-      min-width: 230px;
-      padding: 15px 28px;
-      border: 1px solid #ef4444 !important;
-      border-radius: 12px;
-      color: #ffffff !important;
-      background: #171717 !important;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
-      transition: 0.25s ease;
-    }
 
-    .projects-view-all .projects-all-btn:hover {
-      color: #ffffff !important;
-      background: linear-gradient(135deg, #dc2626, #991b1b) !important;
-      border-color: #f87171 !important;
-      transform: translateY(-3px);
-      box-shadow: 0 0 24px rgba(220, 38, 38, 0.38);
-    }
-
-    .projects-view-all .projects-all-btn i {
-      color: #ef4444;
-      transition: 0.25s ease;
-    }
-
-    .projects-view-all .projects-all-btn:hover i {
-      color: #ffffff;
-      transform: translateX(4px);
-    }
-  </style>
-<style id="skills-spacing-github-fix">
-    /* Add breathing room beneath the divider above Technical Skills */
-    #skills {
-      padding-top: 145px !important;
-    }
-
-    /* GitHub CTA in the Technical Skills section */
-    .github-profile-btn {
-      min-width: 205px;
-      border: 1px solid #ef4444 !important;
-      border-radius: 12px;
-      color: #ffffff !important;
-      background: #171717 !important;
-      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.34);
-      transition: transform 0.25s ease, background 0.25s ease,
-                  border-color 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .github-profile-btn i {
-      color: #ef4444 !important;
-      font-size: 1.05rem;
-      transition: color 0.25s ease, transform 0.25s ease;
-    }
-
-    .github-profile-btn:hover {
-      color: #ffffff !important;
-      border-color: #f87171 !important;
-      background: linear-gradient(135deg, #dc2626, #991b1b) !important;
-      transform: translateY(-3px);
-      box-shadow: 0 0 24px rgba(220, 38, 38, 0.38);
-    }
-
-    .github-profile-btn:hover i {
-      color: #ffffff !important;
-      transform: scale(1.08);
-    }
-
-    .github-profile-btn:active {
-      transform: translateY(0) scale(0.98);
-    }
-
-    @media (max-width: 760px) {
-      #skills {
-        padding-top: 110px !important;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .github-profile-btn {
-        width: 100%;
-      }
-    }
-  </style>
-<style id="contact-email-fix">
-.contact-email-btn{
-background:#171717!important;
-border:2px solid #dc2626!important;
-color:#fff!important;
-border-radius:12px;
-padding:15px 28px;
-transition:.25s ease;
-display:inline-flex;
-align-items:center;
-gap:10px;
-}
-.contact-email-btn i{color:#ef4444;transition:.25s ease;}
-.contact-email-btn:hover{
-background:linear-gradient(135deg,#dc2626,#991b1b)!important;
-transform:translateY(-3px);
-box-shadow:0 0 22px rgba(220,38,38,.4);
-}
-.contact-email-btn:hover i{color:#fff;}
-</style>
-<style id="restored-snake-styles">
-/* =========================
-       SNAKE GAME
-       ========================= */
-    .snake-section {
-      padding: 95px 0;
-      background:
-        radial-gradient(circle at top left, rgba(22, 217, 227, 0.09), transparent 32%),
-        var(--navy);
-      color: var(--white);
-    }
-.snake-section .section-heading h2,
-    .snake-section .section-heading p {
-      color: var(--white);
-    }
-.snake-section .section-heading p {
-      color: #b9c8da;
-    }
-.snake-shell {
-      width: min(calc(100% - 34px), 760px);
-      margin: 38px auto 0;
-      padding: 26px;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 24px;
-      background: rgba(255,255,255,0.045);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.26);
-      backdrop-filter: blur(12px);
-    }
-.snake-toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-      margin-bottom: 20px;
-    }
-.snake-stat {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-.snake-stat span {
-      color: #92a7bd;
-      font-size: 0.76rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-.snake-stat strong {
-      color: var(--cyan);
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 1.8rem;
-    }
-.snake-board-wrap {
-      display: grid;
-      place-items: center;
-      padding: 14px;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
-      background: #020913;
-    }
-#snakeCanvas {
-      display: block;
-      width: min(100%, 420px);
-      height: auto;
-      aspect-ratio: 1;
-      border-radius: 12px;
-      background:
-        linear-gradient(rgba(22,217,227,0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(22,217,227,0.045) 1px, transparent 1px),
-        #06101d;
-      background-size: 21px 21px;
-      touch-action: none;
-    }
-.snake-message {
-      min-height: 24px;
-      margin: 16px 0 0;
-      text-align: center;
-      color: #b9c8da;
-      font-size: 0.9rem;
-      font-weight: 700;
-    }
-.snake-controls {
-      display: none;
-      margin-top: 18px;
-      text-align: center;
-    }
-.snake-controls > button,
-    .snake-controls div button {
-      width: 54px;
-      height: 48px;
-      margin: 4px;
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 12px;
-      color: var(--white);
-      background: rgba(255,255,255,0.07);
-      font-size: 1.25rem;
-      font-weight: 900;
-      cursor: pointer;
-    }
-.snake-controls button:active {
-      transform: scale(0.96);
-      background: rgba(22,217,227,0.18);
-    }
-.snake-controls {
-        display: block;
-      }
-.snake-toolbar {
-        align-items: flex-start;
-      }
-.section,.specialties,.projects,.skills,.snake-section { background:#0d0d0d !important; }
-.service-card,.project-card,.process-step,.skill-panel,.snake-shell,.contact-modal-card {
-      background:#171717 !important; border-color:#2d2d2d !important; color:#f5f5f5 !important;
-    }
-.section-heading h2,.service-card h3,.project-body h3,.process-step h3,.skills-intro h2,
-    .skill-panel h3,.snake-shell h2,.contact h2 { color:#f5f5f5 !important; }
-.tech-list span,.skill-tags span,.snake-stat { background:#202020 !important; border-color:#343434 !important; color:#ddd !important; }
-.snake-board-wrap { border-color:#dc2626 !important; box-shadow:0 0 32px rgba(220,38,38,.18) !important; }
-.snake-toolbar .snake-stat {
-      padding: 0 !important;
-      border: 0 !important;
-      border-radius: 0 !important;
-      background: transparent !important;
-      box-shadow: none !important;
-    }
-.snake-toolbar .snake-stat span {
-      color: #a3a3a3 !important;
-    }
-.snake-toolbar .snake-stat strong {
-      color: #ef4444 !important;
-      text-shadow: 0 0 16px rgba(239, 68, 68, 0.38);
-    }
-.snake-start-btn {
-      min-width: 172px;
-      border: 1px solid #ef4444 !important;
-      color: #ffffff !important;
-      background: linear-gradient(135deg, #dc2626, #991b1b) !important;
-      box-shadow: 0 10px 28px rgba(220, 38, 38, 0.26);
-    }
-.snake-start-btn:hover {
-      border-color: #f87171 !important;
-      background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
-      transform: translateY(-2px);
-      box-shadow: 0 14px 34px rgba(220, 38, 38, 0.4) !important;
-    }
-.snake-start-btn:active {
-      transform: translateY(0) scale(0.98);
-    }
-.snake-start-btn i {
-      color: #ffffff !important;
-    }
-#snakeCanvas {
-      background:
-        linear-gradient(rgba(239, 68, 68, 0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(239, 68, 68, 0.055) 1px, transparent 1px),
-        #080808 !important;
-      background-size: 21px 21px !important;
-    }
-.snake-message {
-      color: #b8b8b8 !important;
-    }
-.snake-controls > button,
-    .snake-controls div button {
-      border-color: rgba(239, 68, 68, 0.45) !important;
-      background: #171717 !important;
-    }
-.snake-controls button:hover,
-    .snake-controls button:active {
-      border-color: #ef4444 !important;
-      background: #b91c1c !important;
-      box-shadow: 0 0 16px rgba(220, 38, 38, 0.3);
-    }
-.snake-toolbar {
-        flex-direction: column;
-        align-items: stretch !important;
-      }
-.snake-start-btn {
+      .hero-copy {
         width: 100%;
       }
 
-.snake-section {
-  padding: 100px 20px;
-  background: #0d0d0d;
-}
+      .eyebrow {
+        display: none;
+      }
 
-.snake-section .section-heading {
-  width: min(100%, 760px);
-  margin: 0 auto;
-  text-align: center;
-}
+      h1 {
+        font-size: clamp(3.4rem, 18vw, 5.1rem);
+      }
 
-.snake-section .section-heading p {
-  color: #a3a3a3;
-}
+      .title-line {
+        margin: 24px 0 28px;
+      }
 
-.snake-shell {
-  width: min(100%, 760px);
-  margin: 38px auto 0;
-  padding: 26px;
-  border: 1px solid rgba(239, 68, 68, 0.35);
-  border-radius: 24px;
-  background: #111111;
-  box-shadow: 0 24px 60px rgba(0,0,0,0.38);
-}
+      .intro {
+        font-size: 1rem;
+        line-height: 1.75;
+      }
 
-.snake-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 18px;
-  margin-bottom: 20px;
-}
+      .actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-top: 34px;
+      }
 
-.snake-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 0 !important;
-  border: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
+      .button {
+        width: 100%;
+        min-height: 58px;
+      }
 
-.snake-stat span {
-  color: #a3a3a3 !important;
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
+      .footer {
+        padding-top: 24px;
+      }
 
-.snake-stat strong {
-  color: #ef4444 !important;
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 1.8rem;
-  text-shadow: 0 0 16px rgba(239,68,68,0.38);
-}
+      .social-row {
+        width: 100%;
+      }
 
-.snake-start-btn {
-  min-width: 172px;
-  border: 1px solid #ef4444 !important;
-  color: #fff !important;
-  background: linear-gradient(135deg,#dc2626,#991b1b) !important;
-  box-shadow: 0 10px 28px rgba(220,38,38,0.26);
-}
+      .social-link {
+        min-height: 70px;
+      }
 
-.snake-start-btn:hover {
-  border-color: #f87171 !important;
-  background: linear-gradient(135deg,#ef4444,#b91c1c) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 14px 34px rgba(220,38,38,0.4) !important;
-}
+      .social-link i {
+        font-size: 1.65rem;
+      }
 
-.snake-board-wrap {
-  display: grid;
-  place-items: center;
-  padding: 14px;
-  border: 1px solid rgba(239,68,68,0.2);
-  border-radius: 18px;
-  background: #050505;
-}
+      .social-link span {
+        font-size: 0.82rem;
+      }
 
-#snakeCanvas {
-  display: block;
-  width: min(100%,420px);
-  height: auto;
-  aspect-ratio: 1;
-  border-radius: 12px;
-  background:
-    linear-gradient(rgba(239,68,68,0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(239,68,68,0.055) 1px, transparent 1px),
-    #080808 !important;
-  background-size: 21px 21px !important;
-  touch-action: none;
-}
+      .identity h2 {
+        font-size: 1.3rem;
+      }
 
-.snake-message {
-  min-height: 24px;
-  margin: 16px 0 0;
-  color: #b8b8b8 !important;
-  text-align: center;
-  font-size: 0.9rem;
-  font-weight: 700;
-}
-
-.snake-controls {
-  display: none;
-  margin-top: 18px;
-  text-align: center;
-}
-
-.snake-controls > button,
-.snake-controls div button {
-  width: 54px;
-  height: 48px;
-  margin: 4px;
-  border: 1px solid rgba(239,68,68,0.45) !important;
-  border-radius: 12px;
-  color: #fff;
-  background: #171717 !important;
-  font-size: 1.25rem;
-  font-weight: 900;
-  cursor: pointer;
-}
-
-.snake-controls button:hover,
-.snake-controls button:active {
-  border-color: #ef4444 !important;
-  background: #b91c1c !important;
-  box-shadow: 0 0 16px rgba(220,38,38,0.3);
-}
-
-@media (max-width: 700px) {
-  .snake-controls { display: block; }
-  .snake-toolbar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .snake-start-btn { width: 100%; }
-}
-
-@media (max-width: 520px) {
-  .snake-section { padding: 80px 14px; }
-  .snake-shell { padding: 18px; }
-}
-
-</style>
-<style id="hero-projects-and-snake-spacing-fix">
-  /* Premium hero View My Projects button */
-  .hero-projects-btn {
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    min-width: 190px;
-    padding: 14px 24px !important;
-    border: 1px solid #ef4444 !important;
-    border-radius: 12px !important;
-    color: #ffffff !important;
-    background: #171717 !important;
-    text-decoration: none !important;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.34);
-    transition:
-      transform 0.25s ease,
-      background 0.25s ease,
-      border-color 0.25s ease,
-      box-shadow 0.25s ease;
-  }
-
-  .hero-projects-btn i {
-    color: #ef4444 !important;
-    transition: color 0.25s ease, transform 0.25s ease;
-  }
-
-  .hero-projects-btn:hover {
-    color: #ffffff !important;
-    border-color: #f87171 !important;
-    background: linear-gradient(135deg, #dc2626, #991b1b) !important;
-    transform: translateY(-3px);
-    box-shadow: 0 0 24px rgba(220, 38, 38, 0.38);
-  }
-
-  .hero-projects-btn:hover i {
-    color: #ffffff !important;
-    transform: translateX(2px);
-  }
-
-  .hero-projects-btn:active {
-    transform: translateY(0) scale(0.98);
-  }
-
-  /* Add more breathing room before Interactive Break */
-  .snake-section {
-    margin-top: 50px !important;
-    padding-top: 125px !important;
-  }
-
-  @media (max-width: 700px) {
-    .hero-projects-btn {
-      min-width: 170px;
+      .identity p {
+        font-size: 0.88rem;
+      }
     }
 
-    .snake-section {
-      margin-top: 34px !important;
-      padding-top: 100px !important;
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition: none !important;
+      }
     }
-  }
-
-  @media (max-width: 520px) {
-    .hero-projects-btn {
-      width: 100%;
-    }
-
-    .snake-section {
-      margin-top: 24px !important;
-      padding-top: 88px !important;
-    }
-  }
-</style>
+  </style>
 </head>
+
 <body>
-<!-- =========================================================
-       EASY EDITING GUIDE
-       1. Search for "EDITING NOTE" to find editable areas.
-       2. Replace placeholder GitHub and LinkedIn links.
-       3. Update project descriptions and repository URLs.
-       4. Replace Ali-Abdelghani-Resume.pdf whenever you update your resume.
-       5. Keep index.html and Ali-Abdelghani-Resume.pdf in the same GitHub folder.
-       ========================================================= -->
-<!-- Small contact bar inspired by the reference site's information strip -->
-<!-- EDITING NOTE: Top contact bar. Change phone/email below. -->
-<div class="topbar">
-<div class="container topbar-inner">
-<div class="topbar-items">
-<span><i class="fa-solid fa-phone"></i> +1 (267) 391-8443</span>
-<span><i class="fa-solid fa-envelope"></i> abdelghaniali07@gmail.com</span>
-</div>
-</div>
-</div>
-<!-- EDITING NOTE: Main navigation and name/title area. -->
-<header class="navbar">
-<div class="container nav-inner">
-<a aria-label="Homepage" class="logo" href="#home">
-<span class="logo-mark"><i class="fa-solid fa-shield-halved"></i></span>
-<span>
-          ALI ABDELGHANI
-        </span>
-</a>
-<ul class="nav-links" id="navLinks">
-<li><a class="active" href="#home">Home</a></li>
-<li><a href="#specialties">Expertise</a></li>
-<li><a class="hero-projects-btn" href="#projects">Projects</a></li>
-<li><a href="#skills">Skills</a></li>
-</ul>
-<div class="nav-actions">
-<!-- Replace #contact with your preferred contact destination if needed -->
-<button class="nav-contact" id="openContactModal" type="button"><i class="fa-solid fa-paper-plane"></i> Contact Me</button>
+  <div class="page-shell">
+    <main class="hero">
+      <div class="hero-content">
+        <section class="hero-copy" aria-labelledby="welcome-title">
+          <span class="eyebrow">Cybersecurity Portfolio</span>
+          <h1 id="welcome-title">Welcome</h1>
+          <div class="title-line" aria-hidden="true"></div>
 
-</div>
-</div>
-</header>
-<main>
-<!-- EDITING NOTE: Main hero area. Change headline and introduction here. -->
-<section class="hero" id="home">
-<div class="container">
-<div class="hero-content reveal">
-<div class="hero-kicker"><i class="fa-solid fa-circle-nodes"></i> Welcome</div>
-<h1>Ali <span>Abdelghani</span></h1>
-<p class="hero-subtitle">IT Technician • Aspiring SOC Analyst • Threat Hunter</p>
-<p class="hero-copy">
-            I'm an IT Technician with a strong passion for cybersecurity and hands-on experience
-            securing endpoints, investigating security events, and supporting incident response.
-            Through professional IT work, self-built home labs, and platforms such as Hack The Box,
-            I have developed practical skills in SIEM monitoring, network traffic analysis, threat
-            hunting, cloud security, and defensive security. I enjoy solving real-world security
-            challenges, expanding my technical knowledge, and building projects that demonstrate
-            practical cybersecurity experience.
+          <p class="intro">
+            I’m an IT Technician with a passion for cybersecurity and hands-on experience
+            through professional IT work, home labs, Hack The Box, and real-world security
+            projects. Explore my investigations, GitHub projects, and technical skills.
           </p>
-<div class="hero-actions">
-<a class="btn btn-primary" href="#projects">
-              View My Projects <i class="fa-solid fa-arrow-right"></i>
-</a>
-<!-- EDITING NOTE: This opens your structured resume page. Keep resume.html and Ali-Abdelghani-Resume.pdf in the same folder as index.html. -->
-<a class="btn btn-outline" href="resume.html" target="_blank">
-<i class="fa-solid fa-file-arrow-down"></i> View Resume
+
+          <div class="actions">
+            <a class="button button-primary" href="projects.html">
+              <i class="fa-solid fa-terminal"></i>
+              View Projects
             </a>
-</div>
-</div>
-</div>
-<div aria-label="Technology stack" class="technology-stack">
-<h2><i class="fa-solid fa-terminal"></i> Technology Stack</h2>
-<div class="tech-badges">
-<span class="tech-badge"><i class="fa-solid fa-chart-line"></i> ELK Stack</span>
-<span class="tech-badge"><i class="fa-solid fa-magnifying-glass-chart"></i> Kibana</span>
-<span class="tech-badge"><i class="fa-solid fa-shield-halved"></i> Wazuh</span>
-<span class="tech-badge"><i class="fa-solid fa-file-shield"></i> Sysmon</span>
-<span class="tech-badge"><i class="fa-solid fa-network-wired"></i> Wireshark</span>
-<span class="tech-badge"><i class="fa-solid fa-satellite-dish"></i> Nmap</span>
-<span class="tech-badge"><i class="fa-brands fa-windows"></i> Windows</span>
-<span class="tech-badge"><i class="fa-brands fa-linux"></i> Linux</span>
-<span class="tech-badge"><i class="fa-solid fa-terminal"></i> Bash</span>
-<span class="tech-badge"><i class="fa-brands fa-aws"></i> AWS</span>
-<span class="tech-badge"><i class="fa-brands fa-microsoft"></i> Azure</span>
-<span class="tech-badge"><i class="fa-solid fa-code"></i> KQL</span>
-<span class="tech-badge"><i class="fa-solid fa-crosshairs"></i> MITRE ATT&amp;CK</span>
-<span class="tech-badge"><i class="fa-brands fa-git-alt"></i> Git</span>
-<span class="tech-badge"><i class="fa-brands fa-github"></i> GitHub</span>
-</div>
-</div>
-</section>
-<section class="snake-section" id="about">
-<div class="section-heading reveal">
-<span class="eyebrow">Interactive Break</span>
-<h2>Play Snake</h2>
-<p>Use the arrow keys or WASD to move. Collect the red blocks and avoid hitting the walls or yourself.</p>
-</div>
-<div class="snake-shell reveal">
-<div class="snake-toolbar">
-<div class="snake-stat">
-<span>Score</span>
-<strong id="snakeScore">0</strong>
-</div>
-<button class="btn btn-primary snake-start-btn" id="snakeStartBtn" type="button">
-<i class="fa-solid fa-play"></i>
-          Start / Restart
-        </button>
-</div>
-<div class="snake-board-wrap">
-<canvas aria-label="Playable Snake game" height="420" id="snakeCanvas" width="420"></canvas>
-</div>
-<p class="snake-message" id="snakeMessage">Press Start / Restart to begin.</p>
-<div aria-label="Mobile Snake controls" class="snake-controls">
-<button aria-label="Move up" data-snake-key="ArrowUp" type="button">↑</button>
-<div>
-<button aria-label="Move left" data-snake-key="ArrowLeft" type="button">←</button>
-<button aria-label="Move down" data-snake-key="ArrowDown" type="button">↓</button>
-<button aria-label="Move right" data-snake-key="ArrowRight" type="button">→</button>
-</div>
-</div>
-</div>
-</section>
-<section class="section contact" id="contact">
-<div class="container contact-inner">
-<div class="reveal">
-<span class="eyebrow">Let's Connect</span>
-<h2>Looking for a motivated junior cybersecurity professional?</h2>
-<p>
-            I am open to SOC Analyst, Junior Security Analyst, and related cybersecurity opportunities.
-            Let’s discuss how my practical experience and learning mindset can support your team.
-          </p>
-</div>
-<div class="reveal">
-<a class="btn contact-email-btn" href="mailto:abdelghaniali07@gmail.com">
-            Email Me <i class="fa-solid fa-paper-plane"></i>
-</a>
-</div>
-</div>
-</section>
-</main>
-<!-- =========================
-       CONTACT POPUP
-       EDITING NOTE:
-       Change the phone number, email, or LinkedIn link below.
-       ========================= -->
-<div aria-hidden="true" class="contact-modal" id="contactModal">
-<div aria-labelledby="contactModalTitle" aria-modal="true" class="contact-modal-card" role="dialog">
-<button aria-label="Close contact popup" class="close-modal" id="closeContactModal" type="button">
-<i class="fa-solid fa-xmark"></i>
-</button>
-<h2 id="contactModalTitle">Contact Information</h2>
-<p>Feel free to contact me about IT or cybersecurity opportunities.</p>
-<div class="contact-detail">
-<i class="fa-solid fa-phone"></i>
-<div>
-<strong>Phone</strong>
-<a href="tel:+12673918443">+1 (267) 391-8443</a>
-</div>
-</div>
-<div class="contact-detail">
-<i class="fa-solid fa-envelope"></i>
-<div>
-<strong>Email</strong>
-<a href="mailto:abdelghaniali07@gmail.com">abdelghaniali07@gmail.com</a>
-</div>
-</div>
-<div class="contact-detail">
-<i class="fa-brands fa-linkedin-in"></i>
-<div>
-<strong>LinkedIn</strong>
-<!-- EDITING NOTE: Replace this placeholder with your real LinkedIn URL -->
-<a href="https://www.linkedin.com/in/ali-abdelghani007" rel="noopener" target="_blank">View LinkedIn Profile</a>
-</div>
-</div>
-</div>
-</div>
-<footer>
-<div class="container">
-<div class="footer-grid">
-<div class="footer-about">
-<a class="logo" href="#home">
-<span class="logo-mark"><i class="fa-solid fa-shield-halved"></i></span>
-<span>
-              ALI ABDELGHANI
-            </span>
-</a>
-<p>
-            Practical cybersecurity projects focused on SOC operations, SIEM analysis,
-            network investigation, cloud security, and incident response.
-          </p>
-<div class="social-links">
-<!-- Replace placeholder URLs with your real profiles -->
-<a aria-label="GitHub" href="https://github.com/aliabdel225" target="_blank"><i class="fa-brands fa-github"></i></a>
-<a aria-label="LinkedIn" href="https://www.linkedin.com/in/ali-abdelghani007" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
-<a aria-label="Email" href="mailto:abdelghaniali07@gmail.com"><i class="fa-solid fa-envelope"></i></a>
-</div>
-</div>
 
+            <a class="button button-secondary" href="resume.html">
+              <i class="fa-solid fa-download"></i>
+              Download Resume
+            </a>
+          </div>
+        </section>
+      </div>
+    </main>
 
-</div>
-<div class="footer-bottom">
-<span>© <span id="year"></span> Ali Abdelghani. All rights reserved.</span>
-<span>Built for GitHub Pages.</span>
-</div>
-</div>
-</footer>
-<script>
-    const menuBtn = document.getElementById("menuBtn");
-    const navLinks = document.getElementById("navLinks");
+    <footer class="footer">
+      <div class="social-row" aria-label="Social and contact links">
+        <a class="social-link" href="https://github.com/aliabdel225" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-github" aria-hidden="true"></i>
+          <span>GitHub</span>
+        </a>
 
-    if (menuBtn && navLinks) {
-      menuBtn.addEventListener("click", () => {
-        navLinks.classList.toggle("open");
-        menuBtn.innerHTML = navLinks.classList.contains("open")
-          ? '<i class="fa-solid fa-xmark"></i>'
-          : '<span></span><span></span><span></span>';
-      });
+        <a class="social-link" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+          <span>LinkedIn</span>
+        </a>
 
-      document.querySelectorAll(".nav-links a").forEach((link) => {
-        link.addEventListener("click", () => {
-          navLinks.classList.remove("open");
-          menuBtn.innerHTML = '<span></span><span></span><span></span>';
-        });
-      });
-    }
+        <a class="social-link" href="mailto:abdelghaniali07@gmail.com">
+          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          <span>Email</span>
+        </a>
+      </div>
 
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
-      });
-    }, { threshold: 0.12 });
+      <div class="identity">
+        <h2>Ali Abdelghani</h2>
+        <p>Building skills. Solving problems. <strong>Protecting systems.</strong></p>
+      </div>
 
-    document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
+      <p class="copyright">© <span id="year"></span> All Rights Reserved.</p>
+    </footer>
+  </div>
 
-    const sections = document.querySelectorAll("section[id]");
-    const navAnchors = document.querySelectorAll(".nav-links a");
-
-    window.addEventListener("scroll", () => {
-      let current = "home";
-      sections.forEach((section) => {
-        if (window.scrollY >= section.offsetTop - 140) current = section.id;
-      });
-
-      navAnchors.forEach((anchor) => {
-        anchor.classList.toggle("active", anchor.getAttribute("href") === `#${current}`);
-      });
-    });
-
-
-    /* =========================
-       CONTACT POPUP SCRIPT
-       EDITING NOTE:
-       You normally do not need to change this section.
-       ========================= */
-    const contactModal = document.getElementById("contactModal");
-    const openContactModal = document.getElementById("openContactModal");
-    const closeContactModal = document.getElementById("closeContactModal");
-
-    function showContactModal() {
-      contactModal.classList.add("open");
-      contactModal.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-    }
-
-    function hideContactModal() {
-      contactModal.classList.remove("open");
-      contactModal.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-    }
-
-    openContactModal.addEventListener("click", showContactModal);
-    closeContactModal.addEventListener("click", hideContactModal);
-
-    contactModal.addEventListener("click", (event) => {
-      if (event.target === contactModal) hideContactModal();
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") hideContactModal();
-    });
-
-
-
-    /* EDITING NOTE: Makes the whole project card clickable. */
-    document.querySelectorAll(".project-card").forEach((card) => {
-      const projectLink = card.querySelector(".project-links a");
-      if (!projectLink) return;
-
-      card.addEventListener("click", (event) => {
-        if (event.target.closest("a")) return;
-        window.location.href = projectLink.getAttribute("href");
-      });
-    });
-
-
-
-    /* =========================
-       CLICKABLE PROJECT CARDS
-       EDITING NOTE:
-       Each card opens the filename stored in its data-project-url attribute.
-       ========================= */
-    document.querySelectorAll(".project-card[data-project-url]").forEach((card) => {
-      const openProject = () => {
-        window.location.href = card.dataset.projectUrl;
-      };
-
-      card.addEventListener("click", (event) => {
-        if (event.target.closest("a")) return;
-        openProject();
-      });
-
-      card.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          openProject();
-        }
-      });
-    });
-
-
+  <script>
     document.getElementById("year").textContent = new Date().getFullYear();
-  
-/* ==========================
-   SIMPLE SNAKE GAME
-   ========================== */
-const canvas=document.getElementById("snakeGame");
-if(canvas){
-const ctx=canvas.getContext("2d");
-const grid=20;
-let snake=[{x:10,y:10}];
-let dir={x:1,y:0};
-let food={x:15,y:15};
-let score=0;
-
-function spawnFood(){
- food={x:Math.floor(Math.random()*25),y:Math.floor(Math.random()*25)};
-}
-function draw(){
- ctx.fillStyle="#08111f";
- ctx.fillRect(0,0,500,500);
-
- ctx.fillStyle="#16d9e3";
- snake.forEach(s=>ctx.fillRect(s.x*grid,s.y*grid,18,18));
-
- ctx.fillStyle="#ff4d4d";
- ctx.fillRect(food.x*grid,food.y*grid,18,18);
-
- let head={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
-
- if(head.x<0||head.y<0||head.x>=25||head.y>=25||
-    snake.some(s=>s.x===head.x&&s.y===head.y)){
-    snake=[{x:10,y:10}];
-    dir={x:1,y:0};
-    score=0;
-    document.getElementById("snakeScore").textContent=score;
-    spawnFood();
-    return;
- }
-
- snake.unshift(head);
-
- if(head.x===food.x&&head.y===food.y){
-   score++;
-   document.getElementById("snakeScore").textContent=score;
-   spawnFood();
- }else{
-   snake.pop();
- }
-}
-document.addEventListener("keydown",e=>{
- if(e.key==="ArrowUp"&&dir.y!==1)dir={x:0,y:-1};
- if(e.key==="ArrowDown"&&dir.y!==-1)dir={x:0,y:1};
- if(e.key==="ArrowLeft"&&dir.x!==1)dir={x:-1,y:0};
- if(e.key==="ArrowRight"&&dir.x!==-1)dir={x:1,y:0};
-});
-setInterval(draw,120);
-}
-
-</script>
-<script>
-    /* =========================
-       SNAKE GAME LOGIC
-       EDITING NOTE:
-       - Change gameSpeed to make the game faster or slower.
-       - Change gridSize only if you also change the canvas dimensions.
-       ========================= */
-    (() => {
-      const canvas = document.getElementById("snakeCanvas");
-      const startButton = document.getElementById("snakeStartBtn");
-      const scoreElement = document.getElementById("snakeScore");
-      const messageElement = document.getElementById("snakeMessage");
-
-      if (!canvas || !startButton || !scoreElement || !messageElement) return;
-
-      const ctx = canvas.getContext("2d");
-      const gridSize = 20;
-      const tileCount = canvas.width / gridSize;
-      const gameSpeed = 110;
-
-      let snake = [];
-      let food = { x: 14, y: 10 };
-      let direction = { x: 1, y: 0 };
-      let nextDirection = { x: 1, y: 0 };
-      let score = 0;
-      let timer = null;
-      let running = false;
-
-      function resetGame() {
-        snake = [
-          { x: 8, y: 10 },
-          { x: 7, y: 10 },
-          { x: 6, y: 10 }
-        ];
-        direction = { x: 1, y: 0 };
-        nextDirection = { x: 1, y: 0 };
-        score = 0;
-        running = true;
-        scoreElement.textContent = score;
-        messageElement.textContent = "Game started — good luck!";
-        placeFood();
-        draw();
-
-        clearInterval(timer);
-        timer = setInterval(gameLoop, gameSpeed);
-      }
-
-      function placeFood() {
-        let valid = false;
-
-        while (!valid) {
-          food = {
-            x: Math.floor(Math.random() * tileCount),
-            y: Math.floor(Math.random() * tileCount)
-          };
-
-          valid = !snake.some(segment => segment.x === food.x && segment.y === food.y);
-        }
-      }
-
-      function gameLoop() {
-        direction = nextDirection;
-
-        const head = {
-          x: snake[0].x + direction.x,
-          y: snake[0].y + direction.y
-        };
-
-        const hitWall =
-          head.x < 0 ||
-          head.y < 0 ||
-          head.x >= tileCount ||
-          head.y >= tileCount;
-
-        const hitSelf = snake.some(segment => segment.x === head.x && segment.y === head.y);
-
-        if (hitWall || hitSelf) {
-          endGame();
-          return;
-        }
-
-        snake.unshift(head);
-
-        if (head.x === food.x && head.y === food.y) {
-          score += 10;
-          scoreElement.textContent = score;
-          placeFood();
-        } else {
-          snake.pop();
-        }
-
-        draw();
-      }
-
-      function endGame() {
-        running = false;
-        clearInterval(timer);
-        messageElement.textContent = `Game over — final score: ${score}. Press Start / Restart to play again.`;
-        draw(true);
-      }
-
-      function draw(gameOver = false) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        ctx.fillStyle = "#06101d";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.strokeStyle = "rgba(22,217,227,0.055)";
-        ctx.lineWidth = 1;
-
-        for (let i = 0; i <= tileCount; i++) {
-          const p = i * gridSize;
-
-          ctx.beginPath();
-          ctx.moveTo(p, 0);
-          ctx.lineTo(p, canvas.height);
-          ctx.stroke();
-
-          ctx.beginPath();
-          ctx.moveTo(0, p);
-          ctx.lineTo(canvas.width, p);
-          ctx.stroke();
-        }
-
-        ctx.fillStyle = "#16d9e3";
-        ctx.shadowColor = "rgba(22,217,227,0.75)";
-        ctx.shadowBlur = 14;
-        ctx.fillRect(
-          food.x * gridSize + 4,
-          food.y * gridSize + 4,
-          gridSize - 8,
-          gridSize - 8
-        );
-
-        ctx.shadowBlur = 0;
-
-        snake.forEach((segment, index) => {
-          ctx.fillStyle = index === 0 ? "#ffffff" : "#16d9e3";
-          ctx.fillRect(
-            segment.x * gridSize + 2,
-            segment.y * gridSize + 2,
-            gridSize - 4,
-            gridSize - 4
-          );
-        });
-
-        if (gameOver) {
-          ctx.fillStyle = "rgba(2,9,19,0.72)";
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-          ctx.fillStyle = "#ffffff";
-          ctx.font = "700 32px Inter, sans-serif";
-          ctx.textAlign = "center";
-          ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2 - 8);
-
-          ctx.fillStyle = "#16d9e3";
-          ctx.font = "700 18px Inter, sans-serif";
-          ctx.fillText(`Score: ${score}`, canvas.width / 2, canvas.height / 2 + 28);
-        }
-      }
-
-      function setDirection(key) {
-        const directions = {
-          ArrowUp: { x: 0, y: -1 },
-          w: { x: 0, y: -1 },
-          W: { x: 0, y: -1 },
-          ArrowDown: { x: 0, y: 1 },
-          s: { x: 0, y: 1 },
-          S: { x: 0, y: 1 },
-          ArrowLeft: { x: -1, y: 0 },
-          a: { x: -1, y: 0 },
-          A: { x: -1, y: 0 },
-          ArrowRight: { x: 1, y: 0 },
-          d: { x: 1, y: 0 },
-          D: { x: 1, y: 0 }
-        };
-
-        const newDirection = directions[key];
-        if (!newDirection) return;
-
-        const reversing =
-          newDirection.x === -direction.x &&
-          newDirection.y === -direction.y;
-
-        if (!reversing) {
-          nextDirection = newDirection;
-        }
-      }
-
-      startButton.addEventListener("click", resetGame);
-
-      document.addEventListener("keydown", event => {
-        const acceptedKeys = [
-          "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight",
-          "w", "W", "a", "A", "s", "S", "d", "D"
-        ];
-
-        if (acceptedKeys.includes(event.key)) {
-          event.preventDefault();
-          setDirection(event.key);
-        }
-      });
-
-      document.querySelectorAll("[data-snake-key]").forEach(button => {
-        button.addEventListener("click", () => {
-          setDirection(button.dataset.snakeKey);
-        });
-      });
-
-      draw();
-    })();
   </script>
-<script id="restored-snake-script">
-
-    /* =========================
-       SNAKE GAME LOGIC
-       EDITING NOTE:
-       - Change gameSpeed to make the game faster or slower.
-       - Change gridSize only if you also change the canvas dimensions.
-       ========================= */
-    (() => {
-      const canvas = document.getElementById("snakeCanvas");
-      const startButton = document.getElementById("snakeStartBtn");
-      const scoreElement = document.getElementById("snakeScore");
-      const messageElement = document.getElementById("snakeMessage");
-
-      if (!canvas || !startButton || !scoreElement || !messageElement) return;
-
-      const ctx = canvas.getContext("2d");
-      const gridSize = 20;
-      const tileCount = canvas.width / gridSize;
-      const gameSpeed = 110;
-
-      let snake = [];
-      let food = { x: 14, y: 10 };
-      let direction = { x: 1, y: 0 };
-      let nextDirection = { x: 1, y: 0 };
-      let score = 0;
-      let timer = null;
-      let running = false;
-
-      function resetGame() {
-        snake = [
-          { x: 8, y: 10 },
-          { x: 7, y: 10 },
-          { x: 6, y: 10 }
-        ];
-        direction = { x: 1, y: 0 };
-        nextDirection = { x: 1, y: 0 };
-        score = 0;
-        running = true;
-        scoreElement.textContent = score;
-        messageElement.textContent = "Game started — good luck!";
-        placeFood();
-        draw();
-
-        clearInterval(timer);
-        timer = setInterval(gameLoop, gameSpeed);
-      }
-
-      function placeFood() {
-        let valid = false;
-
-        while (!valid) {
-          food = {
-            x: Math.floor(Math.random() * tileCount),
-            y: Math.floor(Math.random() * tileCount)
-          };
-
-          valid = !snake.some(segment => segment.x === food.x && segment.y === food.y);
-        }
-      }
-
-      function gameLoop() {
-        direction = nextDirection;
-
-        const head = {
-          x: snake[0].x + direction.x,
-          y: snake[0].y + direction.y
-        };
-
-        const hitWall =
-          head.x < 0 ||
-          head.y < 0 ||
-          head.x >= tileCount ||
-          head.y >= tileCount;
-
-        const hitSelf = snake.some(segment => segment.x === head.x && segment.y === head.y);
-
-        if (hitWall || hitSelf) {
-          endGame();
-          return;
-        }
-
-        snake.unshift(head);
-
-        if (head.x === food.x && head.y === food.y) {
-          score += 10;
-          scoreElement.textContent = score;
-          placeFood();
-        } else {
-          snake.pop();
-        }
-
-        draw();
-      }
-
-      function endGame() {
-        running = false;
-        clearInterval(timer);
-        messageElement.textContent = `Game over — final score: ${score}. Press Start / Restart to play again.`;
-        draw(true);
-      }
-
-      function draw(gameOver = false) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        ctx.fillStyle = "#06101d";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.strokeStyle = "rgba(22,217,227,0.055)";
-        ctx.lineWidth = 1;
-
-        for (let i = 0; i <= tileCount; i++) {
-          const p = i * gridSize;
-
-          ctx.beginPath();
-          ctx.moveTo(p, 0);
-          ctx.lineTo(p, canvas.height);
-          ctx.stroke();
-
-          ctx.beginPath();
-          ctx.moveTo(0, p);
-          ctx.lineTo(canvas.width, p);
-          ctx.stroke();
-        }
-
-        ctx.fillStyle = "#16d9e3";
-        ctx.shadowColor = "rgba(22,217,227,0.75)";
-        ctx.shadowBlur = 14;
-        ctx.fillRect(
-          food.x * gridSize + 4,
-          food.y * gridSize + 4,
-          gridSize - 8,
-          gridSize - 8
-        );
-
-        ctx.shadowBlur = 0;
-
-        snake.forEach((segment, index) => {
-          ctx.fillStyle = index === 0 ? "#ffffff" : "#16d9e3";
-          ctx.fillRect(
-            segment.x * gridSize + 2,
-            segment.y * gridSize + 2,
-            gridSize - 4,
-            gridSize - 4
-          );
-        });
-
-        if (gameOver) {
-          ctx.fillStyle = "rgba(2,9,19,0.72)";
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-          ctx.fillStyle = "#ffffff";
-          ctx.font = "700 32px Inter, sans-serif";
-          ctx.textAlign = "center";
-          ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2 - 8);
-
-          ctx.fillStyle = "#16d9e3";
-          ctx.font = "700 18px Inter, sans-serif";
-          ctx.fillText(`Score: ${score}`, canvas.width / 2, canvas.height / 2 + 28);
-        }
-      }
-
-      function setDirection(key) {
-        const directions = {
-          ArrowUp: { x: 0, y: -1 },
-          w: { x: 0, y: -1 },
-          W: { x: 0, y: -1 },
-          ArrowDown: { x: 0, y: 1 },
-          s: { x: 0, y: 1 },
-          S: { x: 0, y: 1 },
-          ArrowLeft: { x: -1, y: 0 },
-          a: { x: -1, y: 0 },
-          A: { x: -1, y: 0 },
-          ArrowRight: { x: 1, y: 0 },
-          d: { x: 1, y: 0 },
-          D: { x: 1, y: 0 }
-        };
-
-        const newDirection = directions[key];
-        if (!newDirection) return;
-
-        const reversing =
-          newDirection.x === -direction.x &&
-          newDirection.y === -direction.y;
-
-        if (!reversing) {
-          nextDirection = newDirection;
-        }
-      }
-
-      startButton.addEventListener("click", resetGame);
-
-      document.addEventListener("keydown", event => {
-        const acceptedKeys = [
-          "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight",
-          "w", "W", "a", "A", "s", "S", "d", "D"
-        ];
-
-        if (acceptedKeys.includes(event.key)) {
-          event.preventDefault();
-          setDirection(event.key);
-        }
-      });
-
-      document.querySelectorAll("[data-snake-key]").forEach(button => {
-        button.addEventListener("click", () => {
-          setDirection(button.dataset.snakeKey);
-        });
-      });
-
-      draw();
-    })();
-  
-</script>
 </body>
 </html>
