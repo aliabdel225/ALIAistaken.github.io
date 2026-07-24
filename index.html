@@ -1,20 +1,18 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Ali Abdelghani — Cybersecurity portfolio featuring SOC investigations, SIEM labs, network analysis, and cloud security projects." />
-  <meta name="theme-color" content="#080808" />
-
-  <title>Ali Abdelghani | Cybersecurity Portfolio</title>
-
-  <!-- Fonts and icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Ali Abdelghani — Cybersecurity portfolio featuring SOC investigations, SIEM labs, network analysis, and cloud security projects." name="description"/>
+<meta content="#080808" name="theme-color"/>
+<title>Ali Abdelghani | Cybersecurity Portfolio</title>
+<!-- Fonts and icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+<style>
     :root {
       --navy: #07111f;
       --navy-2: #0b1729;
@@ -1411,8 +1409,7 @@
     }
 
   </style>
-
-  <style id="black-red-theme">
+<style id="black-red-theme">
     :root {
       --navy:#090909 !important;
       --navy-2:#151515 !important;
@@ -1432,8 +1429,7 @@
     ::selection { background:#dc2626; color:#fff; }
     a:focus-visible, button:focus-visible { outline:3px solid #ef4444; outline-offset:3px; }
   </style>
-
-  <style id="black-red-index-theme">
+<style id="black-red-index-theme">
     .topbar,.navbar,footer,.contact { background:#080808 !important; }
     .hero { background:
       radial-gradient(circle at 82% 18%,rgba(220,38,38,.24),transparent 30%),
@@ -1458,8 +1454,7 @@
     .project-image::after { background:linear-gradient(to top,rgba(9,9,9,.9),transparent 68%) !important; }
     .snake-board-wrap { border-color:#dc2626 !important; box-shadow:0 0 32px rgba(220,38,38,.18) !important; }
   </style>
-
-  <style id="black-red-premium-polish">
+<style id="black-red-premium-polish">
     /* Premium black-and-red site polish */
     body {
       background:
@@ -1540,8 +1535,7 @@
       box-shadow:0 0 18px rgba(220,38,38,.35);
     }
   </style>
-
-  <style id="snake-game-color-fix">
+<style id="snake-game-color-fix">
     .snake-toolbar .snake-stat {
       padding: 0 !important;
       border: 0 !important;
@@ -1618,9 +1612,7 @@
       }
     }
   </style>
-
-
-  <style id="projects-button-fix">
+<style id="projects-button-fix">
     .projects-view-all .projects-all-btn {
       min-width: 230px;
       padding: 15px 28px;
@@ -1650,9 +1642,7 @@
       transform: translateX(4px);
     }
   </style>
-
-
-  <style id="skills-spacing-github-fix">
+<style id="skills-spacing-github-fix">
     /* Add breathing room beneath the divider above Technical Skills */
     #skills {
       padding-top: 145px !important;
@@ -1705,11 +1695,427 @@
       }
     }
   </style>
+<style id="contact-email-fix">
+.contact-email-btn{
+background:#171717!important;
+border:2px solid #dc2626!important;
+color:#fff!important;
+border-radius:12px;
+padding:15px 28px;
+transition:.25s ease;
+display:inline-flex;
+align-items:center;
+gap:10px;
+}
+.contact-email-btn i{color:#ef4444;transition:.25s ease;}
+.contact-email-btn:hover{
+background:linear-gradient(135deg,#dc2626,#991b1b)!important;
+transform:translateY(-3px);
+box-shadow:0 0 22px rgba(220,38,38,.4);
+}
+.contact-email-btn:hover i{color:#fff;}
+</style>
+<style id="restored-snake-styles">
+/* =========================
+       SNAKE GAME
+       ========================= */
+    .snake-section {
+      padding: 95px 0;
+      background:
+        radial-gradient(circle at top left, rgba(22, 217, 227, 0.09), transparent 32%),
+        var(--navy);
+      color: var(--white);
+    }
+.snake-section .section-heading h2,
+    .snake-section .section-heading p {
+      color: var(--white);
+    }
+.snake-section .section-heading p {
+      color: #b9c8da;
+    }
+.snake-shell {
+      width: min(calc(100% - 34px), 760px);
+      margin: 38px auto 0;
+      padding: 26px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.045);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.26);
+      backdrop-filter: blur(12px);
+    }
+.snake-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+.snake-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+.snake-stat span {
+      color: #92a7bd;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+.snake-stat strong {
+      color: var(--cyan);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.8rem;
+    }
+.snake-board-wrap {
+      display: grid;
+      place-items: center;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      background: #020913;
+    }
+#snakeCanvas {
+      display: block;
+      width: min(100%, 420px);
+      height: auto;
+      aspect-ratio: 1;
+      border-radius: 12px;
+      background:
+        linear-gradient(rgba(22,217,227,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(22,217,227,0.045) 1px, transparent 1px),
+        #06101d;
+      background-size: 21px 21px;
+      touch-action: none;
+    }
+.snake-message {
+      min-height: 24px;
+      margin: 16px 0 0;
+      text-align: center;
+      color: #b9c8da;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+.snake-controls {
+      display: none;
+      margin-top: 18px;
+      text-align: center;
+    }
+.snake-controls > button,
+    .snake-controls div button {
+      width: 54px;
+      height: 48px;
+      margin: 4px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 12px;
+      color: var(--white);
+      background: rgba(255,255,255,0.07);
+      font-size: 1.25rem;
+      font-weight: 900;
+      cursor: pointer;
+    }
+.snake-controls button:active {
+      transform: scale(0.96);
+      background: rgba(22,217,227,0.18);
+    }
+.snake-controls {
+        display: block;
+      }
+.snake-toolbar {
+        align-items: flex-start;
+      }
+.section,.specialties,.projects,.skills,.snake-section { background:#0d0d0d !important; }
+.service-card,.project-card,.process-step,.skill-panel,.snake-shell,.contact-modal-card {
+      background:#171717 !important; border-color:#2d2d2d !important; color:#f5f5f5 !important;
+    }
+.section-heading h2,.service-card h3,.project-body h3,.process-step h3,.skills-intro h2,
+    .skill-panel h3,.snake-shell h2,.contact h2 { color:#f5f5f5 !important; }
+.tech-list span,.skill-tags span,.snake-stat { background:#202020 !important; border-color:#343434 !important; color:#ddd !important; }
+.snake-board-wrap { border-color:#dc2626 !important; box-shadow:0 0 32px rgba(220,38,38,.18) !important; }
+.snake-toolbar .snake-stat {
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+.snake-toolbar .snake-stat span {
+      color: #a3a3a3 !important;
+    }
+.snake-toolbar .snake-stat strong {
+      color: #ef4444 !important;
+      text-shadow: 0 0 16px rgba(239, 68, 68, 0.38);
+    }
+.snake-start-btn {
+      min-width: 172px;
+      border: 1px solid #ef4444 !important;
+      color: #ffffff !important;
+      background: linear-gradient(135deg, #dc2626, #991b1b) !important;
+      box-shadow: 0 10px 28px rgba(220, 38, 38, 0.26);
+    }
+.snake-start-btn:hover {
+      border-color: #f87171 !important;
+      background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 34px rgba(220, 38, 38, 0.4) !important;
+    }
+.snake-start-btn:active {
+      transform: translateY(0) scale(0.98);
+    }
+.snake-start-btn i {
+      color: #ffffff !important;
+    }
+#snakeCanvas {
+      background:
+        linear-gradient(rgba(239, 68, 68, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(239, 68, 68, 0.055) 1px, transparent 1px),
+        #080808 !important;
+      background-size: 21px 21px !important;
+    }
+.snake-message {
+      color: #b8b8b8 !important;
+    }
+.snake-controls > button,
+    .snake-controls div button {
+      border-color: rgba(239, 68, 68, 0.45) !important;
+      background: #171717 !important;
+    }
+.snake-controls button:hover,
+    .snake-controls button:active {
+      border-color: #ef4444 !important;
+      background: #b91c1c !important;
+      box-shadow: 0 0 16px rgba(220, 38, 38, 0.3);
+    }
+.snake-toolbar {
+        flex-direction: column;
+        align-items: stretch !important;
+      }
+.snake-start-btn {
+        width: 100%;
+      }
 
+.snake-section {
+  padding: 100px 20px;
+  background: #0d0d0d;
+}
+
+.snake-section .section-heading {
+  width: min(100%, 760px);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.snake-section .section-heading p {
+  color: #a3a3a3;
+}
+
+.snake-shell {
+  width: min(100%, 760px);
+  margin: 38px auto 0;
+  padding: 26px;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 24px;
+  background: #111111;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.38);
+}
+
+.snake-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.snake-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.snake-stat span {
+  color: #a3a3a3 !important;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.snake-stat strong {
+  color: #ef4444 !important;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.8rem;
+  text-shadow: 0 0 16px rgba(239,68,68,0.38);
+}
+
+.snake-start-btn {
+  min-width: 172px;
+  border: 1px solid #ef4444 !important;
+  color: #fff !important;
+  background: linear-gradient(135deg,#dc2626,#991b1b) !important;
+  box-shadow: 0 10px 28px rgba(220,38,38,0.26);
+}
+
+.snake-start-btn:hover {
+  border-color: #f87171 !important;
+  background: linear-gradient(135deg,#ef4444,#b91c1c) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(220,38,38,0.4) !important;
+}
+
+.snake-board-wrap {
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  border: 1px solid rgba(239,68,68,0.2);
+  border-radius: 18px;
+  background: #050505;
+}
+
+#snakeCanvas {
+  display: block;
+  width: min(100%,420px);
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  background:
+    linear-gradient(rgba(239,68,68,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(239,68,68,0.055) 1px, transparent 1px),
+    #080808 !important;
+  background-size: 21px 21px !important;
+  touch-action: none;
+}
+
+.snake-message {
+  min-height: 24px;
+  margin: 16px 0 0;
+  color: #b8b8b8 !important;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.snake-controls {
+  display: none;
+  margin-top: 18px;
+  text-align: center;
+}
+
+.snake-controls > button,
+.snake-controls div button {
+  width: 54px;
+  height: 48px;
+  margin: 4px;
+  border: 1px solid rgba(239,68,68,0.45) !important;
+  border-radius: 12px;
+  color: #fff;
+  background: #171717 !important;
+  font-size: 1.25rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.snake-controls button:hover,
+.snake-controls button:active {
+  border-color: #ef4444 !important;
+  background: #b91c1c !important;
+  box-shadow: 0 0 16px rgba(220,38,38,0.3);
+}
+
+@media (max-width: 700px) {
+  .snake-controls { display: block; }
+  .snake-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .snake-start-btn { width: 100%; }
+}
+
+@media (max-width: 520px) {
+  .snake-section { padding: 80px 14px; }
+  .snake-shell { padding: 18px; }
+}
+
+</style>
+<style id="hero-projects-and-snake-spacing-fix">
+  /* Premium hero View My Projects button */
+  .hero-projects-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 190px;
+    padding: 14px 24px !important;
+    border: 1px solid #ef4444 !important;
+    border-radius: 12px !important;
+    color: #ffffff !important;
+    background: #171717 !important;
+    text-decoration: none !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.34);
+    transition:
+      transform 0.25s ease,
+      background 0.25s ease,
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .hero-projects-btn i {
+    color: #ef4444 !important;
+    transition: color 0.25s ease, transform 0.25s ease;
+  }
+
+  .hero-projects-btn:hover {
+    color: #ffffff !important;
+    border-color: #f87171 !important;
+    background: linear-gradient(135deg, #dc2626, #991b1b) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 0 24px rgba(220, 38, 38, 0.38);
+  }
+
+  .hero-projects-btn:hover i {
+    color: #ffffff !important;
+    transform: translateX(2px);
+  }
+
+  .hero-projects-btn:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* Add more breathing room before Interactive Break */
+  .snake-section {
+    margin-top: 50px !important;
+    padding-top: 125px !important;
+  }
+
+  @media (max-width: 700px) {
+    .hero-projects-btn {
+      min-width: 170px;
+    }
+
+    .snake-section {
+      margin-top: 34px !important;
+      padding-top: 100px !important;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .hero-projects-btn {
+      width: 100%;
+    }
+
+    .snake-section {
+      margin-top: 24px !important;
+      padding-top: 88px !important;
+    }
+  }
+</style>
 </head>
-
 <body>
-  <!-- =========================================================
+<!-- =========================================================
        EASY EDITING GUIDE
        1. Search for "EDITING NOTE" to find editable areas.
        2. Replace placeholder GitHub and LinkedIn links.
@@ -1717,51 +2123,47 @@
        4. Replace Ali-Abdelghani-Resume.pdf whenever you update your resume.
        5. Keep index.html and Ali-Abdelghani-Resume.pdf in the same GitHub folder.
        ========================================================= -->
-  <!-- Small contact bar inspired by the reference site's information strip -->
-  <!-- EDITING NOTE: Top contact bar. Change phone/email below. -->
-  <div class="topbar">
-    <div class="container topbar-inner">
-      <div class="topbar-items">
-        <span><i class="fa-solid fa-phone"></i> +1 (267) 391-8443</span>
-        <span><i class="fa-solid fa-envelope"></i> abdelghaniali07@gmail.com</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- EDITING NOTE: Main navigation and name/title area. -->
-  <header class="navbar">
-    <div class="container nav-inner">
-      <a class="logo" href="#home" aria-label="Homepage">
-        <span class="logo-mark"><i class="fa-solid fa-shield-halved"></i></span>
-        <span>
+<!-- Small contact bar inspired by the reference site's information strip -->
+<!-- EDITING NOTE: Top contact bar. Change phone/email below. -->
+<div class="topbar">
+<div class="container topbar-inner">
+<div class="topbar-items">
+<span><i class="fa-solid fa-phone"></i> +1 (267) 391-8443</span>
+<span><i class="fa-solid fa-envelope"></i> abdelghaniali07@gmail.com</span>
+</div>
+</div>
+</div>
+<!-- EDITING NOTE: Main navigation and name/title area. -->
+<header class="navbar">
+<div class="container nav-inner">
+<a aria-label="Homepage" class="logo" href="#home">
+<span class="logo-mark"><i class="fa-solid fa-shield-halved"></i></span>
+<span>
           ALI ABDELGHANI
         </span>
-      </a>
+</a>
+<ul class="nav-links" id="navLinks">
+<li><a class="active" href="#home">Home</a></li>
+<li><a href="#specialties">Expertise</a></li>
+<li><a class="hero-projects-btn" href="#projects">Projects</a></li>
+<li><a href="#skills">Skills</a></li>
+</ul>
+<div class="nav-actions">
+<!-- Replace #contact with your preferred contact destination if needed -->
+<button class="nav-contact" id="openContactModal" type="button"><i class="fa-solid fa-paper-plane"></i> Contact Me</button>
 
-      <ul class="nav-links" id="navLinks">
-        <li><a class="active" href="#home">Home</a></li>
-        <li><a href="#specialties">Expertise</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-      </ul>
-
-      <div class="nav-actions">
-        <!-- Replace #contact with your preferred contact destination if needed -->
-        <button class="nav-contact" id="openContactModal" type="button"><i class="fa-solid fa-paper-plane"></i> Contact Me</button>
-        <button class="menu-btn" id="menuBtn" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <!-- EDITING NOTE: Main hero area. Change headline and introduction here. -->
-    <section class="hero" id="home">
-      <div class="container">
-        <div class="hero-content reveal">
-          <div class="hero-kicker"><i class="fa-solid fa-circle-nodes"></i> SOC • Detection • Incident Response</div>
-          <h1>Ali <span>Abdelghani</span></h1>
-          <p class="hero-subtitle">IT Technician • Aspiring SOC Analyst • Threat Hunter</p>
-          <p class="hero-copy">
+</div>
+</div>
+</header>
+<main>
+<!-- EDITING NOTE: Main hero area. Change headline and introduction here. -->
+<section class="hero" id="home">
+<div class="container">
+<div class="hero-content reveal">
+<div class="hero-kicker"><i class="fa-solid fa-circle-nodes"></i> Welcome</div>
+<h1>Ali <span>Abdelghani</span></h1>
+<p class="hero-subtitle">IT Technician • Aspiring SOC Analyst • Threat Hunter</p>
+<p class="hero-copy">
             I'm an IT Technician with a strong passion for cybersecurity and hands-on experience
             securing endpoints, investigating security events, and supporting incident response.
             Through professional IT work, self-built home labs, and platforms such as Hack The Box,
@@ -1770,222 +2172,172 @@
             challenges, expanding my technical knowledge, and building projects that demonstrate
             practical cybersecurity experience.
           </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#projects">
+<div class="hero-actions">
+<a class="btn btn-primary" href="#projects">
               View My Projects <i class="fa-solid fa-arrow-right"></i>
+</a>
+<!-- EDITING NOTE: This opens your structured resume page. Keep resume.html and Ali-Abdelghani-Resume.pdf in the same folder as index.html. -->
+<a class="btn btn-outline" href="resume.html" target="_blank">
+<i class="fa-solid fa-file-arrow-down"></i> View Resume
             </a>
-            <!-- EDITING NOTE: This opens your structured resume page. Keep resume.html and Ali-Abdelghani-Resume.pdf in the same folder as index.html. -->
-            <a class="btn btn-outline" href="resume.html" target="_blank">
-              <i class="fa-solid fa-file-arrow-down"></i> View Resume
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="technology-stack" aria-label="Technology stack">
-        <h2><i class="fa-solid fa-terminal"></i> Technology Stack</h2>
-        <div class="tech-badges">
-          <span class="tech-badge"><i class="fa-solid fa-chart-line"></i> ELK Stack</span>
-          <span class="tech-badge"><i class="fa-solid fa-magnifying-glass-chart"></i> Kibana</span>
-          <span class="tech-badge"><i class="fa-solid fa-shield-halved"></i> Wazuh</span>
-          <span class="tech-badge"><i class="fa-solid fa-file-shield"></i> Sysmon</span>
-          <span class="tech-badge"><i class="fa-solid fa-network-wired"></i> Wireshark</span>
-          <span class="tech-badge"><i class="fa-solid fa-satellite-dish"></i> Nmap</span>
-          <span class="tech-badge"><i class="fa-brands fa-windows"></i> Windows</span>
-          <span class="tech-badge"><i class="fa-brands fa-linux"></i> Linux</span>
-          <span class="tech-badge"><i class="fa-solid fa-terminal"></i> Bash</span>
-          <span class="tech-badge"><i class="fa-brands fa-aws"></i> AWS</span>
-          <span class="tech-badge"><i class="fa-brands fa-microsoft"></i> Azure</span>
-          <span class="tech-badge"><i class="fa-solid fa-code"></i> KQL</span>
-          <span class="tech-badge"><i class="fa-solid fa-crosshairs"></i> MITRE ATT&amp;CK</span>
-          <span class="tech-badge"><i class="fa-brands fa-git-alt"></i> Git</span>
-          <span class="tech-badge"><i class="fa-brands fa-github"></i> GitHub</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="section skills" id="skills">
-      <div class="container skills-grid">
-        <div class="skills-intro reveal">
-          <span class="eyebrow">Technical Skills</span>
-          <h2>Tools and technologies I work with</h2>
-          <p>
-            My experience combines foundational IT administration with practical defensive
-            cybersecurity tooling and investigation workflows.
-          </p>
-          <!-- Replace the URL below with your real GitHub profile -->
-          <a class="btn github-profile-btn" href="https://github.com/aliabdel225" target="_blank" rel="noopener noreferrer">
-            <i class="fa-brands fa-github"></i> Visit My GitHub
-          </a>
-        </div>
-
-        <div class="skill-panels">
-          <div class="skill-panel reveal">
-            <h3><i class="fa-solid fa-binoculars"></i> Security Operations</h3>
-            <div class="skill-tags">
-              <span>Threat Detection</span><span>Incident Response</span><span>Log Analysis</span>
-              <span>Alert Triage</span><span>MITRE ATT&CK</span><span>NIST</span>
-            </div>
-          </div>
-
-          <div class="skill-panel reveal">
-            <h3><i class="fa-solid fa-chart-simple"></i> SIEM & Telemetry</h3>
-            <div class="skill-tags">
-              <span>ELK Stack</span><span>Kibana</span><span>Wazuh</span><span>Sysmon</span>
-              <span>Windows Event Logs</span><span>Zeek</span><span>KQL</span>
-            </div>
-          </div>
-
-          <div class="skill-panel reveal">
-            <h3><i class="fa-solid fa-code"></i> Systems & Scripting</h3>
-            <div class="skill-tags">
-              <span>Linux</span><span>Windows</span><span>Bash</span><span>PowerShell</span>
-              <span>Active Directory</span><span>VirtualBox</span>
-            </div>
-          </div>
-
-          <div class="skill-panel reveal">
-            <h3><i class="fa-solid fa-cloud"></i> Networking & Cloud</h3>
-            <div class="skill-tags">
-              <span>Wireshark</span><span>Nmap</span><span>TCP/IP</span><span>AWS</span>
-              <span>Microsoft Azure</span><span>IAM</span><span>Cloud Risk</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section contact" id="contact">
-      <div class="container contact-inner">
-        <div class="reveal">
-          <span class="eyebrow">Let's Connect</span>
-          <h2>Looking for a motivated junior cybersecurity professional?</h2>
-          <p>
+</div>
+</div>
+</div>
+<div aria-label="Technology stack" class="technology-stack">
+<h2><i class="fa-solid fa-terminal"></i> Technology Stack</h2>
+<div class="tech-badges">
+<span class="tech-badge"><i class="fa-solid fa-chart-line"></i> ELK Stack</span>
+<span class="tech-badge"><i class="fa-solid fa-magnifying-glass-chart"></i> Kibana</span>
+<span class="tech-badge"><i class="fa-solid fa-shield-halved"></i> Wazuh</span>
+<span class="tech-badge"><i class="fa-solid fa-file-shield"></i> Sysmon</span>
+<span class="tech-badge"><i class="fa-solid fa-network-wired"></i> Wireshark</span>
+<span class="tech-badge"><i class="fa-solid fa-satellite-dish"></i> Nmap</span>
+<span class="tech-badge"><i class="fa-brands fa-windows"></i> Windows</span>
+<span class="tech-badge"><i class="fa-brands fa-linux"></i> Linux</span>
+<span class="tech-badge"><i class="fa-solid fa-terminal"></i> Bash</span>
+<span class="tech-badge"><i class="fa-brands fa-aws"></i> AWS</span>
+<span class="tech-badge"><i class="fa-brands fa-microsoft"></i> Azure</span>
+<span class="tech-badge"><i class="fa-solid fa-code"></i> KQL</span>
+<span class="tech-badge"><i class="fa-solid fa-crosshairs"></i> MITRE ATT&amp;CK</span>
+<span class="tech-badge"><i class="fa-brands fa-git-alt"></i> Git</span>
+<span class="tech-badge"><i class="fa-brands fa-github"></i> GitHub</span>
+</div>
+</div>
+</section>
+<section class="snake-section" id="about">
+<div class="section-heading reveal">
+<span class="eyebrow">Interactive Break</span>
+<h2>Play Snake</h2>
+<p>Use the arrow keys or WASD to move. Collect the red blocks and avoid hitting the walls or yourself.</p>
+</div>
+<div class="snake-shell reveal">
+<div class="snake-toolbar">
+<div class="snake-stat">
+<span>Score</span>
+<strong id="snakeScore">0</strong>
+</div>
+<button class="btn btn-primary snake-start-btn" id="snakeStartBtn" type="button">
+<i class="fa-solid fa-play"></i>
+          Start / Restart
+        </button>
+</div>
+<div class="snake-board-wrap">
+<canvas aria-label="Playable Snake game" height="420" id="snakeCanvas" width="420"></canvas>
+</div>
+<p class="snake-message" id="snakeMessage">Press Start / Restart to begin.</p>
+<div aria-label="Mobile Snake controls" class="snake-controls">
+<button aria-label="Move up" data-snake-key="ArrowUp" type="button">↑</button>
+<div>
+<button aria-label="Move left" data-snake-key="ArrowLeft" type="button">←</button>
+<button aria-label="Move down" data-snake-key="ArrowDown" type="button">↓</button>
+<button aria-label="Move right" data-snake-key="ArrowRight" type="button">→</button>
+</div>
+</div>
+</div>
+</section>
+<section class="section contact" id="contact">
+<div class="container contact-inner">
+<div class="reveal">
+<span class="eyebrow">Let's Connect</span>
+<h2>Looking for a motivated junior cybersecurity professional?</h2>
+<p>
             I am open to SOC Analyst, Junior Security Analyst, and related cybersecurity opportunities.
             Let’s discuss how my practical experience and learning mindset can support your team.
           </p>
-        </div>
-
-        <div class="reveal">
-          <a class="btn btn-primary" href="mailto:abdelghaniali07@gmail.com">
+</div>
+<div class="reveal">
+<a class="btn contact-email-btn" href="mailto:abdelghaniali07@gmail.com">
             Email Me <i class="fa-solid fa-paper-plane"></i>
-          </a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-
-  <!-- =========================
+</a>
+</div>
+</div>
+</section>
+</main>
+<!-- =========================
        CONTACT POPUP
        EDITING NOTE:
        Change the phone number, email, or LinkedIn link below.
        ========================= -->
-  <div class="contact-modal" id="contactModal" aria-hidden="true">
-    <div class="contact-modal-card" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
-      <button class="close-modal" id="closeContactModal" type="button" aria-label="Close contact popup">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-
-      <h2 id="contactModalTitle">Contact Information</h2>
-      <p>Feel free to contact me about IT or cybersecurity opportunities.</p>
-
-      <div class="contact-detail">
-        <i class="fa-solid fa-phone"></i>
-        <div>
-          <strong>Phone</strong>
-          <a href="tel:+12673918443">+1 (267) 391-8443</a>
-        </div>
-      </div>
-
-      <div class="contact-detail">
-        <i class="fa-solid fa-envelope"></i>
-        <div>
-          <strong>Email</strong>
-          <a href="mailto:abdelghaniali07@gmail.com">abdelghaniali07@gmail.com</a>
-        </div>
-      </div>
-
-      <div class="contact-detail">
-        <i class="fa-brands fa-linkedin-in"></i>
-        <div>
-          <strong>LinkedIn</strong>
-          <!-- EDITING NOTE: Replace this placeholder with your real LinkedIn URL -->
-          <a href="https://www.linkedin.com/in/ali-abdelghani007" target="_blank" rel="noopener">View LinkedIn Profile</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-about">
-          <a class="logo" href="#home">
-            <span class="logo-mark"><i class="fa-solid fa-shield-halved"></i></span>
-            <span>
+<div aria-hidden="true" class="contact-modal" id="contactModal">
+<div aria-labelledby="contactModalTitle" aria-modal="true" class="contact-modal-card" role="dialog">
+<button aria-label="Close contact popup" class="close-modal" id="closeContactModal" type="button">
+<i class="fa-solid fa-xmark"></i>
+</button>
+<h2 id="contactModalTitle">Contact Information</h2>
+<p>Feel free to contact me about IT or cybersecurity opportunities.</p>
+<div class="contact-detail">
+<i class="fa-solid fa-phone"></i>
+<div>
+<strong>Phone</strong>
+<a href="tel:+12673918443">+1 (267) 391-8443</a>
+</div>
+</div>
+<div class="contact-detail">
+<i class="fa-solid fa-envelope"></i>
+<div>
+<strong>Email</strong>
+<a href="mailto:abdelghaniali07@gmail.com">abdelghaniali07@gmail.com</a>
+</div>
+</div>
+<div class="contact-detail">
+<i class="fa-brands fa-linkedin-in"></i>
+<div>
+<strong>LinkedIn</strong>
+<!-- EDITING NOTE: Replace this placeholder with your real LinkedIn URL -->
+<a href="https://www.linkedin.com/in/ali-abdelghani007" rel="noopener" target="_blank">View LinkedIn Profile</a>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<div class="container">
+<div class="footer-grid">
+<div class="footer-about">
+<a class="logo" href="#home">
+<span class="logo-mark"><i class="fa-solid fa-shield-halved"></i></span>
+<span>
               ALI ABDELGHANI
             </span>
-          </a>
-          <p>
+</a>
+<p>
             Practical cybersecurity projects focused on SOC operations, SIEM analysis,
             network investigation, cloud security, and incident response.
           </p>
+<div class="social-links">
+<!-- Replace placeholder URLs with your real profiles -->
+<a aria-label="GitHub" href="https://github.com/aliabdel225" target="_blank"><i class="fa-brands fa-github"></i></a>
+<a aria-label="LinkedIn" href="https://www.linkedin.com/in/ali-abdelghani007" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+<a aria-label="Email" href="mailto:abdelghaniali07@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+</div>
+</div>
 
-          <div class="social-links">
-            <!-- Replace placeholder URLs with your real profiles -->
-            <a href="https://github.com/aliabdel225" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/ali-abdelghani007" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-            <a href="mailto:abdelghaniali07@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
-          </div>
-        </div>
 
-        <div class="footer-column">
-          <h3>Navigation</h3>
-          <ul>
-            <li><a href="#about">Snake Game</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#skills">Technical Skills</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-column">
-          <h3>Focus Areas</h3>
-          <ul>
-            <li>Security Operations</li>
-            <li>Threat Detection</li>
-            <li>Incident Response</li>
-            <li>Network Analysis</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <span>© <span id="year"></span> Ali Abdelghani. All rights reserved.</span>
-        <span>Built for GitHub Pages.</span>
-      </div>
-    </div>
-  </footer>
-
-  <script>
+</div>
+<div class="footer-bottom">
+<span>© <span id="year"></span> Ali Abdelghani. All rights reserved.</span>
+<span>Built for GitHub Pages.</span>
+</div>
+</div>
+</footer>
+<script>
     const menuBtn = document.getElementById("menuBtn");
     const navLinks = document.getElementById("navLinks");
 
-    menuBtn.addEventListener("click", () => {
-      navLinks.classList.toggle("open");
-      menuBtn.innerHTML = navLinks.classList.contains("open")
-        ? '<i class="fa-solid fa-xmark"></i>'
-        : '<span></span><span></span><span></span>';
-    });
-
-    document.querySelectorAll(".nav-links a").forEach((link) => {
-      link.addEventListener("click", () => {
-        navLinks.classList.remove("open");
-        menuBtn.innerHTML = '<span></span><span></span><span></span>';
+    if (menuBtn && navLinks) {
+      menuBtn.addEventListener("click", () => {
+        navLinks.classList.toggle("open");
+        menuBtn.innerHTML = navLinks.classList.contains("open")
+          ? '<i class="fa-solid fa-xmark"></i>'
+          : '<span></span><span></span><span></span>';
       });
-    });
+
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navLinks.classList.remove("open");
+          menuBtn.innerHTML = '<span></span><span></span><span></span>';
+        });
+      });
+    }
 
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -2142,8 +2494,7 @@ setInterval(draw,120);
 }
 
 </script>
-
-  <script>
+<script>
     /* =========================
        SNAKE GAME LOGIC
        EDITING NOTE:
@@ -2355,6 +2706,219 @@ setInterval(draw,120);
       draw();
     })();
   </script>
+<script id="restored-snake-script">
 
+    /* =========================
+       SNAKE GAME LOGIC
+       EDITING NOTE:
+       - Change gameSpeed to make the game faster or slower.
+       - Change gridSize only if you also change the canvas dimensions.
+       ========================= */
+    (() => {
+      const canvas = document.getElementById("snakeCanvas");
+      const startButton = document.getElementById("snakeStartBtn");
+      const scoreElement = document.getElementById("snakeScore");
+      const messageElement = document.getElementById("snakeMessage");
+
+      if (!canvas || !startButton || !scoreElement || !messageElement) return;
+
+      const ctx = canvas.getContext("2d");
+      const gridSize = 20;
+      const tileCount = canvas.width / gridSize;
+      const gameSpeed = 110;
+
+      let snake = [];
+      let food = { x: 14, y: 10 };
+      let direction = { x: 1, y: 0 };
+      let nextDirection = { x: 1, y: 0 };
+      let score = 0;
+      let timer = null;
+      let running = false;
+
+      function resetGame() {
+        snake = [
+          { x: 8, y: 10 },
+          { x: 7, y: 10 },
+          { x: 6, y: 10 }
+        ];
+        direction = { x: 1, y: 0 };
+        nextDirection = { x: 1, y: 0 };
+        score = 0;
+        running = true;
+        scoreElement.textContent = score;
+        messageElement.textContent = "Game started — good luck!";
+        placeFood();
+        draw();
+
+        clearInterval(timer);
+        timer = setInterval(gameLoop, gameSpeed);
+      }
+
+      function placeFood() {
+        let valid = false;
+
+        while (!valid) {
+          food = {
+            x: Math.floor(Math.random() * tileCount),
+            y: Math.floor(Math.random() * tileCount)
+          };
+
+          valid = !snake.some(segment => segment.x === food.x && segment.y === food.y);
+        }
+      }
+
+      function gameLoop() {
+        direction = nextDirection;
+
+        const head = {
+          x: snake[0].x + direction.x,
+          y: snake[0].y + direction.y
+        };
+
+        const hitWall =
+          head.x < 0 ||
+          head.y < 0 ||
+          head.x >= tileCount ||
+          head.y >= tileCount;
+
+        const hitSelf = snake.some(segment => segment.x === head.x && segment.y === head.y);
+
+        if (hitWall || hitSelf) {
+          endGame();
+          return;
+        }
+
+        snake.unshift(head);
+
+        if (head.x === food.x && head.y === food.y) {
+          score += 10;
+          scoreElement.textContent = score;
+          placeFood();
+        } else {
+          snake.pop();
+        }
+
+        draw();
+      }
+
+      function endGame() {
+        running = false;
+        clearInterval(timer);
+        messageElement.textContent = `Game over — final score: ${score}. Press Start / Restart to play again.`;
+        draw(true);
+      }
+
+      function draw(gameOver = false) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#06101d";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.strokeStyle = "rgba(22,217,227,0.055)";
+        ctx.lineWidth = 1;
+
+        for (let i = 0; i <= tileCount; i++) {
+          const p = i * gridSize;
+
+          ctx.beginPath();
+          ctx.moveTo(p, 0);
+          ctx.lineTo(p, canvas.height);
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.moveTo(0, p);
+          ctx.lineTo(canvas.width, p);
+          ctx.stroke();
+        }
+
+        ctx.fillStyle = "#16d9e3";
+        ctx.shadowColor = "rgba(22,217,227,0.75)";
+        ctx.shadowBlur = 14;
+        ctx.fillRect(
+          food.x * gridSize + 4,
+          food.y * gridSize + 4,
+          gridSize - 8,
+          gridSize - 8
+        );
+
+        ctx.shadowBlur = 0;
+
+        snake.forEach((segment, index) => {
+          ctx.fillStyle = index === 0 ? "#ffffff" : "#16d9e3";
+          ctx.fillRect(
+            segment.x * gridSize + 2,
+            segment.y * gridSize + 2,
+            gridSize - 4,
+            gridSize - 4
+          );
+        });
+
+        if (gameOver) {
+          ctx.fillStyle = "rgba(2,9,19,0.72)";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          ctx.fillStyle = "#ffffff";
+          ctx.font = "700 32px Inter, sans-serif";
+          ctx.textAlign = "center";
+          ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2 - 8);
+
+          ctx.fillStyle = "#16d9e3";
+          ctx.font = "700 18px Inter, sans-serif";
+          ctx.fillText(`Score: ${score}`, canvas.width / 2, canvas.height / 2 + 28);
+        }
+      }
+
+      function setDirection(key) {
+        const directions = {
+          ArrowUp: { x: 0, y: -1 },
+          w: { x: 0, y: -1 },
+          W: { x: 0, y: -1 },
+          ArrowDown: { x: 0, y: 1 },
+          s: { x: 0, y: 1 },
+          S: { x: 0, y: 1 },
+          ArrowLeft: { x: -1, y: 0 },
+          a: { x: -1, y: 0 },
+          A: { x: -1, y: 0 },
+          ArrowRight: { x: 1, y: 0 },
+          d: { x: 1, y: 0 },
+          D: { x: 1, y: 0 }
+        };
+
+        const newDirection = directions[key];
+        if (!newDirection) return;
+
+        const reversing =
+          newDirection.x === -direction.x &&
+          newDirection.y === -direction.y;
+
+        if (!reversing) {
+          nextDirection = newDirection;
+        }
+      }
+
+      startButton.addEventListener("click", resetGame);
+
+      document.addEventListener("keydown", event => {
+        const acceptedKeys = [
+          "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight",
+          "w", "W", "a", "A", "s", "S", "d", "D"
+        ];
+
+        if (acceptedKeys.includes(event.key)) {
+          event.preventDefault();
+          setDirection(event.key);
+        }
+      });
+
+      document.querySelectorAll("[data-snake-key]").forEach(button => {
+        button.addEventListener("click", () => {
+          setDirection(button.dataset.snakeKey);
+        });
+      });
+
+      draw();
+    })();
+  
+</script>
 </body>
 </html>
