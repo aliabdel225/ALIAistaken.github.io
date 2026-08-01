@@ -1,1 +1,729 @@
-<html><body><h1>Use the provided HTML and these embedded image paths.</h1><img src='images/initial-packet-capture.png'></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Recruiter-facing SOC investigation report demonstrating Wireshark packet analysis, Nmap SYN scan detection, incident response, and MITRE ATT&CK mapping." />
+  <meta name="theme-color" content="#070707" />
+  <title>Network Scanning & Packet Analysis | Ali Abdelghani</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg: #070707;
+      --bg-2: #0c0c0d;
+      --panel: #121214;
+      --panel-2: #171719;
+      --panel-3: #1d1d20;
+      --red: #ef2929;
+      --red-2: #b31217;
+      --red-soft: rgba(239, 41, 41, 0.12);
+      --white: #f7f7f8;
+      --text: #d3d3d6;
+      --muted: #929298;
+      --line: #29292d;
+      --blue: #3ba7ff;
+      --green: #50c878;
+      --orange: #f5a623;
+      --shadow: 0 22px 60px rgba(0,0,0,.38);
+      --max: 1540px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 83% 8%, rgba(239,41,41,.12), transparent 28rem),
+        linear-gradient(180deg, #080808 0%, #050505 100%);
+      font-family: "Inter", sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    strong { color: var(--white); }
+    code, pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(239,41,41,.16);
+      background: rgba(6,6,7,.94);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 32px rgba(0,0,0,.26);
+    }
+
+    .nav {
+      width: min(calc(100% - 42px), var(--max));
+      min-height: 74px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--white);
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      letter-spacing: .035em;
+      white-space: nowrap;
+    }
+
+    .brand i { color: var(--red); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .035em;
+    }
+
+    .nav-links a { color: #d8d8da; transition: .2s ease; }
+    .nav-links a:hover { color: var(--red); }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 16px;
+      border-radius: 6px;
+      color: #fff !important;
+      background: linear-gradient(135deg, var(--red), #c1121f);
+      box-shadow: 0 8px 24px rgba(239,41,41,.18);
+    }
+
+    .page-shell {
+      width: min(calc(100% - 42px), var(--max));
+      margin: 0 auto;
+      padding: 34px 0 58px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .main-column { min-width: 0; }
+    .sidebar {
+      position: sticky;
+      top: 92px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 370px;
+      margin-bottom: 16px;
+      padding: 44px 420px 42px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      background:
+        linear-gradient(90deg, rgba(7,7,8,.98) 0%, rgba(7,7,8,.91) 52%, rgba(7,7,8,.32) 100%),
+        radial-gradient(circle at 83% 48%, rgba(239,41,41,.26), transparent 17rem),
+        #0b0b0c;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: 34px;
+      top: 38px;
+      width: 330px;
+      height: 290px;
+      opacity: .78;
+      background:
+        radial-gradient(circle at 50% 65%, transparent 0 50px, rgba(239,41,41,.25) 51px 53px, transparent 54px),
+        radial-gradient(circle at 48% 63%, rgba(239,41,41,.18), transparent 95px),
+        linear-gradient(145deg, transparent 0 42%, rgba(239,41,41,.18) 43% 44%, transparent 45%),
+        linear-gradient(35deg, transparent 0 51%, rgba(239,41,41,.15) 52% 53%, transparent 54%);
+      filter: drop-shadow(0 0 26px rgba(239,41,41,.2));
+      border-radius: 50%;
+      border: 1px solid rgba(239,41,41,.12);
+      transform: rotate(-8deg);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      right: 112px;
+      top: 63px;
+      width: 150px;
+      height: 190px;
+      border: 2px solid rgba(239,41,41,.45);
+      border-bottom: 0;
+      border-radius: 80px 80px 28px 28px;
+      transform: skewX(-8deg);
+      box-shadow: 0 0 32px rgba(239,41,41,.15);
+    }
+
+    .eyebrow {
+      margin-bottom: 14px;
+      color: var(--red);
+      font-size: .78rem;
+      font-weight: 900;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, h4 { margin-top: 0; font-family: "Space Grotesk", sans-serif; color: var(--white); }
+    h1 {
+      margin-bottom: 17px;
+      font-size: clamp(2.75rem, 5.8vw, 5.4rem);
+      line-height: .98;
+      letter-spacing: -.045em;
+      text-transform: uppercase;
+    }
+    h1 .accent { color: var(--red); }
+    .hero-copy {
+      max-width: 790px;
+      margin: 0;
+      color: #d0d0d3;
+      font-size: 1rem;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 25px;
+    }
+
+    .badge {
+      min-width: 104px;
+      padding: 10px 13px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid #2f3033;
+      border-radius: 6px;
+      background: rgba(20,20,22,.9);
+      font-size: .74rem;
+      font-weight: 700;
+    }
+    .badge i { font-size: 1rem; }
+    .badge.blue i { color: var(--blue); }
+    .badge.red i { color: var(--red); }
+    .badge.orange i { color: var(--orange); }
+    .badge.green i { color: var(--green); }
+
+    .section-card, .side-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(145deg, rgba(24,24,26,.98), rgba(15,15,16,.98));
+      box-shadow: var(--shadow);
+    }
+
+    .section-card { margin-bottom: 16px; padding: 22px 24px; }
+    .section-title {
+      margin: 0 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+    }
+    .section-title i { color: var(--red); }
+
+    .section-card p { margin: 0 0 14px; }
+    .section-card p:last-child { margin-bottom: 0; }
+
+    .architecture {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 1fr;
+      gap: 16px;
+      align-items: center;
+      margin: 18px 0 16px;
+    }
+
+    .node {
+      padding: 20px;
+      text-align: center;
+      border-radius: 7px;
+      background: #101012;
+    }
+    .node.attacker { border: 1px solid rgba(239,41,41,.8); }
+    .node.victim { border: 1px solid rgba(59,167,255,.75); }
+    .node h3 { margin-bottom: 4px; color: var(--red); font-size: 1rem; }
+    .node.victim h3 { color: var(--blue); }
+    .node small { color: var(--muted); }
+
+    .connection {
+      position: relative;
+      text-align: center;
+      color: var(--white);
+      font-size: .78rem;
+    }
+    .connection::before {
+      content: "";
+      display: block;
+      height: 2px;
+      margin-bottom: 10px;
+      background: repeating-linear-gradient(90deg, var(--red) 0 9px, transparent 9px 16px);
+    }
+    .connection::after {
+      content: "";
+      position: absolute;
+      right: -1px;
+      top: -5px;
+      border-left: 9px solid var(--red);
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+    }
+
+    .split-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+    }
+    .mini-panel {
+      padding: 16px;
+      border: 1px solid #303034;
+      border-radius: 7px;
+      background: #111113;
+    }
+    .mini-panel h3 { margin-bottom: 8px; color: var(--red); font-size: .95rem; }
+    .mini-panel ul { margin: 0; padding-left: 19px; }
+    .mini-panel li { margin-bottom: 5px; }
+
+    .code-block {
+      margin: 10px 0 0;
+      padding: 12px 14px;
+      overflow-x: auto;
+      border: 1px solid rgba(239,41,41,.24);
+      border-radius: 6px;
+      color: #ff5a5f;
+      background: #0d0d0f;
+      font-size: .83rem;
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0,1fr));
+      gap: 10px;
+      align-items: center;
+    }
+    .workflow-step { text-align: center; }
+    .workflow-step i { display: block; margin-bottom: 9px; color: var(--red); font-size: 1.45rem; }
+    .workflow-step span { font-size: .72rem; color: var(--white); }
+    .workflow-arrow { color: var(--red); text-align: center; }
+
+    .evidence-list { display: grid; gap: 0; }
+    .evidence-item {
+      display: grid;
+      grid-template-columns: 230px minmax(0,1fr);
+      gap: 18px;
+      padding: 18px 0;
+      border-top: 1px solid #2a2a2d;
+    }
+    .evidence-item:first-child { border-top: 0; padding-top: 0; }
+    .evidence-copy h3 {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .95rem;
+    }
+    .step-num {
+      width: 24px;
+      height: 24px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      color: white;
+      background: var(--red);
+      font-size: .72rem;
+      font-family: "Inter", sans-serif;
+    }
+    .evidence-copy p { color: #c5c5c8; font-size: .82rem; }
+    .filter-label { margin-top: 12px; color: var(--white); font-size: .75rem; font-weight: 800; }
+    .inline-code {
+      display: inline-block;
+      margin-top: 5px;
+      padding: 6px 8px;
+      border: 1px solid rgba(239,41,41,.22);
+      border-radius: 5px;
+      color: #ff565b;
+      background: #0f0f11;
+      font-size: .72rem;
+    }
+    .evidence-image {
+      overflow: hidden;
+      border: 1px solid #35353a;
+      border-radius: 5px;
+      background: #080809;
+    }
+    .evidence-image img { width: 100%; height: 100%; min-height: 160px; object-fit: cover; }
+
+    .conclusion {
+      margin-top: 12px;
+      padding-top: 18px;
+      border-top: 1px solid #2a2a2d;
+    }
+
+    .response-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 0;
+    }
+    .response-item {
+      padding: 0 18px;
+      border-left: 1px solid rgba(239,41,41,.45);
+    }
+    .response-item:first-child { padding-left: 0; border-left: 0; }
+    .response-item h3 { margin-bottom: 10px; font-size: .9rem; }
+    .response-item i { color: var(--red); margin-right: 8px; }
+    .response-item ul { margin: 0; padding-left: 18px; font-size: .8rem; }
+
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 1.65fr 1fr;
+      gap: 16px;
+    }
+
+    .check-list { list-style: none; margin: 0; padding: 0; }
+    .check-list li { position: relative; margin-bottom: 8px; padding-left: 22px; font-size: .82rem; }
+    .check-list li::before { content: "✓"; position: absolute; left: 0; color: var(--red); font-weight: 900; }
+
+    .side-card { padding: 20px; }
+    .side-card h2 {
+      margin-bottom: 16px;
+      color: var(--red);
+      font-size: .95rem;
+      text-transform: uppercase;
+    }
+    .meta-list { display: grid; gap: 16px; }
+    .meta-item { display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; }
+    .meta-item i { color: var(--red); font-size: 1rem; padding-top: 2px; }
+    .meta-item span { display: block; color: var(--muted); font-size: .72rem; }
+    .meta-item strong { display: block; font-size: .78rem; }
+
+    .severity-row {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 11px;
+      color: #d0d0d2;
+      font-size: .78rem;
+    }
+    .severity-dot { width: 16px; height: 16px; border: 1px solid #69696e; border-radius: 50%; }
+    .severity-row.active {
+      margin-left: -8px;
+      padding: 8px;
+      border-radius: 5px;
+      background: linear-gradient(90deg, rgba(245,166,35,.2), rgba(245,166,35,.04));
+      color: var(--white);
+    }
+    .severity-row.active .severity-dot { border: 4px solid var(--orange); }
+    .severity-row.active::after { content: "✓"; margin-left: auto; color: var(--orange); font-weight: 900; }
+
+    .side-card ul { margin: 0; padding-left: 18px; font-size: .78rem; }
+    .tool-list { display: grid; gap: 14px; }
+    .tool-row { display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: center; }
+    .tool-row i { color: var(--red); font-size: 1rem; }
+    .tool-row strong { display: block; font-size: .78rem; }
+    .tool-row span { display: block; color: var(--muted); font-size: .7rem; }
+
+    footer {
+      padding: 22px 0 32px;
+      color: #88888d;
+      text-align: center;
+      font-size: .75rem;
+    }
+
+    @media (max-width: 1180px) {
+      .page-shell { grid-template-columns: 1fr; }
+      .sidebar { position: static; grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .hero { padding-right: 320px; }
+      .hero::after { right: 10px; transform: scale(.82) rotate(-8deg); }
+      .hero::before { right: 84px; transform: scale(.82) skewX(-8deg); }
+    }
+
+    @media (max-width: 850px) {
+      .nav-links a:not(.back-btn) { display: none; }
+      .hero { min-height: auto; padding: 44px 24px; }
+      .hero::after, .hero::before { display: none; }
+      .architecture { grid-template-columns: 1fr; }
+      .connection { padding: 16px 0; }
+      .connection::before { transform: rotate(90deg); width: 70px; margin: 0 auto 18px; }
+      .connection::after { display: none; }
+      .workflow { grid-template-columns: repeat(3, 1fr); }
+      .workflow-arrow { display: none; }
+      .evidence-item { grid-template-columns: 1fr; }
+      .response-grid { grid-template-columns: repeat(2, 1fr); gap: 22px 0; }
+      .response-item:nth-child(3) { padding-left: 0; border-left: 0; }
+      .bottom-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .nav { width: min(calc(100% - 24px), var(--max)); min-height: 66px; }
+      .brand { font-size: .86rem; }
+      .back-btn { padding: 9px 11px; font-size: .7rem; }
+      .page-shell { width: min(calc(100% - 24px), var(--max)); padding-top: 18px; }
+      h1 { font-size: 2.45rem; }
+      .hero-copy { font-size: .92rem; }
+      .section-card { padding: 19px 17px; }
+      .split-grid, .sidebar, .response-grid { grid-template-columns: 1fr; }
+      .response-item, .response-item:nth-child(3) { padding: 14px 0 0; border-left: 0; border-top: 1px solid rgba(239,41,41,.35); }
+      .response-item:first-child { border-top: 0; padding-top: 0; }
+      .workflow { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="index.html"><i class="fa-solid fa-shield-halved"></i> ALI ABDELGHANI</a>
+      <div class="nav-links">
+        <a href="index.html">HOME</a>
+        <a href="index.html#about">ABOUT</a>
+        <a href="index.html#projects">PROJECTS</a>
+        <a href="index.html#blog">BLOG</a>
+        <a href="index.html#contact">CONTACT</a>
+        <a class="back-btn" href="index.html#projects"><i class="fa-solid fa-arrow-left"></i> BACK TO PROJECTS</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page-shell">
+    <main class="main-column">
+      <section class="hero">
+        <div class="eyebrow">SOC Incident Investigation Playbook</div>
+        <h1>Network Scanning &<br>Packet Analysis <span class="accent">(Wireshark)</span></h1>
+        <p class="hero-copy">A hands-on Blue Team investigation demonstrating packet analysis, threat hunting, and incident response using Wireshark to detect Nmap reconnaissance activity.</p>
+        <div class="badge-row" aria-label="Project metadata">
+          <div class="badge blue"><i class="fa-brands fa-linux"></i><span>Platform<br>Linux</span></div>
+          <div class="badge blue"><i class="fa-solid fa-magnifying-glass-chart"></i><span>Tool<br>Wireshark</span></div>
+          <div class="badge red"><i class="fa-solid fa-crosshairs"></i><span>Attack<br>Nmap</span></div>
+          <div class="badge orange"><i class="fa-solid fa-shield"></i><span>MITRE<br>T1595</span></div>
+          <div class="badge green"><i class="fa-solid fa-circle-check"></i><span>Level<br>Beginner</span></div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <h2 class="section-title"><i class="fa-solid fa-clipboard-list"></i> Executive Summary</h2>
+        <p>In this lab, I simulated a TCP SYN scan using Nmap from an attacker machine to enumerate open ports on a victim system. I captured and analyzed the network traffic using Wireshark to identify reconnaissance behavior, extract indicators of compromise, and document findings in a SOC-style incident report. This project demonstrates my ability to detect early-stage attacks and apply Blue Team analysis techniques.</p>
+      </section>
+
+      <section class="section-card">
+        <h2 class="section-title"><i class="fa-solid fa-network-wired"></i> Lab Architecture</h2>
+        <div class="architecture">
+          <div class="node attacker">
+            <h3><i class="fa-solid fa-laptop"></i> ATTACKER</h3>
+            <strong>10.0.2.15</strong><br><small>Nmap Scanner</small>
+          </div>
+          <div class="connection"><strong>TCP SYN Packets</strong><br><span>Internal Network</span></div>
+          <div class="node victim">
+            <h3><i class="fa-solid fa-desktop"></i> VICTIM</h3>
+            <strong>10.0.2.3</strong><br><small>Packet Capture</small>
+          </div>
+        </div>
+        <div class="split-grid">
+          <div class="mini-panel">
+            <h3>Environment</h3>
+            <ul>
+              <li>Isolated internal lab network</li>
+              <li>Traffic captured on the victim machine</li>
+              <li>Attack initiated from attacker VM</li>
+              <li>Safe testing environment</li>
+            </ul>
+          </div>
+          <div class="mini-panel">
+            <h3>Attack Technique</h3>
+            <p>TCP SYN Scan (<code>-sS</code>)</p>
+            <pre class="code-block">nmap -sS 10.0.2.3</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <h2 class="section-title"><i class="fa-solid fa-route"></i> Investigation Workflow</h2>
+        <div class="workflow">
+          <div class="workflow-step"><i class="fa-regular fa-bell"></i><span>Alert Generated</span></div>
+          <div class="workflow-step"><i class="fa-regular fa-square-check"></i><span>Validate Alert</span></div>
+          <div class="workflow-step"><i class="fa-solid fa-download"></i><span>Capture Traffic</span></div>
+          <div class="workflow-step"><i class="fa-solid fa-magnifying-glass"></i><span>Analyze Packets</span></div>
+          <div class="workflow-step"><i class="fa-solid fa-bullseye"></i><span>Confirm Recon</span></div>
+          <div class="workflow-step"><i class="fa-regular fa-file-lines"></i><span>Document Findings</span></div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <h2 class="section-title"><i class="fa-solid fa-magnifying-glass"></i> Evidence & Analysis</h2>
+        <div class="evidence-list">
+          <article class="evidence-item">
+            <div class="evidence-copy">
+              <h3><span class="step-num">1</span> Initial Packet Capture</h3>
+              <p>Before applying any filters, I reviewed the raw traffic to understand overall activity between the attacker and victim. Repeated TCP exchanges showed that deeper analysis was required.</p>
+            </div>
+            <figure class="evidence-image"><img src="images/initial-packet-capture.png" alt="Unfiltered Wireshark packet capture showing traffic between 10.0.2.15 and 10.0.2.3"></figure>
+          </article>
+
+          <article class="evidence-item">
+            <div class="evidence-copy">
+              <h3><span class="step-num">2</span> SYN Scan Detection</h3>
+              <p>I filtered for SYN packets without ACK flags to reveal repeated connection attempts across multiple destination ports.</p>
+              <div class="filter-label">Filter Used:</div>
+              <code class="inline-code">tcp.flags.syn == 1 &amp;&amp; tcp.flags.ack == 0</code>
+            </div>
+            <figure class="evidence-image"><img src="images/syn-scan-detection.png" alt="Wireshark SYN scan detection filter showing repeated SYN packets from 10.0.2.15 to 10.0.2.3"></figure>
+          </article>
+
+          <article class="evidence-item">
+            <div class="evidence-copy">
+              <h3><span class="step-num">3</span> TCP Conversations</h3>
+              <p>I reviewed all TCP communication between both systems. The repeating SYN and RST/ACK pattern across many ports is consistent with service enumeration rather than normal application traffic.</p>
+              <div class="filter-label">Filter Used:</div>
+              <code class="inline-code">tcp</code>
+            </div>
+            <figure class="evidence-image"><img src="images/tcp-conversations.png" alt="Wireshark TCP traffic showing SYN probes and RST ACK responses"></figure>
+          </article>
+
+          <article class="evidence-item">
+            <div class="evidence-copy">
+              <h3><span class="step-num">4</span> DNS Traffic</h3>
+              <p>I checked DNS queries and responses for suspicious domains, tunneling behavior, or lookup patterns related to the scan. The observed DNS traffic appeared routine.</p>
+              <div class="filter-label">Filter Used:</div>
+              <code class="inline-code">dns</code>
+            </div>
+            <figure class="evidence-image"><img src="images/dns-traffic.png" alt="Wireshark DNS traffic filter showing standard DNS queries and responses"></figure>
+          </article>
+
+          <article class="evidence-item">
+            <div class="evidence-copy">
+              <h3><span class="step-num">5</span> HTTP Traffic</h3>
+              <p>I reviewed HTTP traffic for exploitation attempts, suspicious requests, or payload delivery. No evidence showed that reconnaissance progressed into web exploitation.</p>
+              <div class="filter-label">Filter Used:</div>
+              <code class="inline-code">http</code>
+            </div>
+            <figure class="evidence-image"><img src="images/http-traffic.png" alt="Wireshark HTTP traffic filter showing routine HTTP communication"></figure>
+          </article>
+
+          <article class="evidence-item">
+            <div class="evidence-copy">
+              <h3><span class="step-num">6</span> ICMP Traffic</h3>
+              <p>I checked ICMP traffic for ping sweeps, host discovery, or other reconnaissance activity. The captured packets primarily showed destination unreachable messages.</p>
+              <div class="filter-label">Filter Used:</div>
+              <code class="inline-code">icmp</code>
+            </div>
+            <figure class="evidence-image"><img src="images/icmp-traffic.png" alt="Wireshark ICMP traffic filter showing destination unreachable messages"></figure>
+          </article>
+        </div>
+
+        <div class="conclusion">
+          <h2 class="section-title"><i class="fa-solid fa-shield-halved"></i> Analyst Conclusion</h2>
+          <p>The evidence confirms that <strong>10.0.2.15</strong> performed a TCP SYN scan against <strong>10.0.2.3</strong> using Nmap. The activity remained limited to reconnaissance. I found no evidence of exploitation, payload delivery, malware execution, or command-and-control communication. DNS, HTTP, and ICMP traffic did not reveal related malicious follow-on activity.</p>
+        </div>
+      </section>
+
+      <div class="bottom-grid">
+        <section class="section-card">
+          <h2 class="section-title"><i class="fa-solid fa-kit-medical"></i> Incident Response</h2>
+          <div class="response-grid">
+            <div class="response-item">
+              <h3><i class="fa-solid fa-shield"></i>Containment</h3>
+              <ul><li>Block unauthorized source IP</li><li>Notify the security team</li><li>Monitor additional scanning</li><li>Review firewall logs</li></ul>
+            </div>
+            <div class="response-item">
+              <h3><i class="fa-solid fa-broom"></i>Eradication</h3>
+              <ul><li>Investigate attacker workstation</li><li>Remove unauthorized tools</li><li>Scan endpoint for malware</li></ul>
+            </div>
+            <div class="response-item">
+              <h3><i class="fa-solid fa-rotate"></i>Recovery</h3>
+              <ul><li>Restore normal connectivity</li><li>Continue monitoring</li><li>Verify no additional recon</li></ul>
+            </div>
+            <div class="response-item">
+              <h3><i class="fa-regular fa-lightbulb"></i>Lessons Learned</h3>
+              <ul><li>Internal scanning should alert</li><li>SYN scans can precede attacks</li><li>Packet captures preserve evidence</li><li>Monitoring reduces detection gaps</li></ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-card">
+          <h2 class="section-title"><i class="fa-solid fa-bullseye"></i> Recommendations</h2>
+          <ul class="check-list">
+            <li>Deploy IDS signatures for SYN scanning</li>
+            <li>Monitor excessive connection attempts</li>
+            <li>Restrict unnecessary open ports</li>
+            <li>Enable network segmentation</li>
+            <li>Log internal reconnaissance activity</li>
+            <li>Correlate firewall and packet-capture logs</li>
+          </ul>
+        </section>
+      </div>
+
+      <footer>© 2026 Ali Abdelghani — Cybersecurity Project Case Study</footer>
+    </main>
+
+    <aside class="sidebar" aria-label="Project summary">
+      <section class="side-card">
+        <h2>At a Glance</h2>
+        <div class="meta-list">
+          <div class="meta-item"><i class="fa-solid fa-crosshairs"></i><div><span>Project Type</span><strong>SOC Investigation</strong></div></div>
+          <div class="meta-item"><i class="fa-solid fa-screwdriver-wrench"></i><div><span>Focus</span><strong>Network Reconnaissance</strong></div></div>
+          <div class="meta-item"><i class="fa-solid fa-toolbox"></i><div><span>Tools</span><strong>Wireshark, Nmap</strong></div></div>
+          <div class="meta-item"><i class="fa-solid fa-desktop"></i><div><span>Environment</span><strong>VirtualBox Isolated Lab</strong></div></div>
+          <div class="meta-item"><i class="fa-solid fa-atom"></i><div><span>Difficulty</span><strong style="color:var(--green)">Beginner</strong></div></div>
+          <div class="meta-item"><i class="fa-regular fa-clock"></i><div><span>Estimated Time</span><strong>2–3 Hours</strong></div></div>
+        </div>
+      </section>
+
+      <section class="side-card">
+        <h2>Key Indicators</h2>
+        <div class="meta-list">
+          <div class="meta-item"><i class="fa-solid fa-circle-plus"></i><div><span>Source IP</span><strong>10.0.2.15</strong></div></div>
+          <div class="meta-item"><i class="fa-solid fa-circle-xmark"></i><div><span>Destination IP</span><strong>10.0.2.3</strong></div></div>
+          <div class="meta-item"><i class="fa-solid fa-triangle-exclamation"></i><div><span>Reconnaissance</span><strong>TCP SYN Scan</strong></div></div>
+          <div class="meta-item"><i class="fa-solid fa-cube"></i><div><span>Tool Used</span><strong>Nmap</strong></div></div>
+          <div class="meta-item"><i class="fa-solid fa-arrows-left-right-to-line"></i><div><span>Multiple Port Probes</span><strong>Yes</strong></div></div>
+          <div class="meta-item"><i class="fa-solid fa-location-dot"></i><div><span>Incomplete Handshakes</span><strong>Yes</strong></div></div>
+        </div>
+      </section>
+
+      <section class="side-card">
+        <h2>Severity Assessment</h2>
+        <div class="severity-row"><span class="severity-dot"></span>Critical</div>
+        <div class="severity-row"><span class="severity-dot"></span>High</div>
+        <div class="severity-row active"><span class="severity-dot"></span>Medium</div>
+        <div class="severity-row"><span class="severity-dot"></span>Low</div>
+        <p style="margin-top:16px;font-size:.75rem"><strong>Why Medium?</strong><br>Although no exploitation occurred, reconnaissance is frequently the first stage of a cyber attack and should be investigated before it progresses.</p>
+      </section>
+
+      <section class="side-card">
+        <h2><i class="fa-solid fa-bullseye"></i> MITRE ATT&amp;CK</h2>
+        <p style="font-size:.76rem"><strong>Tactic</strong><br>Reconnaissance</p>
+        <p style="font-size:.76rem"><strong>Technique</strong><br>T1595 — Active Scanning</p>
+        <p style="font-size:.76rem"><strong>Evidence</strong></p>
+        <ul><li>SYN packets only</li><li>Multiple destination ports</li><li>Sequential scanning</li><li>Enumeration of services</li></ul>
+      </section>
+
+      <section class="side-card">
+        <h2>Tools Used</h2>
+        <div class="tool-list">
+          <div class="tool-row"><i class="fa-solid fa-shark"></i><div><strong>Wireshark</strong><span>Packet Analysis</span></div></div>
+          <div class="tool-row"><i class="fa-solid fa-eye"></i><div><strong>Nmap</strong><span>Attack Simulation</span></div></div>
+          <div class="tool-row"><i class="fa-brands fa-linux"></i><div><strong>Linux VM</strong><span>Attacker Machine</span></div></div>
+          <div class="tool-row"><i class="fa-solid fa-cube"></i><div><strong>VirtualBox</strong><span>Lab Environment</span></div></div>
+        </div>
+      </section>
+    </aside>
+  </div>
+</body>
+</html>
