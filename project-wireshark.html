@@ -98,12 +98,24 @@
     .back-btn {
       display: inline-flex;
       align-items: center;
-      gap: 9px;
-      padding: 12px 16px;
-      border-radius: 6px;
+      gap: 10px;
+      padding: 11px 18px;
+      border: 1px solid rgba(239,41,41,.38);
+      border-radius: 10px;
       color: #fff !important;
-      background: linear-gradient(135deg, var(--red), #c1121f);
-      box-shadow: 0 8px 24px rgba(239,41,41,.18);
+      background: #151515;
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .02em;
+      box-shadow: 0 8px 24px rgba(0,0,0,.24);
+      transition: transform .22s ease, background .22s ease, border-color .22s ease, box-shadow .22s ease;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--red);
+      background: linear-gradient(135deg, var(--red), #b31217);
+      box-shadow: 0 0 24px rgba(239,41,41,.28);
     }
 
     .page-shell {
@@ -485,20 +497,19 @@
       .response-item:first-child { border-top: 0; padding-top: 0; }
       .workflow { grid-template-columns: repeat(2, 1fr); }
     }
+
+    @media (max-width: 560px) {
+      .nav { min-height: 68px; gap: 12px; }
+      .brand { font-size: .88rem; letter-spacing: .02em; }
+      .back-btn { padding: 9px 12px; font-size: .72rem; }
+    }
   </style>
 </head>
 <body>
   <header class="site-header">
     <nav class="nav" aria-label="Primary navigation">
       <a class="brand" href="index.html"><i class="fa-solid fa-shield-halved"></i> ALI ABDELGHANI</a>
-      <div class="nav-links">
-        <a href="index.html">HOME</a>
-        <a href="index.html#about">ABOUT</a>
-        <a href="index.html#projects">PROJECTS</a>
-        <a href="index.html#blog">BLOG</a>
-        <a href="index.html#contact">CONTACT</a>
-        <a class="back-btn" href="index.html#projects"><i class="fa-solid fa-arrow-left"></i> BACK TO PROJECTS</a>
-      </div>
+      <a class="back-btn" href="index.html"><i class="fa-solid fa-arrow-left"></i> Back to Portfolio</a>
     </nav>
   </header>
 
