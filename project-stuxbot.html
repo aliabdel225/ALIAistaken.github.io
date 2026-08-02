@@ -3,349 +3,630 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Hunting for Stuxbot cybersecurity project case study by Ali Abdelghani." />
+  <meta name="description" content="Recruiter-facing threat hunting case study using Elastic SIEM, Sysmon, PowerShell logs, KQL, and MITRE ATT&CK to investigate Stuxbot activity." />
+  <meta name="theme-color" content="#070707" />
   <title>Hunting for Stuxbot | Ali Abdelghani</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
   <style>
-    :root {
-      --navy:#07111f;
-      --navy-2:#0b1729;
-      --cyan:#16d9e3;
-      --white:#fff;
-      --page:#f4f7fb;
-      --text:#1b2a40;
-      --muted:#66758b;
-      --border:#dce5f0;
-      --max:980px;
+    :root{
+      --bg:#070707; --bg2:#0b0b0c; --panel:#121214; --panel2:#18181a;
+      --red:#ef2929; --red2:#991b1b; --redsoft:rgba(239,41,41,.12);
+      --white:#f7f7f8; --text:#d0d0d3; --muted:#929298; --line:#2a2a2e;
+      --blue:#3ba7ff; --green:#50c878; --orange:#f5a623;
+      --shadow:0 22px 60px rgba(0,0,0,.38); --max:1540px;
     }
-    * { box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body {
-      margin:0;
-      font-family:"Inter",sans-serif;
-      color:var(--text);
-      background:var(--page);
-      line-height:1.75;
-    }
-    a { color:inherit; text-decoration:none; }
-    .topnav {
-      position:sticky;
-      top:0;
-      z-index:50;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:18px;
-      padding:16px max(20px, calc((100% - var(--max))/2));
-      color:var(--white);
-      background:rgba(7,17,31,.96);
-      backdrop-filter:blur(12px);
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-    .brand {
-      font-family:"Space Grotesk",sans-serif;
-      font-weight:700;
-    }
-    .back {
-      padding:10px 16px;
-      border:1px solid rgba(255,255,255,.2);
-      border-radius:999px;
-      font-weight:700;
-    }
-    .hero {
-      color:var(--white);
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; color:var(--text); font-family:"Inter",sans-serif; line-height:1.68;
       background:
-        linear-gradient(90deg,rgba(3,10,19,.96),rgba(3,10,19,.78)),
-        url("https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1800&q=85") center/cover;
+        radial-gradient(circle at 88% 5%,rgba(239,41,41,.12),transparent 28rem),
+        linear-gradient(180deg,#080808 0%,#050505 100%);
     }
-    .hero-inner {
-      width:min(calc(100% - 34px),var(--max));
-      margin:auto;
-      padding:90px 0 82px;
-    }
-    .category {
-      display:inline-block;
-      margin-bottom:18px;
-      padding:7px 12px;
-      border-radius:999px;
-      color:var(--navy);
-      background:var(--cyan);
-      font-size:.75rem;
-      font-weight:800;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-    h1,h2,h3 {
-      font-family:"Space Grotesk",sans-serif;
-      color:var(--navy);
-    }
-    h1 {
-      max-width:820px;
-      margin:0 0 18px;
-      color:var(--white);
-      font-size:clamp(2.5rem,6vw,4.8rem);
-      line-height:1.02;
-      letter-spacing:-.05em;
-    }
-    .hero p {
-      max-width:760px;
-      color:#c7d4e3;
-      font-size:1.08rem;
-    }
-    .tools {
-      display:flex;
-      flex-wrap:wrap;
-      gap:9px;
-      margin-top:26px;
-    }
-    .tools span {
-      padding:7px 11px;
-      border:1px solid rgba(255,255,255,.16);
-      border-radius:999px;
-      background:rgba(255,255,255,.06);
-      font-size:.78rem;
-      font-weight:700;
-    }
-    main {
-      width:min(calc(100% - 34px),var(--max));
-      margin:36px auto 70px;
-    }
-    .content-section {
-      margin-bottom:22px;
-      padding:34px;
-      border:1px solid var(--border);
-      border-radius:20px;
-      background:var(--white);
-      box-shadow:0 10px 30px rgba(7,17,31,.05);
-    }
-    .content-section h2 {
-      margin:0 0 14px;
-      font-size:1.65rem;
-    }
-    .content-section p:last-child,
-    .content-section ul:last-child {
-      margin-bottom:0;
-    }
-    .content-section ul {
-      padding-left:22px;
-    }
-    .note {
-      padding:18px;
-      border-left:4px solid var(--cyan);
-      border-radius:10px;
-      background:#eefdff;
-    }
-    footer {
-      padding:28px 20px;
-      text-align:center;
-      color:#9fb0c4;
-      background:#030a13;
-      font-size:.84rem;
-    }
-    @media(max-width:650px) {
-      .content-section { padding:24px 20px; }
-      .topnav { align-items:flex-start; }
-    }
-  </style>
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+    strong{color:var(--white)}
+    code,pre{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
 
-  <style id="black-red-theme">
-    :root {
-      --navy:#090909 !important;
-      --navy-2:#151515 !important;
-      --navy-3:#202020 !important;
-      --cyan:#dc2626 !important;
-      --cyan-soft:#fecaca !important;
-      --blue:#ef4444 !important;
-      --page:#0d0d0d !important;
-      --off-white:#111111 !important;
-      --text:#f5f5f5 !important;
-      --muted:#a3a3a3 !important;
-      --border:#2a2a2a !important;
-      --success:#ef4444 !important;
-      --shadow:0 18px 48px rgba(0,0,0,.48) !important;
+    .site-header{
+      position:sticky;top:0;z-index:100;background:rgba(6,6,7,.95);
+      backdrop-filter:blur(16px);border-bottom:1px solid rgba(239,41,41,.16);
+      box-shadow:0 10px 32px rgba(0,0,0,.26)
     }
-    body { background:#0d0d0d !important; color:#f5f5f5 !important; }
-    ::selection { background:#dc2626; color:#fff; }
-    a:focus-visible, button:focus-visible { outline:3px solid #ef4444; outline-offset:3px; }
-  </style>
+    .nav{
+      width:min(calc(100% - 42px),var(--max));min-height:74px;margin:auto;
+      display:flex;align-items:center;justify-content:space-between;gap:24px
+    }
+    .brand{
+      display:flex;align-items:center;gap:11px;color:#fff;
+      font-family:"Space Grotesk",sans-serif;font-weight:700;letter-spacing:.035em
+    }
+    .brand i{color:var(--red)}
+    .back-btn{
+      display:inline-flex;align-items:center;gap:10px;padding:11px 18px;
+      border:1px solid rgba(239,41,41,.38);border-radius:10px;background:#151515;
+      color:#fff;font-size:.82rem;font-weight:800;transition:.22s ease
+    }
+    .back-btn:hover{
+      transform:translateY(-2px);background:linear-gradient(135deg,var(--red),var(--red2));
+      border-color:var(--red);box-shadow:0 0 24px rgba(239,41,41,.28)
+    }
 
-  <style id="black-red-detail-theme">
-    .topnav,footer { background:#080808 !important; }
-    .topnav { border-bottom-color:#2a2a2a !important; }
-    .hero { background:
-      linear-gradient(90deg,rgba(5,5,5,.96),rgba(20,0,0,.78)),
-      var(--hero-image, none) !important; background-size:cover !important; background-position:center !important; }
-    .content-section { background:#171717 !important; border-color:#2d2d2d !important; box-shadow:0 10px 30px rgba(0,0,0,.3) !important; }
-    h1,h2,h3,.content-section h2 { color:#f5f5f5 !important; }
-    p,li { color:#c4c4c4 !important; }
-    .hero p { color:#d1d1d1 !important; }
-    .category { background:#dc2626 !important; color:#fff !important; }
-    .note { background:#241010 !important; border-left-color:#dc2626 !important; color:#eee !important; }
-    .back:hover { border-color:#dc2626 !important; color:#ef4444 !important; }
-    .tools span { background:rgba(220,38,38,.12) !important; border-color:rgba(239,68,68,.35) !important; }
-  </style>
+    .page-shell{
+      width:min(calc(100% - 42px),var(--max));margin:0 auto;padding:34px 0 58px;
+      display:grid;grid-template-columns:minmax(0,1fr) 285px;gap:18px;align-items:start
+    }
+    .main-column{min-width:0}
+    .sidebar{position:sticky;top:92px;display:grid;gap:16px}
 
-  <style id="premium-project-polish">
-    body {
+    .hero{
+      position:relative;overflow:hidden;min-height:410px;margin-bottom:16px;
+      padding:48px 430px 44px 26px;display:flex;flex-direction:column;justify-content:center;
+      border:1px solid #242427;border-radius:10px;
       background:
-        radial-gradient(circle at 90% 4%, rgba(220,38,38,.10), transparent 26rem),
-        #0a0a0a !important;
+        linear-gradient(90deg,rgba(7,7,8,.99) 0%,rgba(7,7,8,.92) 52%,rgba(7,7,8,.42) 100%),
+        radial-gradient(circle at 84% 48%,rgba(239,41,41,.28),transparent 18rem),#0b0b0c
     }
-    .topnav {
-      background:rgba(8,8,8,.95) !important;
-      border-bottom:1px solid rgba(239,68,68,.2) !important;
-      box-shadow:0 10px 32px rgba(0,0,0,.3);
+    .hero:before{
+      content:"";position:absolute;right:92px;top:78px;width:185px;height:230px;
+      border:2px solid rgba(239,41,41,.48);border-radius:100px 100px 38px 38px;
+      box-shadow:0 0 42px rgba(239,41,41,.13);transform:skewX(-6deg)
     }
-    .brand { color:#fff !important; letter-spacing:.04em; }
-    .brand::before { content:"◆"; color:#ef4444; margin-right:9px; font-size:.72em; }
-    .back {
-      color:#f5f5f5 !important;
-      border-color:rgba(239,68,68,.42) !important;
-      background:#151515;
-      transition:.25s ease;
+    .hero:after{
+      content:"";position:absolute;right:30px;top:38px;width:350px;height:315px;opacity:.82;
+      background:
+        radial-gradient(circle at 50% 60%,transparent 0 60px,rgba(239,41,41,.24) 61px 63px,transparent 64px),
+        linear-gradient(145deg,transparent 0 43%,rgba(239,41,41,.16) 44% 45%,transparent 46%),
+        linear-gradient(35deg,transparent 0 50%,rgba(239,41,41,.14) 51% 52%,transparent 53%);
+      border:1px solid rgba(239,41,41,.10);border-radius:50%;transform:rotate(-8deg)
     }
-    .back:hover {
-      color:#fff !important;
-      background:#dc2626 !important;
-      box-shadow:0 0 22px rgba(220,38,38,.3);
-      transform:translateY(-2px);
+    .eyebrow{margin-bottom:14px;color:var(--red);font-size:.78rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
+    h1,h2,h3,h4{font-family:"Space Grotesk",sans-serif;color:#fff;margin-top:0}
+    h1{margin:0 0 18px;font-size:clamp(2.8rem,5.8vw,5.4rem);line-height:.98;letter-spacing:-.045em;text-transform:uppercase}
+    h1 .accent{color:var(--red)}
+    .hero-copy{max-width:820px;margin:0;color:#d0d0d3;font-size:1rem}
+    .badge-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+    .badge{
+      padding:9px 12px;display:flex;align-items:center;gap:9px;border:1px solid #303034;
+      border-radius:6px;background:rgba(20,20,22,.92);font-size:.74rem;font-weight:700
     }
-    .hero {
-      position:relative;
-      isolation:isolate;
-      border-bottom:1px solid rgba(239,68,68,.22);
+    .badge i{font-size:1rem}.badge.red i{color:var(--red)}.badge.blue i{color:var(--blue)}
+    .badge.green i{color:var(--green)}.badge.orange i{color:var(--orange)}
+
+    .section-card,.side-card{
+      border:1px solid var(--line);border-radius:9px;
+      background:linear-gradient(145deg,rgba(24,24,26,.98),rgba(15,15,16,.98));
+      box-shadow:var(--shadow)
     }
-    .hero::after {
-      content:"";
-      position:absolute;
-      inset:0;
-      z-index:-1;
-      background:radial-gradient(circle at 82% 28%,rgba(239,68,68,.24),transparent 28rem);
+    .section-card{margin-bottom:16px;padding:24px}
+    .section-title{
+      margin:0 0 17px;display:flex;align-items:center;gap:11px;
+      font-size:1.18rem;text-transform:uppercase
     }
-    .category {
-      color:#fff !important;
-      background:linear-gradient(135deg,#ef4444,#991b1b) !important;
-      box-shadow:0 0 25px rgba(220,38,38,.25);
+    .section-title i{color:var(--red)}
+    .section-card p{margin:0 0 14px}.section-card p:last-child{margin-bottom:0}
+
+    .story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+    .story-card{
+      position:relative;overflow:hidden;padding:20px;border:1px solid #303034;border-radius:10px;
+      background:linear-gradient(145deg,#171719,#101011)
     }
-    .tools span {
-      color:#f1f1f1 !important;
-      background:rgba(220,38,38,.11) !important;
-      border-color:rgba(239,68,68,.34) !important;
+    .story-card:before{
+      content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+      background:linear-gradient(var(--red),#7f1d1d)
     }
-    main { position:relative; }
-    .content-section {
-      position:relative;
-      overflow:hidden;
-      background:linear-gradient(145deg,#181818,#121212) !important;
-      border:1px solid #2c2c2c !important;
-      box-shadow:0 16px 42px rgba(0,0,0,.28) !important;
-      transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+    .story-icon{
+      width:39px;height:39px;display:grid;place-items:center;margin-bottom:13px;
+      border:1px solid rgba(239,41,41,.3);border-radius:10px;background:var(--redsoft);color:#fff
     }
-    .content-section::before {
-      content:"";
-      position:absolute;
-      left:0;
-      top:0;
-      bottom:0;
-      width:3px;
-      background:linear-gradient(#ef4444,#7f1d1d);
+    .story-card h3{margin:0 0 8px;font-size:1rem}.story-card p{color:#c5c5c9;font-size:.9rem}
+
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .stat{
+      padding:16px;border:1px solid #303034;border-radius:8px;background:#111113;text-align:center
     }
-    .content-section:hover {
-      transform:translateY(-3px);
-      border-color:rgba(239,68,68,.42) !important;
-      box-shadow:0 20px 50px rgba(0,0,0,.38),0 0 24px rgba(220,38,38,.06) !important;
+    .stat strong{display:block;color:var(--red);font-size:1.55rem;font-family:"Space Grotesk",sans-serif}
+    .stat span{color:var(--muted);font-size:.78rem}
+
+    .data-grid,.hunt-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .mini-card{
+      padding:18px;border:1px solid #2d2d31;border-radius:8px;background:#111113
     }
-    .content-section h2 { color:#fff !important; }
-    .content-section h2::after {
-      content:"";
-      display:block;
-      width:56px;
-      height:3px;
-      margin-top:10px;
-      border-radius:99px;
-      background:linear-gradient(90deg,#ef4444,#7f1d1d);
+    .mini-card h3{margin:0 0 8px;font-size:.95rem}.mini-card p,.mini-card li{font-size:.9rem;color:#c3c3c7}
+    ul{padding-left:21px;margin:10px 0 0} li{margin-bottom:7px}
+
+    .table-wrap{overflow-x:auto;border:1px solid #2b2b2f;border-radius:8px}
+    table{width:100%;border-collapse:collapse;min-width:620px;background:#101012}
+    th,td{padding:13px 14px;border-bottom:1px solid #29292d;text-align:left;font-size:.88rem}
+    th{color:#fff;background:#171719;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em}
+    td{color:#c9c9cd} tr:last-child td{border-bottom:0}
+
+    .code-label{margin:17px 0 7px;color:#fff;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+    pre{
+      margin:0;padding:16px;overflow:auto;border:1px solid rgba(239,41,41,.22);
+      border-radius:8px;background:#0a0a0b;color:#fecaca;font-size:.84rem;line-height:1.6
     }
-    .content-section p,.content-section li { color:#c8c8c8 !important; }
-    code {
-      color:#fecaca;
-      background:#251010;
-      border:1px solid rgba(239,68,68,.2);
-      border-radius:5px;
-      padding:.12em .38em;
+    code.inline{padding:.14em .42em;border:1px solid rgba(239,41,41,.2);border-radius:5px;background:#251010;color:#fecaca}
+
+    .teaching-note,.finding{
+      margin-top:15px;padding:16px 17px;border-left:4px solid var(--red);
+      border-radius:7px;background:linear-gradient(135deg,#251010,#151011)
     }
-    .note {
-      color:#f0f0f0 !important;
-      background:linear-gradient(135deg,#271111,#181010) !important;
-      border-left-color:#ef4444 !important;
-      box-shadow:inset 0 0 24px rgba(220,38,38,.05);
+    .teaching-note strong,.finding strong{display:block;margin-bottom:5px}
+    .finding{border-left-color:#f5a623;background:linear-gradient(135deg,#241a0d,#15120e)}
+
+    .evidence{
+      margin-top:18px;overflow:hidden;border:1px solid #303034;border-radius:9px;background:#0d0d0e
     }
-    footer {
-      background:#050505 !important;
-      border-top:1px solid rgba(239,68,68,.16);
+    .evidence img{width:100%;height:auto}
+    .evidence figcaption{
+      padding:12px 14px;color:#a7a7ac;font-size:.8rem;border-top:1px solid #29292d;background:#111113
     }
-    ::selection { background:#dc2626; color:#fff; }
-    @media(max-width:650px) {
-      .topnav { align-items:center !important; }
-      .back { padding:9px 12px; font-size:.78rem; }
-      .hero-inner { padding:70px 0 62px; }
+    .evidence-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+    .evidence-grid .evidence{margin-top:0}
+
+    .attack-chain{
+      display:flex;align-items:stretch;justify-content:space-between;gap:8px;margin-top:18px
+    }
+    .chain-node{
+      flex:1;padding:14px 10px;display:grid;place-items:center;text-align:center;min-height:88px;
+      border:1px solid #303034;border-radius:8px;background:#111113;color:#fff;font-weight:700;font-size:.8rem
+    }
+    .chain-arrow{display:grid;place-items:center;color:var(--red);font-size:1.15rem}
+
+    .response-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .response-card{
+      padding:18px;border:1px solid #303034;border-radius:8px;background:#111113
+    }
+    .response-card h3{margin:0 0 9px;font-size:.96rem;color:#fff}
+    .response-card i{color:var(--red);margin-right:7px}
+
+    .learning-list{columns:2;column-gap:36px;padding-left:21px}
+    .learning-list li{break-inside:avoid}
+
+    .side-card{padding:17px}
+    .side-card h3{margin:0 0 12px;font-size:.9rem;text-transform:uppercase}
+    .side-card h3 i{color:var(--red);margin-right:8px}
+    .toc{display:grid;gap:6px}
+    .toc a{
+      padding:7px 9px;border-radius:6px;color:#aaaab0;font-size:.78rem;border-left:2px solid transparent
+    }
+    .toc a:hover{color:#fff;background:#171719;border-left-color:var(--red)}
+    .skill-tags{display:flex;flex-wrap:wrap;gap:7px}
+    .skill-tag{
+      padding:6px 8px;border:1px solid #303034;border-radius:999px;background:#111113;
+      color:#c9c9cd;font-size:.7rem;font-weight:700
+    }
+    .verdict{
+      padding:15px;border:1px solid rgba(80,200,120,.25);border-radius:8px;background:rgba(80,200,120,.07)
+    }
+    .verdict strong{color:var(--green)}
+
+    footer{
+      padding:28px 20px;text-align:center;border-top:1px solid rgba(239,41,41,.14);
+      background:#050505;color:#86868d;font-size:.8rem
+    }
+
+    @media(max-width:1120px){
+      .page-shell{grid-template-columns:1fr}.sidebar{position:static;grid-template-columns:repeat(2,1fr)}
+      .hero{padding-right:320px}
+    }
+    @media(max-width:800px){
+      .hero{padding:42px 22px;min-height:auto}.hero:before,.hero:after{opacity:.25}
+      .story-grid,.stats,.response-grid,.data-grid,.hunt-grid,.evidence-grid{grid-template-columns:1fr}
+      .attack-chain{flex-direction:column}.chain-arrow{transform:rotate(90deg)}
+      .learning-list{columns:1}.sidebar{grid-template-columns:1fr}
+    }
+    @media(max-width:560px){
+      .nav{width:min(calc(100% - 26px),var(--max));min-height:66px}
+      .brand{font-size:.83rem}.back-btn{padding:9px 11px;font-size:.72rem}
+      .page-shell{width:min(calc(100% - 26px),var(--max));padding-top:20px}
+      .section-card{padding:20px 17px}h1{font-size:2.65rem}
     }
   </style>
 </head>
 <body>
-  <!-- =========================================================
-       PROJECT BLOG EDITING GUIDE
-       - Change the title, summary, tools, and section text below.
-       - Add screenshots using: <img src="images/example.png" alt="Description">
-       - Keep this file in the same folder as index.html.
-       ========================================================= -->
 
-  <nav class="topnav">
-    <a class="brand" href="index.html">ALI ABDELGHANI</a>
-    <a class="back" href="index.html#projects">← Back to Projects</a>
+<header class="site-header">
+  <nav class="nav">
+    <a class="brand" href="index.html"><i class="fa-solid fa-shield-halved"></i> ALI ABDELGHANI</a>
+    <a class="back-btn" href="index.html#projects"><i class="fa-solid fa-arrow-left"></i> Back to Portfolio</a>
   </nav>
+</header>
 
-  <header class="hero">
-    <div class="hero-inner">
-      <span class="category">SIEM Investigation</span>
-      <h1>Hunting for Stuxbot</h1>
-      <p>A threat-hunting case study focused on suspicious file staging, registry persistence, and PowerShell Remoting activity.</p>
-      <div class="tools"><span>Elastic</span><span>Kibana</span><span>Sysmon</span><span>KQL</span><span>MITRE ATT&CK</span></div>
-    </div>
-  </header>
+<div class="page-shell">
+  <main class="main-column">
 
-  <main>
-    
-        <section class="content-section">
-          <h2>Project Overview</h2>
-          <p>This investigation examines activity associated with a simulated Stuxbot campaign using endpoint and PowerShell telemetry in Elastic.</p>
-        </section>
-        
-        <section class="content-section">
-          <h2>Investigation Goals</h2>
-          <ul><li>Identify tools written to <code>C:\Users\Public</code>.</li><li>Detect registry Run key persistence.</li><li>Trace PowerShell Remoting activity used for lateral movement.</li></ul>
-        </section>
-        
-        <section class="content-section">
-          <h2>Methodology</h2>
-          <p>I reviewed Windows, Sysmon, and PowerShell logs, built focused KQL queries, correlated events by host and timestamp, and mapped confirmed behavior to MITRE ATT&CK.</p>
-        </section>
-        
-        <section class="content-section">
-          <h2>Key Findings</h2>
-          <div class='note'>Suspicious activity showed a clear progression from tool staging to persistence and lateral movement.</div>
-        </section>
-        
-        <section class="content-section">
-          <h2>Response Recommendations</h2>
-          <ul><li>Isolate affected hosts.</li><li>Remove malicious persistence entries.</li><li>Reset compromised credentials.</li><li>Restrict and monitor PowerShell Remoting.</li></ul>
-        </section>
-        
+    <section class="hero" id="top">
+      <div class="eyebrow">Threat Hunting • Elastic SIEM • Hack The Box</div>
+      <h1>Hunting for <span class="accent">Stuxbot</span></h1>
+      <p class="hero-copy">
+        An educational Blue Team case study documenting how I used Elastic SIEM, Sysmon, Windows telemetry,
+        PowerShell Script Block Logging, and KQL to validate three threat-intelligence reports and reconstruct
+        a realistic post-exploitation attack chain.
+      </p>
+      <div class="badge-row">
+        <span class="badge red"><i class="fa-solid fa-crosshairs"></i> MITRE ATT&amp;CK</span>
+        <span class="badge blue"><i class="fa-solid fa-chart-line"></i> Elastic SIEM</span>
+        <span class="badge green"><i class="fa-solid fa-circle-check"></i> Completed</span>
+        <span class="badge orange"><i class="fa-solid fa-cube"></i> Hack The Box</span>
+      </div>
+    </section>
+
+    <section class="section-card" id="executive-summary">
+      <h2 class="section-title"><i class="fa-solid fa-briefcase"></i> Executive Summary</h2>
+      <p>
+        This project documents a complete threat-hunting investigation performed in Elastic SIEM against a simulated
+        enterprise environment infected with the latest iteration of <strong>Stuxbot</strong>.
+      </p>
+      <p>The investigation focused on validating three intelligence reports:</p>
+      <ol>
+        <li>Lateral Tool Transfer to <strong>C:\Users\Public</strong></li>
+        <li>Registry Run Key persistence</li>
+        <li>PowerShell Remoting used for lateral movement toward a Domain Controller</li>
+      </ol>
+      <p>
+        I correlated Windows Event Logs, Sysmon, and PowerShell Script Block Logging, then mapped the observed behavior
+        to MITRE ATT&amp;CK. The evidence validated all three intelligence reports and revealed a post-exploitation chain
+        involving offensive-tool staging, persistence, and lateral movement toward <strong>DC1</strong>.
+      </p>
+      <div class="stats">
+        <div class="stat"><strong>3</strong><span>Threat Hunts Completed</span></div>
+        <div class="stat"><strong>3</strong><span>MITRE Techniques Mapped</span></div>
+        <div class="stat"><strong>7</strong><span>Key IOCs Identified</span></div>
+      </div>
+    </section>
+
+    <section class="section-card" id="project-story">
+      <h2 class="section-title"><i class="fa-solid fa-user-shield"></i> Why I Did It • What I Did • What I Learned</h2>
+      <div class="story-grid">
+        <article class="story-card">
+          <div class="story-icon"><i class="fa-solid fa-bullseye"></i></div>
+          <h3>Why I Built This Project</h3>
+          <p>
+            I wanted to move beyond simply reading alerts and practice a full threat-hunting workflow. The goal was to
+            learn how analysts take threat intelligence, translate it into searchable hypotheses, find supporting
+            telemetry, and build an evidence-based conclusion.
+          </p>
+        </article>
+        <article class="story-card">
+          <div class="story-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+          <h3>What I Did</h3>
+          <p>
+            I created KQL hunts for file creation, registry modification, and PowerShell remoting activity. I reviewed
+            event details, identified offensive tooling and a suspicious Run Key, confirmed remote access to DC1, and
+            documented containment, eradication, and recovery actions.
+          </p>
+        </article>
+        <article class="story-card">
+          <div class="story-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <h3>What I Learned</h3>
+          <p>
+            I learned how Sysmon Event IDs 11 and 13 expose file and registry activity, why PowerShell Event ID 4104 is
+            valuable for script-level visibility, and how multiple small artifacts can be correlated into a coherent
+            attack chain instead of being treated as isolated events.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-card" id="environment">
+      <h2 class="section-title"><i class="fa-solid fa-server"></i> Lab Environment &amp; Data Sources</h2>
+      <div class="data-grid">
+        <div class="mini-card">
+          <h3>SIEM Platform</h3>
+          <p><strong>Elastic Stack — Discover</strong></p>
+          <p>I used Elastic Discover to search and pivot through endpoint and PowerShell telemetry.</p>
+        </div>
+        <div class="mini-card">
+          <h3>Available Telemetry</h3>
+          <ul>
+            <li>Windows Event Logs</li>
+            <li>Sysmon</li>
+            <li>PowerShell Logs</li>
+            <li>Zeek</li>
+          </ul>
+        </div>
+      </div>
+      <div class="teaching-note">
+        <strong>Why this matters to a SOC analyst</strong>
+        Threat hunting starts with a hypothesis. The analyst then identifies the telemetry source most likely to prove
+        or disprove that hypothesis. In this project, Sysmon was critical for endpoint activity while PowerShell
+        Script Block Logging provided visibility into the actual commands used for lateral movement.
+      </div>
+    </section>
+
+    <section class="section-card" id="mitre">
+      <h2 class="section-title"><i class="fa-solid fa-sitemap"></i> MITRE ATT&amp;CK Mapping</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Observed Technique</th><th>MITRE ID</th><th>What It Represented</th></tr></thead>
+          <tbody>
+            <tr><td>Lateral Tool Transfer</td><td><strong>T1570</strong></td><td>Offensive tooling staged in C:\Users\Public</td></tr>
+            <tr><td>Registry Run Keys / Startup Folder</td><td><strong>T1547.001</strong></td><td>Persistence through a Windows Run Key</td></tr>
+            <tr><td>Windows Remote Management / PowerShell Remoting</td><td><strong>T1021.006</strong></td><td>Remote PowerShell session toward DC1</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section-card" id="hunt1">
+      <h2 class="section-title"><i class="fa-solid fa-folder-open"></i> Hunt 1 — Lateral Tool Transfer</h2>
+      <p><strong>Objective:</strong> Determine whether Stuxbot staged additional tools inside <code class="inline">C:\Users\Public</code>.</p>
+
+      <div class="code-label">KQL Query</div>
+      <pre>event.code:11 AND message:"*\Users\Public\*"</pre>
+
+      <div class="hunt-grid" style="margin-top:16px">
+        <div class="mini-card">
+          <h3>Why Event ID 11?</h3>
+          <p>Sysmon Event ID 11 records <strong>file creation events</strong>. That makes it a strong telemetry source when hunting for dropped or transferred tools.</p>
+        </div>
+        <div class="mini-card">
+          <h3>Why search the message field?</h3>
+          <p>The <strong>message</strong> field contains the complete human-readable event details, including the full path. Filtering for <code class="inline">*\Users\Public\*</code> narrows the hunt to the directory named in the intelligence report.</p>
+        </div>
+      </div>
+
+      <div class="finding">
+        <strong>Analyst Finding</strong>
+        The hunt identified multiple offensive-security tools, including Mimikatz, Rubeus, SharpHound,
+        Invoke-DCSync.ps1, DomainPasswordSpray.ps1, and payload.exe. The transferred tool beginning with
+        <strong>R</strong> was <strong>Rubeus.exe</strong>, created under the <strong>svc-sql1</strong> account.
+      </div>
+
+      <div class="evidence-grid">
+        <figure class="evidence">
+          <img src="images/mitre-lateral-tool-transfer.png" alt="MITRE ATT&CK Lateral Tool Transfer technique reference" />
+          <figcaption>MITRE ATT&amp;CK reference — Lateral Tool Transfer (T1570), the technique used to frame the first hunt.</figcaption>
+        </figure>
+        <figure class="evidence">
+          <img src="images/elastic-lateral-tool-transfer.png" alt="Elastic Discover KQL results for files created in C Users Public" />
+          <figcaption>Elastic Discover evidence — Sysmon Event ID 11 filtered for C:\Users\Public, revealing offensive tools including Rubeus and Mimikatz under svc-sql1.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section-card" id="hunt2">
+      <h2 class="section-title"><i class="fa-solid fa-key"></i> Hunt 2 — Registry Run Key Persistence</h2>
+      <p><strong>Objective:</strong> Identify persistence created through Windows Registry Run Keys.</p>
+
+      <div class="code-label">KQL Query</div>
+      <pre>event.code:13 AND message:"*\Run\*"</pre>
+
+      <div class="hunt-grid" style="margin-top:16px">
+        <div class="mini-card">
+          <h3>Why Event ID 13?</h3>
+          <p>Sysmon Event ID 13 records <strong>Registry Value Set</strong> activity. This allows an analyst to see when a process creates or modifies a registry value.</p>
+        </div>
+        <div class="mini-card">
+          <h3>Useful Registry Fields</h3>
+          <ul>
+            <li><code class="inline">registry.path</code></li>
+            <li><code class="inline">registry.value</code></li>
+            <li>The full event <code class="inline">message</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="finding">
+        <strong>Analyst Finding</strong>
+        The first suspicious registry value identified was <strong>LgvHsviAUVTsIN</strong>. Its random-looking value
+        name and location under a Run Key were consistent with persistence behavior rather than a normal,
+        easily attributable startup entry.
+      </div>
+
+      <div class="evidence-grid">
+        <figure class="evidence">
+          <img src="images/mitre-registry-run-keys.png" alt="MITRE ATT&CK Registry Run Keys Startup Folder technique reference" />
+          <figcaption>MITRE ATT&amp;CK reference — Registry Run Keys / Startup Folder (T1547.001), used to frame the persistence hunt.</figcaption>
+        </figure>
+        <figure class="evidence">
+          <img src="images/elastic-registry-run-key-hunt.png" alt="Elastic Discover KQL results for Registry Run Key events" />
+          <figcaption>Elastic Discover evidence — Sysmon Event ID 13 filtered for Run Key modifications.</figcaption>
+        </figure>
+      </div>
+      <figure class="evidence">
+        <img src="images/registry-persistence-value.png" alt="Elastic registry event showing suspicious value LgvHsviAUVTsIN" />
+        <figcaption>Key persistence evidence — the suspicious randomized Registry Run value <strong>LgvHsviAUVTsIN</strong>.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section-card" id="hunt3">
+      <h2 class="section-title"><i class="fa-solid fa-terminal"></i> Hunt 3 — PowerShell Remoting</h2>
+      <p>
+        <strong>PowerShell Remoting</strong> allows administrators to execute commands remotely using WinRM.
+        That functionality is legitimate, but it can also be abused to execute commands across systems and move
+        laterally without an interactive desktop session.
+      </p>
+
+      <div class="code-label">KQL Query</div>
+      <pre>event.code:4104 AND powershell.file.script_block_text:*PSSession*</pre>
+
+      <div class="teaching-note">
+        <strong>Why Event ID 4104?</strong>
+        PowerShell Script Block Logging records the PowerShell code that was executed. This gives defenders visibility
+        into command content that may not be obvious from process creation alone.
+      </div>
+
+      <div class="finding">
+        <strong>Analyst Finding</strong>
+        The script block contained <strong>Enter-PSSession dc1</strong>, showing that the attacker initiated a remote
+        PowerShell session to <strong>DC1</strong> using the compromised <strong>svc-sql1</strong> account.
+      </div>
+
+      <figure class="evidence">
+        <img src="images/powershell-remoting-dc1.png" alt="Elastic PowerShell Script Block Logging showing Enter-PSSession dc1" />
+        <figcaption>PowerShell Script Block Logging evidence — Event ID 4104 exposes <strong>Enter-PSSession dc1</strong>, confirming remote PowerShell activity toward the Domain Controller.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section-card" id="attack-chain">
+      <h2 class="section-title"><i class="fa-solid fa-link"></i> Reconstructed Attack Chain</h2>
+      <p>
+        Looking at the artifacts together was more valuable than treating each alert independently. The evidence
+        supports a progression from compromised credentials to tool staging, persistence, and lateral movement.
+      </p>
+      <div class="attack-chain">
+        <div class="chain-node">Initial Compromise</div><div class="chain-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="chain-node">Compromise of<br>svc-sql1</div><div class="chain-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="chain-node">Tools Copied to<br>C:\Users\Public</div><div class="chain-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="chain-node">Registry Run Key<br>Persistence</div><div class="chain-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="chain-node">PowerShell<br>Remoting</div><div class="chain-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="chain-node">Domain Controller<br>DC1</div>
+      </div>
+    </section>
+
+    <section class="section-card" id="iocs">
+      <h2 class="section-title"><i class="fa-solid fa-fingerprint"></i> Indicators of Compromise</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Indicator</th><th>Associated Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>Mimikatz.exe</td><td>Credential dumping</td></tr>
+            <tr><td>Rubeus.exe</td><td>Kerberos abuse</td></tr>
+            <tr><td>SharpHound.exe</td><td>Active Directory enumeration</td></tr>
+            <tr><td>Invoke-DCSync.ps1</td><td>Password hash replication / DCSync activity</td></tr>
+            <tr><td>DomainPasswordSpray.ps1</td><td>Password spraying</td></tr>
+            <tr><td>LgvHsviAUVTsIN</td><td>Registry persistence</td></tr>
+            <tr><td>Enter-PSSession dc1</td><td>Lateral movement toward DC1</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section-card" id="response">
+      <h2 class="section-title"><i class="fa-solid fa-shield-virus"></i> Incident Response</h2>
+      <div class="response-grid">
+        <article class="response-card">
+          <h3><i class="fa-solid fa-ban"></i>Containment</h3>
+          <ul>
+            <li>Isolate the infected host</li>
+            <li>Disable svc-sql1</li>
+            <li>Block WinRM where unauthorized</li>
+            <li>Preserve forensic evidence</li>
+            <li>Prevent unnecessary DC communication</li>
+          </ul>
+        </article>
+        <article class="response-card">
+          <h3><i class="fa-solid fa-broom"></i>Eradication</h3>
+          <ul>
+            <li>Remove malicious files from C:\Users\Public</li>
+            <li>Delete the malicious Run Key</li>
+            <li>Reset compromised credentials</li>
+            <li>Investigate DC1 for DCSync activity</li>
+          </ul>
+        </article>
+        <article class="response-card">
+          <h3><i class="fa-solid fa-rotate"></i>Recovery</h3>
+          <ul>
+            <li>Restore from clean backups if required</li>
+            <li>Verify persistence is removed</li>
+            <li>Monitor Event IDs 11, 13, and 4104</li>
+            <li>Validate attacker access is no longer present</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-card" id="lessons">
+      <h2 class="section-title"><i class="fa-solid fa-lightbulb"></i> Lessons Learned &amp; Defensive Recommendations</h2>
+      <ul class="learning-list">
+        <li>Enable Sysmon on Windows endpoints to improve visibility into file and registry activity.</li>
+        <li>Enable PowerShell Script Block Logging for command-level investigation.</li>
+        <li>Restrict WinRM and PowerShell Remoting to systems and administrators that require it.</li>
+        <li>Monitor Registry Run Key modifications for suspicious or randomized values.</li>
+        <li>Create detections for known offensive tooling such as Mimikatz, Rubeus, and SharpHound.</li>
+        <li>Apply least privilege to service accounts and closely monitor privileged service-account use.</li>
+        <li>Correlate endpoint events instead of analyzing suspicious artifacts in isolation.</li>
+        <li>Use MITRE ATT&amp;CK to connect technical evidence to adversary behavior and communicate findings consistently.</li>
+      </ul>
+    </section>
+
+    <section class="section-card" id="skills">
+      <h2 class="section-title"><i class="fa-solid fa-toolbox"></i> Skills Demonstrated</h2>
+      <div class="skill-tags">
+        <span class="skill-tag">Elastic SIEM</span><span class="skill-tag">KQL</span>
+        <span class="skill-tag">Sysmon</span><span class="skill-tag">Windows Event Logs</span>
+        <span class="skill-tag">PowerShell Logging</span><span class="skill-tag">Threat Hunting</span>
+        <span class="skill-tag">Incident Response</span><span class="skill-tag">MITRE ATT&amp;CK</span>
+        <span class="skill-tag">IOC Analysis</span><span class="skill-tag">Lateral Movement</span>
+        <span class="skill-tag">Persistence Analysis</span><span class="skill-tag">Security Documentation</span>
+      </div>
+    </section>
+
+    <section class="section-card" id="conclusion">
+      <h2 class="section-title"><i class="fa-solid fa-clipboard-check"></i> Analyst Conclusion</h2>
+      <div class="verdict">
+        <strong>Threat intelligence validated.</strong>
+        Evidence showed that Stuxbot staged offensive tools in <code class="inline">C:\Users\Public</code>, established
+        persistence through Registry Run Keys, and used PowerShell Remoting to move laterally toward the Domain
+        Controller. The activity aligned with MITRE ATT&amp;CK techniques <strong>T1570</strong>,
+        <strong>T1547.001</strong>, and <strong>T1021.006</strong>.
+      </div>
+      <p style="margin-top:15px">
+        The most important lesson from this investigation was that effective threat hunting requires correlation.
+        A file creation event, a registry modification, or a PowerShell command can each appear limited on its own.
+        When connected by account context, timing, paths, and attacker objectives, they reveal a much clearer picture
+        of adversary behavior.
+      </p>
+    </section>
+
+    <section class="section-card" id="acknowledgements">
+      <h2 class="section-title"><i class="fa-solid fa-award"></i> Acknowledgements</h2>
+      <p>This investigation was completed using training and lab material from <strong>Hack The Box Academy</strong>, with supporting frameworks and telemetry from <strong>MITRE ATT&amp;CK</strong>, <strong>Elastic Stack</strong>, and <strong>Microsoft Sysmon</strong>.</p>
+    </section>
+
   </main>
 
-  <footer>© 2026 Ali Abdelghani — Cybersecurity Project Case Study</footer>
+  <aside class="sidebar">
+    <div class="side-card">
+      <h3><i class="fa-solid fa-list"></i> Case Study</h3>
+      <nav class="toc">
+        <a href="#executive-summary">Executive Summary</a>
+        <a href="#project-story">Why / What / Learned</a>
+        <a href="#environment">Lab Environment</a>
+        <a href="#mitre">MITRE Mapping</a>
+        <a href="#hunt1">Hunt 1 — Tool Transfer</a>
+        <a href="#hunt2">Hunt 2 — Run Keys</a>
+        <a href="#hunt3">Hunt 3 — PS Remoting</a>
+        <a href="#attack-chain">Attack Chain</a>
+        <a href="#iocs">IOCs</a>
+        <a href="#response">Incident Response</a>
+        <a href="#lessons">Lessons Learned</a>
+        <a href="#skills">Skills Demonstrated</a>
+        <a href="#conclusion">Conclusion</a>
+      </nav>
+    </div>
+
+    <div class="side-card">
+      <h3><i class="fa-solid fa-magnifying-glass"></i> Investigation Focus</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Threat Hunting</span>
+        <span class="skill-tag">Elastic</span>
+        <span class="skill-tag">KQL</span>
+        <span class="skill-tag">Sysmon</span>
+        <span class="skill-tag">PowerShell</span>
+        <span class="skill-tag">MITRE</span>
+      </div>
+    </div>
+
+    <div class="side-card">
+      <h3><i class="fa-solid fa-circle-check"></i> Final Status</h3>
+      <div class="verdict">
+        <strong>Completed</strong><br>
+        All three intelligence reports were validated with supporting telemetry.
+      </div>
+    </div>
+  </aside>
+</div>
+
+<footer>© 2026 Ali Abdelghani — Threat Hunting Case Study</footer>
+
 </body>
 </html>
