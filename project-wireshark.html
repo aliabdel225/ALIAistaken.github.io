@@ -533,6 +533,8 @@
         <p>In this lab, I simulated a TCP SYN scan using Nmap from an attacker machine to enumerate open ports on a victim system. I captured and analyzed the network traffic using Wireshark to identify reconnaissance behavior, extract indicators of compromise, and document findings in a SOC-style incident report. This project demonstrates my ability to detect early-stage attacks and apply Blue Team analysis techniques.</p>
       </section>
 
+      <section class="section-card"><h2 class="section-title"><i class="fa-solid fa-user-shield"></i> Why I Built It, What I Did &amp; What I Learned</h2><div class="split-grid"><div class="mini-panel"><h3>Why I Built It</h3><p>I built this project to understand how network reconnaissance appears at the packet level and to practice evidence-based SOC investigation.</p></div><div class="mini-panel"><h3>What I Did</h3><p>I launched an Nmap TCP SYN scan from <strong>10.0.2.15</strong> against <strong>10.0.2.3</strong>, captured the traffic in Wireshark, analyzed TCP flags and port activity, mapped the behavior to MITRE ATT&amp;CK, and documented a SOC-style response.</p></div></div><div class="mini-panel" style="margin-top:14px"><h3>What I Learned</h3><p>I learned how SYN, SYN/ACK, RST and RST/ACK behavior, repeated port probes, and incomplete handshakes reveal reconnaissance; how Wireshark filters reduce packet noise; and how to turn raw evidence into an analyst conclusion, severity assessment, and response recommendation.</p></div></section>
+
       <section class="section-card">
         <h2 class="section-title"><i class="fa-solid fa-network-wired"></i> Lab Architecture</h2>
         <div class="architecture">
