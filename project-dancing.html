@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Dancing Windows SMB lab assessment: Nmap service discovery, share enumeration, evidence-backed access finding, and defensive recommendations." />
+  <meta name="theme-color" content="#0d0d0d" />
+  <title>Dancing — Windows SMB Share Assessment | Ali Abdelghani</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { color-scheme:dark; --bg:#0d0d0d; --panel:#171717; --line:#303030; --text:#f5f5f5; --muted:#b0b0b0; --red:#ef4444; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:radial-gradient(circle at 85% 0%,rgba(220,38,38,.12),transparent 30rem),var(--bg); color:var(--text); font:16px/1.68 Inter,system-ui,sans-serif; }
+    a { color:var(--red); }
+    a:focus-visible { outline:3px solid var(--red); outline-offset:3px; }
+    .wrap { width:min(calc(100% - 36px),1050px); margin:auto; }
+    header { border-bottom:1px solid var(--line); background:#090909; }
+    header .wrap { min-height:70px; display:flex; align-items:center; justify-content:space-between; gap:18px; }
+    .brand { color:#fff; text-decoration:none; font:700 1rem "Space Grotesk",sans-serif; letter-spacing:.04em; }
+    .back { color:#eee; text-decoration:none; border:1px solid #444; border-radius:50px; padding:8px 15px; font-size:.83rem; font-weight:700; }
+    .back:hover { color:var(--red); border-color:var(--red); }
+    .hero { padding:72px 0 42px; }
+    .eyebrow { color:var(--red); font-size:.76rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
+    h1,h2,h3 { font-family:"Space Grotesk",sans-serif; line-height:1.2; }
+    h1 { max-width:900px; font-size:clamp(2.4rem,7vw,4.8rem); letter-spacing:-.05em; margin:12px 0 20px; }
+    h2 { margin:0 0 16px; font-size:1.65rem; }
+    h3 { margin:24px 0 8px; font-size:1.15rem; }
+    p { margin:0 0 16px; }
+    .lead { max-width:800px; color:#d1d1d1; font-size:1.1rem; }
+    .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
+    .chips span { padding:6px 11px; background:#202020; border:1px solid #393939; border-radius:30px; font-size:.75rem; font-weight:700; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:0 0 32px; }
+    .metric,.section { background:var(--panel); border:1px solid var(--line); border-radius:18px; }
+    .metric { padding:20px; }
+    .metric strong { display:block; color:#fff; font-size:1.18rem; }
+    .metric span { display:block; color:var(--muted); font-size:.78rem; text-transform:uppercase; letter-spacing:.07em; }
+    .section { padding:clamp(20px,4vw,38px); margin:18px 0; }
+    .section > p,li { color:#d2d2d2; }
+    ol,ul { padding-left:22px; }
+    li { margin-bottom:9px; }
+    .step { padding:22px 0; border-top:1px solid var(--line); }
+    .step:first-of-type { border-top:0; padding-top:0; }
+    .step:last-child { padding-bottom:0; }
+    pre { overflow:auto; background:#090909; border:1px solid #333; border-radius:10px; padding:15px; color:#d7f2de; font-size:.85rem; }
+    code { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; }
+    p code,li code,td code { color:#f5b5b5; }
+    figure { margin:18px 0 4px; }
+    figure img { display:block; width:100%; height:auto; border:1px solid #444; border-radius:10px; background:#000; }
+    figcaption { color:var(--muted); font-size:.82rem; margin-top:8px; }
+    table { width:100%; border-collapse:collapse; margin:15px 0 22px; font-size:.9rem; }
+    th,td { padding:10px 12px; border-bottom:1px solid #383838; text-align:left; vertical-align:top; }
+    th { color:#fff; background:#222; }
+    .table-scroll { overflow-x:auto; }
+    .note { border-left:3px solid var(--red); padding:14px 18px; background:#221617; color:#e9d8d8; border-radius:0 10px 10px 0; }
+    .button { display:inline-block; text-decoration:none; color:#fff; background:#b91c1c; border-radius:10px; padding:11px 17px; font-weight:800; }
+    footer { color:#999; text-align:center; padding:42px 0 32px; font-size:.82rem; }
+    @media(max-width:650px) { .grid { grid-template-columns:1fr; } header .wrap { min-height:62px; } .brand { font-size:.82rem; } .back { font-size:.75rem; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="brand" href="index.html">ALI ABDELGHANI</a>
+      <a class="back" href="projects.html">← Back to Projects</a>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero">
+      <span class="eyebrow">Network Security · Hack The Box Lab</span>
+      <h1>Dancing — Windows SMB Share Assessment</h1>
+      <p class="lead">I traced a Windows host from service discovery to an SMB share that allowed directory browsing and file download without a supplied password. Every conclusion below is tied to the observed terminal output.</p>
+      <div class="chips"><span>Nmap</span><span>smbclient</span><span>SMB</span><span>Windows</span><span>Access Control</span></div>
+    </section>
+    <div class="grid" aria-label="Project summary">
+      <div class="metric"><span>Target</span><strong>10.129.1.12</strong></div>
+      <div class="metric"><span>Observed duration</span><strong>15 min 58 sec</strong></div>
+      <div class="metric"><span>Result</span><strong>Flag file located</strong></div>
+    </div>
+    <section class="section">
+      <h2>Scope and timing</h2>
+      <p>This is an authorized training machine named Dancing. The documented window runs from the first connectivity screenshot at 12:01:28 to the directory listing of <code>flag.txt</code> at 12:17:26 EDT on September 25, 2026. It measures discovery through finding the filename; the screenshots do not show flag retrieval or submission.</p>
+      <p class="note">The target is a lab IP. No flag value, credentials, or contents of the downloaded notes are published here.</p>
+    </section>
+    <section class="section">
+      <h2>Investigation</h2>
+      <div class="step">
+        <h3>1. Reachability and service discovery</h3>
+        <pre><code>ping -c 4 10.129.1.12
+nmap -sV 10.129.1.12 -vv</code></pre>
+        <p>All four ping requests received a reply. Nmap identified ports 135, 139, 445, and 5985 as open. SMB on 445 gave me a concrete next step: test whether any file shares were visible or accessible.</p>
+        <div class="table-scroll"><table><thead><tr><th>Port</th><th>Service</th><th>Meaning</th></tr></thead><tbody>
+          <tr><td>135</td><td>Windows RPC</td><td>Endpoint mapping</td></tr>
+          <tr><td>139</td><td>NetBIOS session</td><td>Windows sharing transport</td></tr>
+          <tr><td>445</td><td>Microsoft-DS / SMB</td><td>Direct file sharing</td></tr>
+          <tr><td>5985</td><td>Microsoft HTTPAPI</td><td>Common WinRM HTTP transport; not necessarily a website</td></tr>
+        </tbody></table></div>
+        <figure><img src="dancing/evidence/service-scan.png" alt="Nmap scan showing TCP ports 135, 139, 445, and 5985 open" loading="lazy"><figcaption>Service discovery: an open port points to a service worth investigating, not necessarily a vulnerability.</figcaption></figure>
+      </div>
+      <div class="step">
+        <h3>2. SMB checks and their limits</h3>
+        <pre><code>nmap -sV -p445 10.129.1.12 --script=vuln -vv
+nmap --script smb-vuln* -p 445,139 10.129.1.12 -vv</code></pre>
+        <p>SMB signing was reported as enabled but not required. Some vulnerability script probes failed to connect or negotiate; I did not interpret an incomplete check as proof that a vulnerability was absent. Signing was not used as an access path in this lab.</p>
+        <figure><img src="dancing/evidence/smb-security.png" alt="Nmap SMB security mode and script output" loading="lazy"><figcaption>The security-mode result and the limitations of the script checks.</figcaption></figure>
+      </div>
+      <div class="step">
+        <h3>3. Share listing versus real access</h3>
+        <pre><code>smbclient -L //10.129.1.12//
+smbclient //10.129.1.12/WorkShares
+# Empty response at the password prompt; then use dir</code></pre>
+        <p>The share list included <code>ADMIN$</code>, <code>C$</code>, <code>IPC$</code>, and <code>WorkShares</code>. I then entered <code>WorkShares</code> with no password supplied and listed <code>Amy.J</code> and <code>James.P</code>. Seeing an administrative share name does not prove access to its contents. A later SMB1 workgroup lookup error did not undo the earlier successful share listing.</p>
+        <figure><img src="dancing/evidence/shares.png" alt="smbclient lists WorkShares alongside administrative shares" loading="lazy"><figcaption>The named shares were visible; access to WorkShares was tested separately.</figcaption></figure>
+        <figure><img src="dancing/evidence/workshares.png" alt="WorkShares directory showing Amy.J and James.P" loading="lazy"><figcaption>A successful directory listing demonstrates effective share access.</figcaption></figure>
+      </div>
+      <div class="step">
+        <h3>4. File access and the flag location</h3>
+        <pre><code>cd Amy.J
+dir
+get worknotes.txt
+cd ..
+cd James.P
+dir</code></pre>
+        <p><code>worknotes.txt</code> was listed and downloaded (94 bytes). A later listing in <code>James.P</code> showed <code>flag.txt</code> (32 bytes). The intermediate <code>cd ..</code> is the navigation step between folders; it is not independently shown in the screenshots. The flag's filename is the last confirmed result.</p>
+        <figure><img src="dancing/evidence/worknotes-download.png" alt="Successful SMB download of worknotes.txt" loading="lazy"><figcaption>File download provides stronger proof of readable content than a filename alone.</figcaption></figure>
+        <figure><img src="dancing/evidence/flag-location.png" alt="James.P directory listing with flag.txt" loading="lazy"><figcaption>The flag file was located; the evidence does not show it read or submitted.</figcaption></figure>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Finding and defensive response</h2>
+      <p><strong>Observed exposure:</strong> <code>WorkShares</code> permitted browsing and at least one file download after a connection with an empty password response. The server-side identity mapped to that session is unknown. This is an effective permissions issue; no remote code execution or access to the administrative shares was demonstrated.</p>
+      <ul>
+        <li>Require named accounts and remove unintended guest access to internal shares.</li>
+        <li>Review both SMB share permissions and NTFS permissions for each folder.</li>
+        <li>Restrict SMB reachability to trusted network segments and authorized clients.</li>
+        <li>Audit file access and retest using low-privilege and no-password sessions.</li>
+        <li>Assess requiring SMB signing separately from the share permission finding.</li>
+      </ul>
+    </section>
+    <section class="section">
+      <h2>What I learned</h2>
+      <p>Enumeration becomes convincing when each step makes a stronger claim: host reachable → SMB port open → share named → directory browsable → file downloadable. A password prompt followed by an empty response establishes no password was supplied, while the server's actual guest or anonymous mapping needs separate confirmation. A file listed in a directory is not the same evidence as a file read.</p>
+      <a class="button" href="https://github.com/aliabdel225/ALIAistaken.github.io/blob/main/dancing/README.md">Read the full command and evidence log on GitHub</a>
+    </section>
+  </main>
+  <footer>© 2026 Ali Abdelghani — Cybersecurity Portfolio</footer>
+</body>
+</html>
