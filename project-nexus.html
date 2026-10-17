@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Independent Hack The Box Nexus Linux assessment: web discovery, credential exposure, CRM access, SSH, and privilege escalation through a scheduled Gitea template synchronization workflow." />
+  <meta name="theme-color" content="#0d0d0d" />
+  <title>Nexus — Linux Penetration Test | Ali Abdelghani</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { color-scheme:dark; --bg:#0d0d0d; --panel:#171717; --line:#303030; --text:#f5f5f5; --muted:#b0b0b0; --red:#ef4444; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:radial-gradient(circle at 85% 0%,rgba(220,38,38,.12),transparent 30rem),var(--bg); color:var(--text); font:16px/1.68 Inter,system-ui,sans-serif; }
+    a { color:var(--red); }
+    a:focus-visible { outline:3px solid var(--red); outline-offset:3px; }
+    .wrap { width:min(calc(100% - 36px),1050px); margin:auto; }
+    header { border-bottom:1px solid var(--line); background:#090909; }
+    header .wrap { min-height:70px; display:flex; align-items:center; justify-content:space-between; gap:18px; }
+    .brand { color:#fff; text-decoration:none; font:700 1rem "Space Grotesk",sans-serif; letter-spacing:.04em; }
+    .back { color:#eee; text-decoration:none; border:1px solid #444; border-radius:50px; padding:8px 15px; font-size:.83rem; font-weight:700; }
+    .back:hover { color:var(--red); border-color:var(--red); }
+    .hero { padding:72px 0 42px; }
+    .eyebrow { color:var(--red); font-size:.76rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
+    h1,h2,h3 { font-family:"Space Grotesk",sans-serif; line-height:1.2; }
+    h1 { max-width:900px; font-size:clamp(2.4rem,7vw,4.8rem); letter-spacing:-.05em; margin:12px 0 20px; }
+    h2 { margin:0 0 16px; font-size:1.65rem; }
+    h3 { margin:20px 0 8px; font-size:1.15rem; }
+    p { margin:0 0 16px; }
+    .lead { max-width:830px; color:#d1d1d1; font-size:1.1rem; }
+    .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
+    .chips span { padding:6px 11px; background:#202020; border:1px solid #393939; border-radius:30px; font-size:.75rem; font-weight:700; }
+    .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:0 0 32px; }
+    .metric,.section { background:var(--panel); border:1px solid var(--line); border-radius:18px; }
+    .metric { padding:18px; }
+    .metric strong { display:block; color:#fff; font-size:1.05rem; }
+    .metric span { display:block; color:var(--muted); font-size:.76rem; text-transform:uppercase; letter-spacing:.07em; }
+    .section { padding:clamp(20px,4vw,38px); margin:18px 0; }
+    .section > p,li { color:#d2d2d2; }
+    ol,ul { padding-left:22px; }
+    li { margin-bottom:9px; }
+    .chain { display:flex; flex-wrap:wrap; align-items:center; gap:9px; margin:18px 0 4px; }
+    .chain span { padding:8px 12px; border:1px solid #3b3b3b; border-radius:9px; background:#202020; font-size:.88rem; }
+    .chain b { color:var(--red); }
+    .note { border-left:3px solid var(--red); padding:14px 18px; background:#221617; color:#e9d8d8; border-radius:0 10px 10px 0; }
+    .success { border-left:3px solid #55c98a; padding:14px 18px; background:#142019; color:#e2f3e8; border-radius:0 10px 10px 0; }
+    .table-scroll { overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; margin:15px 0 5px; font-size:.9rem; }
+    th,td { padding:10px 12px; border-bottom:1px solid #383838; text-align:left; vertical-align:top; }
+    th { color:#fff; background:#222; }
+    code { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; color:#f5b5b5; }
+    footer { color:#999; text-align:center; padding:42px 0 32px; font-size:.82rem; }
+    @media(max-width:760px) { .grid { grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:520px) { .grid { grid-template-columns:1fr 1fr; gap:9px; } .metric { padding:13px; } .metric strong { font-size:.93rem; } header .wrap { min-height:62px; } .brand { font-size:.82rem; } .back { font-size:.75rem; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="brand" href="index.html">ALI ABDELGHANI</a>
+      <a class="back" href="projects.html">← Back to Projects</a>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero">
+      <span class="eyebrow">Linux Security · Hack The Box</span>
+      <h1>Nexus — Linux Penetration Test</h1>
+      <p class="lead">An independent assessment tracing an attack path from web and virtual-host discovery to credential-based CRM access, an application shell, SSH as a local user, and root through an unsafe scheduled template synchronization workflow.</p>
+      <div class="chips"><span>Linux</span><span>ffuf / Gobuster</span><span>Burp Suite</span><span>Credential Analysis</span><span>SSH</span><span>systemd</span><span>Gitea</span></div>
+    </section>
+
+    <div class="grid" aria-label="Project summary">
+      <div class="metric"><span>Platform</span><strong>Ubuntu Linux</strong></div>
+      <div class="metric"><span>Difficulty</span><strong>Easy</strong></div>
+      <div class="metric"><span>Initial foothold</span><strong>Krayin CRM</strong></div>
+      <div class="metric"><span>Result</span><strong>User + root</strong></div>
+    </div>
+
+    <section class="section">
+      <h2>Assessment summary</h2>
+      <p>I began with port discovery, followed by web and virtual-host enumeration using ffuf/Gobuster. Reviewing the accessible Gitea instance revealed credentials in repository history. Those credentials provided CRM access. I then used Burp Suite to inspect and manipulate an email-related application request and obtained a reverse shell.</p>
+      <p>From the web shell, I found the application's <code>.env</code> file. Its credentials enabled SSH access as <code>jones</code>, where I continued host enumeration and captured the user flag. For privilege escalation, I inspected systemd timers, found the template synchronization service, and identified unsafe path handling in its custom script. The scheduled service provided a route to a root shell.</p>
+      <div class="chain" aria-label="Attack path"><span>Port discovery</span><b>→</b><span>Web enumeration</span><b>→</b><span>Exposed credentials</span><b>→</b><span>CRM shell</span><b>→</b><span>SSH as jones</span><b>→</b><span>systemd timer</span><b>→</b><span>Root</span></div>
+    </section>
+
+    <section class="section">
+      <h2>Methodology</h2>
+      <h3>1. Port and web discovery</h3>
+      <p>The initial scan identified SSH and HTTP. Web discovery and virtual-host enumeration exposed <code>git.nexus.htb</code> and <code>billing.nexus.htb</code>. The billing host redirected to the Krayin CRM login page.</p>
+      <h3>2. Credential discovery and CRM access</h3>
+      <p>Reviewing Gitea commits revealed database configuration secrets. I tested the recovered credential against the CRM in the authorized lab and gained access. This demonstrated how secrets in source-control history and credential reuse can expose a separate application.</p>
+      <h3>3. Application shell and user flag</h3>
+      <p>I examined the CRM's email functionality with Burp Suite and used a web reverse-shell payload to obtain a <code>www-data</code> shell. Local application configuration exposed credentials that I used to authenticate over SSH as <code>jones</code>. I continued enumeration and retrieved the user flag.</p>
+      <h3>4. Root through the scheduled synchronization service</h3>
+      <p>Systemd timer enumeration revealed a timer that triggers Gitea template synchronization. I reviewed its service configuration and the custom Python script. The script combined a staging directory with repository-controlled paths and wrote files without sufficiently constraining the destination to the staging root. Since the service ran with elevated privileges, this unsafe write behavior enabled escalation to root.</p>
+      <div class="note"><strong>CVE analysis:</strong> I researched CVE-2026-25718 during the investigation because it concerns unsafe path handling in Gitea template generation. My notes identify Gitea 1.26.0, while that advisory lists versions before 1.25.5 as affected. The evidence I recorded points to the separate root-run synchronization script as the direct escalation path; it does not establish that the installed Gitea version was affected by that CVE.</div>
+    </section>
+
+    <section class="section">
+      <h2>Key security findings</h2>
+      <div class="table-scroll"><table><thead><tr><th>Finding</th><th>Security impact</th><th>Recommended control</th></tr></thead><tbody>
+        <tr><td>Secrets committed to repository history</td><td>Credentials remain discoverable in prior commits and may unlock other services.</td><td>Rotate exposed secrets, remove them from history, and use a secrets manager.</td></tr>
+        <tr><td>Credential reuse</td><td>A source-control disclosure enabled access to the CRM.</td><td>Use unique credentials per service and enforce MFA where available.</td></tr>
+        <tr><td>Unsafe email-related workflow</td><td>Request manipulation led to server-side command execution in the lab.</td><td>Validate inputs, avoid shell commands built from user data, and run the app as a least-privileged account.</td></tr>
+        <tr><td>Privileged template synchronization</td><td>Repository-controlled paths influenced file writes made by a privileged service.</td><td>Run as a dedicated unprivileged user; canonicalize paths; reject traversal and symlink escapes; confine writes to staging.</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="section">
+      <h2>Independent solve</h2>
+      <p class="success"><strong>I completed this machine without consulting a walkthrough.</strong> When I got stuck on the root path, I used one HTB guided-mode prompt asking which systemd timer triggered template synchronization. I then enumerated the timers, inspected the matching service and script, researched the behavior, and worked out the escalation myself.</p>
+      <h3>What I took away</h3>
+      <ul>
+        <li>Review repository history when looking for leaked or reused credentials.</li>
+        <li>Validate secrets against the intended service and avoid credential reuse across systems.</li>
+        <li>Use request inspection to understand application behavior, then verify the root cause before assigning a vulnerability class.</li>
+        <li>Inspect systemd timers, service definitions, execution users, and custom scripts during Linux privilege-escalation analysis.</li>
+        <li>Constrain filesystem writes to a verified directory and run scheduled jobs with least privilege.</li>
+      </ul>
+    </section>
+  </main>
+  <footer>© 2026 Ali Abdelghani — Cybersecurity Portfolio</footer>
+</body>
+</html>
