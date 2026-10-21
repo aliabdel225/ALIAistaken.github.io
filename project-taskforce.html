@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Windows SIEM threat hunt investigating a suspicious scheduled task, an unusual executable path, and the earliest observed RDP session in HTB Sherlock Task Force.">
+<meta name="theme-color" content="#0d0d0d">
+<title>Task Force — SIEM Threat Hunt | Ali Abdelghani</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#0d0d0d;--panel:#171717;--line:#303030;--text:#f5f5f5;--muted:#b0b0b0;--red:#ef4444;--mono:ui-monospace,SFMono-Regular,Consolas,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 85% 0%,rgba(220,38,38,.12),transparent 30rem),var(--bg);color:var(--text);font:16px/1.68 Inter,system-ui,sans-serif}
+a{color:var(--red);text-decoration:none}a:focus-visible{outline:3px solid var(--red);outline-offset:3px}.wrap{width:min(calc(100% - 36px),1050px);margin:auto}
+header{border-bottom:1px solid var(--line);background:#090909}header .wrap{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{color:#fff;font:700 1rem "Space Grotesk",sans-serif;letter-spacing:.04em}.back{color:#eee;border:1px solid #444;border-radius:50px;padding:8px 15px;font-size:.83rem;font-weight:700}
+.back:hover{color:var(--red);border-color:var(--red)}.hero{padding:72px 0 42px}.eyebrow{color:var(--red);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+h1,h2,h3{font-family:"Space Grotesk",sans-serif;line-height:1.2}h1{max-width:900px;margin:12px 0 20px;font-size:clamp(2.4rem,7vw,4.8rem);letter-spacing:-.05em}h2{margin:0 0 16px;font-size:1.65rem}
+p{margin:0 0 16px}.lead{max-width:830px;color:#d1d1d1;font-size:1.1rem}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chips span{padding:6px 11px;background:#202020;border:1px solid #393939;border-radius:30px;font-size:.75rem;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0 0 32px}.metric,.section{background:var(--panel);border:1px solid var(--line);border-radius:18px}
+.metric{padding:18px}.metric strong{display:block;color:#fff;font-size:1rem}.metric span{display:block;color:var(--muted);font-size:.76rem;text-transform:uppercase;letter-spacing:.07em}
+.section{padding:clamp(20px,4vw,38px);margin:18px 0}.section>p,li{color:#d2d2d2}ol,ul{padding-left:22px}li{margin-bottom:9px}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin:18px 0 4px}.chain span{padding:8px 12px;border:1px solid #3b3b3b;border-radius:9px;background:#202020;font-size:.88rem}.chain b{color:var(--red)}
+.note{border-left:3px solid var(--red);padding:14px 18px;background:#221617;color:#e9d8d8;border-radius:0 10px 10px 0}.success{border-left:3px solid #55c98a;padding:14px 18px;background:#142019;color:#e2f3e8;border-radius:0 10px 10px 0}
+.table-scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;margin:15px 0 5px;font-size:.9rem}th,td{padding:10px 12px;border-bottom:1px solid #383838;text-align:left;vertical-align:top}th{color:#fff;background:#222}
+code{font-family:var(--mono);color:#f5b5b5;overflow-wrap:anywhere}footer{color:#999;text-align:center;padding:42px 0 32px;font-size:.82rem}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.grid{grid-template-columns:1fr 1fr;gap:9px}.metric{padding:13px}.metric strong{font-size:.9rem}header .wrap{min-height:62px}.brand{font-size:.82rem}.back{font-size:.75rem}}
+@media print{body{background:#fff;color:#14212b}header{background:#fff}.section,.metric{background:#fff;border-color:#ccc}.section>p,li{color:#334550}.hero{background:#fff}.lead{color:#334550}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="index.html">ALI ABDELGHANI</a><a class="back" href="projects.html">← Back to Projects</a></div></header>
+<main class="wrap">
+<section class="hero">
+<span class="eyebrow">Threat Hunting · Hack The Box Sherlock</span>
+<h1>Task Force — Windows SIEM Threat Hunt</h1>
+<p class="lead">I investigated a suspicious scheduled task in the Alliance environment, pivoted from Task Scheduler records to Windows process-creation events, and reconstructed the earliest observed login using a session identifier and RDP registry telemetry.</p>
+<div class="chips"><span>Elastic SIEM</span><span>Kibana</span><span>KQL</span><span>Windows Event Logs</span><span>PowerShell</span><span>MITRE ATT&amp;CK</span></div>
+</section>
+<div class="grid" aria-label="Project summary">
+<div class="metric"><span>Environment</span><strong>Windows domain</strong></div><div class="metric"><span>SIEM</span><strong>Elastic + Kibana</strong></div><div class="metric"><span>Primary pivot</span><strong>Task → process</strong></div><div class="metric"><span>Origin host</span><strong>kali</strong></div>
+</div>
+<section class="section">
+<h2>Investigation summary</h2>
+<p>The hunt began with a hypothesis that a scheduled task had been disguised as routine administrative activity. I reviewed Task Scheduler Operational events, compared common Windows task names with less frequent entries, and identified the root-level task <code>/SQLConnectvity</code>. Its spelling resembles “SQLConnectivity” but omits an “i,” making it stand out from the expected baseline.</p>
+<p>I pivoted to Windows Security process-creation events (Event ID 4688). Two records showed <code>SQLBackup.exe</code> executing from <code>C:\Users\Public\Pictures\</code> on <code>alliance-central</code>. The filename looks like an ordinary backup utility, while the Public Pictures directory is an unusual location for an executable. This provided a plausible task-to-payload lead despite limited direct Task Scheduler evidence.</p>
+<div class="chain" aria-label="Hunt path"><span>Task Scheduler events</span><b>→</b><span>Unusual task name</span><b>→</b><span>4688 process events</span><b>→</b><span>Suspicious executable path</span><b>→</b><span>RDP session origin</span></div>
+</section>
+<section class="section">
+<h2>Scope and telemetry</h2>
+<p>I worked in the provided Elastic SIEM using the <code>logs-*</code> data view. The initial Task Scheduler search returned 252 records: 10 Event ID 106 records and 242 Event ID 140 records. Most task names were standard Windows maintenance tasks, so I compared the task-name field against that baseline to find the outlier.</p>
+<div class="table-scroll"><table><thead><tr><th>Source</th><th>Use in the hunt</th><th>Relevant fields / IDs</th></tr></thead><tbody>
+<tr><td>Task Scheduler Operational</td><td>Review task registration/update activity and compare task names.</td><td><code>event.code</code> 106 / 140; <code>winlog.event_data.TaskName</code></td></tr>
+<tr><td>Windows Security</td><td>Find executable creation and inspect execution context.</td><td>Event ID 4688; <code>process.executable</code>, host, user and parent-process fields</td></tr>
+<tr><td>PowerShell Operational</td><td>Review script-block activity for SQL connectivity-check behavior.</td><td>Event ID 4104; <code>powershell.file.script_block_text</code></td></tr>
+<tr><td>Sysmon registry telemetry</td><td>Recover the RDP client name when direct logon records were incomplete.</td><td>Event ID 13; <code>TargetObject</code> ending in <code>CLIENTNAME</code></td></tr>
+</tbody></table></div>
+</section>
+<section class="section">
+<h2>Evidence and findings</h2>
+<div class="table-scroll"><table><thead><tr><th>Observation</th><th>Evidence captured</th><th>Assessment</th></tr></thead><tbody>
+<tr><td>Out-of-place scheduled task</td><td><code>/SQLConnectvity</code> on <code>alliance-central</code>; the task record showed SID <code>S-1-5-18</code> (SYSTEM). The exact event date and time are not established in the notes used for this timeline.</td><td>The custom root-level name and spelling are anomalous relative to the Windows task baseline. SYSTEM context increases the potential impact if abused.</td></tr>
+<tr><td>Benign-looking executable in an unusual directory</td><td>Two Event ID 4688 hits for <code>C:\Users\Public\Pictures\SQLBackup.exe</code> on <code>alliance-central</code>, dated June 9, 2026.</td><td>The filename suggests routine SQL administration, but the Public Pictures folder is not a normal software installation path. Validate the file and its execution context.</td></tr>
+<tr><td>SQL connectivity script block</td><td>Event ID 4104 contained <code>Test-NetConnection -ComputerName ALLIANCE-CENTRA -Port 1433</code> and appended output to <code>C:\Logs\sql_connectivity.log</code>.</td><td>Consistent with a benign connectivity-check action; this record alone does not prove the task launched the executable.</td></tr>
+<tr><td>Earliest observed malicious session</td><td>Session correlation placed the earliest matching event at <code>2026-06-09 12:41:09 UTC</code>. Sysmon registry telemetry showed <code>CLIENTNAME = kali</code>.</td><td>Direct logon auditing was incomplete, so I reconstructed the session from process and RDP-related registry telemetry.</td></tr>
+</tbody></table></div>
+
+</section>
+<section class="section">
+<h2>Attack timeline</h2>
+<p>This timeline covers the observed activity from June 2 through June 9, 2026. The June 9 process timestamps are shown as recorded; the timezone was not retained in the notes. The available evidence does not establish a direct task-to-process link.</p>
+<div class="table-scroll"><table><thead><tr><th>Time observed</th><th>Event</th><th>Analyst interpretation</th></tr></thead><tbody>
+<tr><td>June 2, 2026 · time not captured</td><td>First malicious login observed in the environment (date recorded; exact event time and source event are not present in these notes).</td><td>This is the earliest login date identified during the hunt. The incomplete logging prevents a more precise timestamp here.</td></tr>
+<tr><td>June 9, 2026 · 12:41:09</td><td>Earliest process event correlated to the suspicious session: <code>TSTheme.exe</code>.</td><td>Used as the earliest observed session activity because direct successful-logon auditing was incomplete.</td></tr>
+<tr><td>June 9, 2026 · 12:55:13</td><td>Event ID 4688 record for <code>C:\Users\Public\Pictures\SQLBackup.exe</code> on <code>alliance-central</code>.</td><td>The benign-sounding filename and unusual Public Pictures path made the executable suspicious and worth investigating.</td></tr>
+<tr><td>June 9, 2026 · 22:37:53</td><td>Second Event ID 4688 record for <code>C:\Users\Public\Pictures\SQLBackup.exe</code> on <code>alliance-central</code>.</td><td>A second execution record confirms the process ran more than once; it does not by itself establish the scheduled task as its launcher.</td></tr>
+<tr><td>June 9, 2026 · time not captured</td><td>Sysmon registry telemetry showed <code>CLIENTNAME = kali</code>.</td><td>Identified <code>kali</code> as the originating RDP client host; the exact registry-event time was not preserved in the notes.</td></tr>
+</tbody></table></div>
+<div class="note"><strong>Timeline caveat:</strong> The dates and times shown here run from June 2 through June 9. The task record's precise timestamp is not established in the notes, and incomplete scheduler logging prevents proving that <code>/SQLConnectvity</code> launched <code>SQLBackup.exe</code>.</div>
+</section>
+
+<section class="section">
+<h2>Hunt workflow</h2>
+<ol>
+<li>Reviewed event-code distributions and narrowed the dataset to Task Scheduler Operational events.</li>
+<li>Compared frequent built-in task names with less common names in <code>winlog.event_data.TaskName</code>, identifying <code>/SQLConnectvity</code>.</li>
+<li>Pivoted to Event ID 4688 on <code>alliance-central</code> and reviewed the two process records for <code>SQLBackup.exe</code>.</li>
+<li>Checked the Event ID 4104 script block for the SQL connectivity-check command, without treating it as proof of the payload link.</li>
+<li>Because direct logon records were incomplete, correlated process events by logon ID and checked Sysmon registry telemetry for the RDP <code>CLIENTNAME</code>. The originating client was <code>kali</code>.</li>
+</ol>
+<p>Example Elastic/KQL pivots used during the investigation:</p>
+<ul>
+<li><code>event.code: "140"</code> — review task-update events and task names.</li>
+<li><code>event.code: "4688" and host.name: "alliance-central"</code> — review process creation on the SQL host.</li>
+<li><code>message: "0x7b9417"</code> — correlate records associated with the session logon ID, then sort by <code>@timestamp</code> ascending.</li>
+<li><code>event.code: "13" and host.name: "alliance-ws07" and winlog.event_data.TargetObject: *CLIENTNAME*</code> — inspect the RDP client-name registry event.</li>
+</ul>
+</section>
+<section class="section">
+<h2>MITRE ATT&amp;CK mapping</h2>
+<div class="table-scroll"><table><thead><tr><th>Technique</th><th>Relevance to the hunt</th></tr></thead><tbody>
+<tr><td>T1053.005 — Scheduled Task/Job: Scheduled Task</td><td>The investigation centered on a suspicious Windows scheduled task.</td></tr>
+<tr><td>T1036 — Masquerading</td><td>The SQL-themed task and executable names appear routine, while the executable’s directory is unusual.</td></tr>
+<tr><td>T1021.001 — Remote Services: Remote Desktop Protocol</td><td>RDP-related session artifacts were used to identify the originating client host.</td></tr>
+</tbody></table></div>
+</section>
+<section class="section">
+<h2>Recommended defensive actions</h2>
+<ul>
+<li>Preserve full task XML and audit registration, update, and execution events before logs rotate.</li>
+<li>Collect the executable for hash, signature, and static analysis; quarantine it if it is not approved.</li>
+<li>Review the task action, trigger, principal, ACLs, creator, and parent process against an approved baseline.</li>
+<li>Investigate the account and RDP session associated with the earliest activity; reset credentials and revoke sessions if compromise is confirmed.</li>
+<li>Improve retention and auditing for Task Scheduler, Security process creation, PowerShell script blocks, and Sysmon registry events.</li>
+</ul>
+<p class="success"><strong>Analyst takeaway:</strong> A common-looking name is not enough to establish legitimacy. Validate the executable path, execution context, parent process, and timeline, then state clearly where missing telemetry limits attribution.</p>
+</section>
+</main>
+<footer>© 2026 Ali Abdelghani — Cybersecurity Portfolio</footer>
+</body>
+</html>
