@@ -582,7 +582,15 @@
       <p>This investigation was completed using training and lab material from <strong>Hack The Box Academy</strong>, with supporting frameworks and telemetry from <strong>MITRE ATT&amp;CK</strong>, <strong>Elastic Stack</strong>, and <strong>Microsoft Sysmon</strong>.</p>
     </section>
 
-  </main>
+  <section class="deep-explanation" style="margin:2rem auto;padding:1.5rem;border:1px solid #343434;border-radius:14px;background:#151515;color:#f5f5f5">
+<h2 style="color:#fff;margin-top:0">How the hunt moves from query to conclusion</h2>
+<ul>
+<li><strong>File creation narrows the search.</strong> Sysmon Event ID 11 records file creation. Filtering on the target directory reduces unrelated events; the analyst then inspects the created filename, user, host, and surrounding process activity before deciding whether it is suspicious.</li>
+<li><strong>Registry changes need context.</strong> Sysmon Event ID 13 records registry value changes. A Run-key match identifies a persistence-relevant location, but the value, data, process, account, and timing determine whether the change is unexpected.</li>
+<li><strong>Remote PowerShell is a behavior to verify, not an attribution.</strong> Script-block and process telemetry can show remote execution activity and its context. Correlating it with the source host, destination, account, and related events helps determine whether it fits the reported lateral-movement hypothesis.</li>
+<li><strong>ATT&amp;CK describes the observed behavior.</strong> Technique mapping gives defenders a shared vocabulary for the activity found in the logs. It does not identify an actor or prove that every phase of an attack chain occurred.</li>
+</ul></section>
+</main>
 
   <aside class="sidebar">
     <div class="side-card">
