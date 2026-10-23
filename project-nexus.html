@@ -120,7 +120,15 @@
         <li>Constrain filesystem writes to a verified directory and run scheduled jobs with least privilege.</li>
       </ul>
     </section>
-  </main>
+  <section class="deep-explanation" style="margin:2rem auto;padding:1.5rem;border:1px solid #343434;border-radius:14px;background:#151515;color:#f5f5f5">
+<h2 style="color:#fff;margin-top:0">How to read the evidence</h2>
+<ul>
+<li><strong>Discovery creates leads.</strong> An open SSH or web port tells an analyst which services to inspect. Virtual-host enumeration then checks whether the same web server presents different applications for different hostnames; finding a login page is a lead, not a vulnerability by itself.</li>
+<li><strong>A secret in repository history remains exposed.</strong> Deleting a secret from the latest file does not remove older commits. Testing the recovered credential against the CRM showed the practical impact of credential reuse within this authorized lab.</li>
+<li><strong>Keep application access and operating-system access distinct.</strong> The CRM shell ran as the web-service account. Credentials in local application configuration then enabled a separate SSH session as <code>jones</code>; that transition is evidence of credential exposure, not proof that the web account already had the user's privileges.</li>
+<li><strong>Privilege escalation came from the scheduled service's trust boundary.</strong> A systemd timer starts a service on a schedule. Reviewing the service identity and its Python script showed that repository-controlled paths influenced writes performed by a privileged service. A privileged process must canonicalize and confine destinations to its intended directory.</li>
+</ul></section>
+</main>
   <footer>© 2026 Ali Abdelghani — Cybersecurity Portfolio</footer>
 </body>
 </html>
