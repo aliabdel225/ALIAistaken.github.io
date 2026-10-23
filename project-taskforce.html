@@ -117,6 +117,14 @@ code{font-family:var(--mono);color:#f5b5b5;overflow-wrap:anywhere}footer{color:#
 </ul>
 <p class="success"><strong>Analyst takeaway:</strong> A common-looking name is not enough to establish legitimacy. Validate the executable path, execution context, parent process, and timeline, then state clearly where missing telemetry limits attribution.</p>
 </section>
+<section class="deep-explanation" style="margin:2rem auto;padding:1.5rem;border:1px solid #343434;border-radius:14px;background:#151515;color:#f5f5f5">
+<h2 style="color:#fff;margin-top:0">What the event sources contribute</h2>
+<ul>
+<li><strong>Task Scheduler events describe task changes.</strong> Event ID 106 records task registration and Event ID 140 records an update. They help locate unusual task names and changes, but the task's action, principal, trigger, and full definition determine what it would run.</li>
+<li><strong>Process creation records show execution.</strong> Security Event ID 4688 supports that a process started, with fields such as executable path, account, and parent process helping explain its context. A suspicious path is a reason to investigate the binary, not proof of its purpose.</li>
+<li><strong>Script and registry events add separate context.</strong> PowerShell Event ID 4104 can record script-block content; Sysmon Event ID 13 can record registry value changes such as an RDP client-name artifact. These sources help reconstruct activity when direct logon auditing is incomplete.</li>
+<li><strong>Correlation is a reasoning step.</strong> Matching host, account, time, and session identifiers can connect records into a timeline. A task event and a process event are still separate observations unless task-action or parent-process evidence links them.</li>
+</ul></section>
 </main>
 <footer>© 2026 Ali Abdelghani — Cybersecurity Portfolio</footer>
 </body>
