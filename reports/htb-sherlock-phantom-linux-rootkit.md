@@ -112,6 +112,15 @@ This repeated pattern is consistent with remote interactive shells. The tcp4_seq
 
 Address notes: hidden-module and tracepoint output reported the module structure at 0xffffc0b42640; the ftrace output reported module address 0xffffc0b35000. These are recorded as reported by their respective plugin fields and should not be assumed to be the same address type.
 
+## How to interpret the evidence
+
+The memory image contains several independent views of kernel and process state. Their value comes from comparison and correlation, not from treating one plugin result as a complete explanation.
+
+- **Module cross-view:** a scan can find module structures that ordinary kernel lists no longer expose. Finding `singularity` in memory but not in procfs or sysfs is consistent with a hidden or unlinked module. The discrepancy is a strong lead; the kernel log, tracepoint, and ftrace results provide additional corroboration.
+- **Tracepoint and ftrace results:** these records show that the module registered process-creation tracing and that many hook entries shared one callback address. They identify interception points and a broad potential capability. Because module extraction failed, they do not prove the exact logic executed by every hook.
+- **Process and socket correlation:** when file descriptors 0, 1, and 2 for a shell point to the same established TCP socket, the process may be using that socket for interactive input and output. This pattern supports a remote-shell interpretation, but does not by itself identify the remote operator or prove what commands were issued.
+- **Timeline correlation:** kernel-relative time, wall-clock timestamps, process IDs, and socket records come from different artifacts. I compare them to build a sequence, while retaining the timestamp source and its limits so readers do not mistake correlation for direct causation.
+
 ## Conclusion
 
 The strongest evidence is the combined presence of a concealed unsigned kernel module, its process-creation tracepoint hook, 82 ftrace hooks sharing a module callback, and three bash processes whose standard streams were connected to the same external endpoint on port 8081. The hooked TCP listing functions are consistent with an effort to impair visibility into network connections.
