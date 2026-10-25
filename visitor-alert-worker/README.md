@@ -19,9 +19,10 @@ cd visitor-alert-worker
 npx wrangler@latest login
 npx wrangler@latest deploy
 npx wrangler@latest secret put RESEND_API_KEY
+npx wrangler@latest secret put ALERT_TO
 ```
 
-When prompted for the secret value, paste the Resend API key in the terminal. Do not paste it into GitHub or chat. Wrangler deploys the secret to Cloudflare.
+When prompted, enter the Resend API key for the first secret and the destination email address for the second. Do not paste either secret into GitHub or chat. Wrangler deploys them privately to Cloudflare.
 
 The initial deployment prints a URL similar to `https://portfolio-visitor-alert.<your-subdomain>.workers.dev`.
 
