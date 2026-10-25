@@ -1,41 +1,53 @@
 # Portfolio visitor email alerts
 
-This Cloudflare Worker sends one email when a browser session first opens a portfolio page. It sends the page path, page title, and UTC time. It does not include or store the visitor's IP address. A Cloudflare rate limit allows up to 10 alert requests per IP per minute.
+This Worker sends one alert the first time a browser session opens a portfolio page. The email contains the page path, page title, and UTC time. It does not include the visitor's IP address. A Cloudflare rate limit allows up to 10 requests per IP per minute.
 
 ## Requirements
 
-- A Cloudflare account
-- A Resend account registered with the same email used in `ALERT_TO`
-- The Resend API key stored as a Cloudflare Worker secret
+- A Cloudflare Worker named `portfolio-visitor-alert` already created in your account.
+- A Cloudflare API token with Editor access scoped to that Worker.
+- A Resend API key with sending access.
+- The recipient email stored as the `ALERT_TO` Worker secret. For Resend's test sender, this must match the email registered to your Resend account.
 
-Resend's `onboarding@resend.dev` test sender can only deliver to the email registered to the Resend account. The repository is public, so never put the API key in source code or commit it.
+The portfolio repository is public. Never put either API key or the recipient address in source code or commit them.
 
-## Deploy
+## Deploy from Linux
 
-From the portfolio repository's root directory:
+From the repository root:
 
 ```bash
 cd visitor-alert-worker
-npx wrangler@latest login
-npx wrangler@latest deploy
-npx wrangler@latest secret put RESEND_API_KEY
-npx wrangler@latest secret put ALERT_TO
 ```
 
-When prompted, enter the Resend API key for the first secret and the destination email address for the second. Do not paste either secret into GitHub or chat. Wrangler deploys them privately to Cloudflare.
+Create a Cloudflare user API token in **My Profile > API Tokens**. Give it **Workers Editor** access scoped to the existing `portfolio-visitor-alert` Worker only. Cloudflare's `wrangler login` OAuth flow asks for broad permissions; this scoped token avoids access to unrelated account services.
 
-The initial deployment prints a URL similar to `https://portfolio-visitor-alert.<your-subdomain>.workers.dev`.
+Get your Cloudflare Account ID from the account overview. In the terminal, enter the token without echoing it, set the account ID, then deploy:
+
+```bash
+read -rsp "Cloudflare API token: " CLOUDFLARE_API_TOKEN; printf '\n'
+export CLOUDFLARE_API_TOKEN
+export CLOUDFLARE_ACCOUNT_ID="PASTE_YOUR_ACCOUNT_ID"
+npx wrangler@latest deploy
+```
+
+Wrangler will print the Worker URL, similar to `https://portfolio-visitor-alert.<your-subdomain>.workers.dev`.
+
+Add the two private Worker secrets. Wrangler prompts for their values:
+
+```bash
+npx wrangler@latest secret put RESEND_API_KEY
+npx wrangler@latest secret put ALERT_TO
+unset CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID
+```
+
+Enter the Resend API key for the first secret and the email registered to Resend for the second. Do not share either value in chat or GitHub.
 
 ## Connect the portfolio
 
-1. Open `visitor-alert-config.js` in the repository.
-2. Set `window.PORTFOLIO_VISITOR_ALERT_ENDPOINT` to the Worker URL.
-3. Commit and push that change to GitHub.
-4. Open the live portfolio in a private window and check that the alert arrives.
+Send the Worker URL to me. I will place it in `visitor-alert-config.js` and update the portfolio.
 
-The Worker allows requests only from `https://aliabdel225.github.io`. If the live portfolio uses a different domain, update `ALLOWED_ORIGIN` in `wrangler.jsonc` to that site's origin (scheme and hostname only), then deploy again.
+The Worker currently accepts requests only from `https://aliabdel225.github.io`. If your site uses another domain, update `ALLOWED_ORIGIN` in `wrangler.jsonc` to the site's origin (scheme and hostname only), then deploy again.
 
 ## Disable alerts
 
-Clear `window.PORTFOLIO_VISITOR_ALERT_ENDPOINT` in `visitor-alert-config.js`, or delete/disable the Worker in Cloudflare.
-
+Clear `window.PORTFOLIO_VISITOR_ALERT_ENDPOINT` in `visitor-alert-config.js`, or disable the Worker in Cloudflare.
