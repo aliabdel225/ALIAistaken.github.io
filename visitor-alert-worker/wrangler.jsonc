@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "portfolio-visitor-alert",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-25",
+  "vars": {
+    "ALLOWED_ORIGIN": "https://aliabdel225.github.io"
+  },
+  "ratelimits": [
+    {
+      "name": "RATE_LIMITER",
+      "namespace_id": "20261025",
+      "simple": {
+        "limit": 10,
+        "period": 60
+      }
+    }
+  ]
+}
