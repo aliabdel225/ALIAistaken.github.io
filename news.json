@@ -1,0 +1,45 @@
+{
+  "updated_at": "2026-10-27T17:40:00Z",
+  "articles": [
+    {
+      "title": "CISA confirms PHP2Shell exploitation; federal remediation deadline October 29",
+      "category": "Critical vulnerabilities",
+      "source": "BleepingComputer / CISA reporting",
+      "date": "Oct 27, 2026",
+      "url": "https://www.bleepingcomputer.com/news/security/cisa-confirms-php2shell-vulnerabilities-now-exploited-in-attacks/",
+      "summary": "CVE-2026-109618 and CVE-2026-109619 were added to CISA's Known Exploited Vulnerabilities catalog on October 26. Successful remote command execution was observed against intentionally vulnerable Apache mod_php honeypots, but those results do not establish exploit reliability across all PHP configurations. Defenders should identify exposed PHP deployments, apply vendor fixes, and correlate unusual web requests with crashes and unexpected processes."
+    },
+    {
+      "title": "UNM Health System cyber incident disrupts emergency care and dozens of clinics",
+      "category": "Incident response",
+      "source": "Associated Press",
+      "date": "Oct 27, 2026",
+      "url": "https://apnews.com/article/7a3593f8a3cee4ca895774ab1574919f",
+      "summary": "A cybersecurity incident on October 26 forced ambulance diversions and canceled appointments at more than 30 clinics. The system operates New Mexico's only Level 1 trauma center. Operations began gradually resuming later Monday. Investigators have not established the attack's root cause or confirmed claims of stolen data. The incident highlights the availability and patient-safety impact of cyber disruptions."
+    },
+    {
+      "title": "PHP2Shell honeypots recorded 35 shell executions on October 24",
+      "category": "Offensive security research",
+      "source": "SecurityWeek",
+      "date": "Oct 26, 2026",
+      "url": "https://www.securityweek.com/php2shell-exploitation-moves-from-probes-to-working-shells/",
+      "summary": "Researchers observed a multi-request exploitation chain involving memory exhaustion, information disclosure and command execution against three controlled PHP honeypots. The researcher warned that a favorable single-worker mod_php setup does not establish exploit success in other environments. No second-stage malware download was seen in that study."
+    },
+    {
+      "title": "Arista VeloCloud Orchestrator SQL injection threatens privileged network management",
+      "category": "Network security",
+      "source": "Arista Security Advisory",
+      "date": "Oct 2026",
+      "url": "https://www.arista.com/ko/support/advisories-notices/security-advisory/24838-security-advisory-0199",
+      "summary": "CVE-2026-114625 allows an authenticated account, potentially one with limited rights, to cross an authorization boundary and obtain operator-level privileges on affected on-premises Orchestrator deployments. The vendor reports exploitation. Review fixed versions, limit access to management interfaces, and investigate unexpected operator actions and configuration changes."
+    },
+    {
+      "title": "CISA KEV: PHP2Shell and VeloCloud require priority remediation",
+      "category": "Vulnerability management",
+      "source": "CISA KEV catalog",
+      "date": "Oct 27, 2026",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "summary": "CISA's KEV catalog is a prioritization signal for vulnerabilities with evidence of exploitation. CVE-2026-109618 and CVE-2026-109619 were added October 26, with an October 29 federal deadline; CVE-2026-114625 was added October 23. Inventory affected systems and verify patches and compensating controls."
+    }
+  ]
+}
