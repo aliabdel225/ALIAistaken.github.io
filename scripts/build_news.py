@@ -47,7 +47,7 @@ def main():
  selected=(recent or unique)[:18]
  for s in selected:s.pop('_timestamp',None)
  edition={'updated_at':now.isoformat(),'articles':selected}
- payload=json.dumps(edition,indent=2,ensure_ascii=False)+'\\n'
+ payload=json.dumps(edition,indent=2,ensure_ascii=False)+'\n'
  Path('news.json').write_text(payload,encoding='utf-8')
  date=now.astimezone(ZoneInfo('America/New_York')).date().isoformat()
  archive_dir=Path('news');archive_dir.mkdir(exist_ok=True)
@@ -60,6 +60,6 @@ def main():
  index['issues']=[i for i in index.get('issues',[]) if i.get('date')!=date]
  index['issues'].append({'date':date,'title':title,'summary':summary,'count':len(selected)})
  index['issues'].sort(key=lambda i:i['date'],reverse=True)
- manifest.write_text(json.dumps(index,indent=2,ensure_ascii=False)+'\\n',encoding='utf-8')
+ manifest.write_text(json.dumps(index,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
  print('Published',len(selected),'stories')
 if __name__=='__main__':main()
