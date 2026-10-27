@@ -1,45 +1,149 @@
 {
-  "updated_at": "2026-10-27T17:40:00Z",
+  "updated_at": "2026-10-27T18:36:39.919641+00:00",
   "articles": [
     {
-      "title": "CISA confirms PHP2Shell exploitation; federal remediation deadline October 29",
-      "category": "Critical vulnerabilities",
-      "source": "BleepingComputer / CISA reporting",
-      "date": "Oct 27, 2026",
-      "url": "https://www.bleepingcomputer.com/news/security/cisa-confirms-php2shell-vulnerabilities-now-exploited-in-attacks/",
-      "summary": "CVE-2026-109618 and CVE-2026-109619 were added to CISA's Known Exploited Vulnerabilities catalog on October 26. Successful remote command execution was observed against intentionally vulnerable Apache mod_php honeypots, but those results do not establish exploit reliability across all PHP configurations. Defenders should identify exposed PHP deployments, apply vendor fixes, and correlate unusual web requests with crashes and unexpected processes."
+      "title": "Microsoft releases Windows OOB updates to distrust eMudhra certificates",
+      "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-windows-oob-updates-to-distrust-emudhra-certificates/",
+      "summary": "Microsoft has released out-of-band (OOB) Windows updates to remove trust in certificates tied to compromised eMudhra certificate authority keys, protecting systems that do not receive automatic certificate trust updates. [...]",
+      "source": "BleepingComputer",
+      "category": "Threats & Incidents",
+      "date": "Oct 27, 2026"
     },
     {
-      "title": "UNM Health System cyber incident disrupts emergency care and dozens of clinics",
-      "category": "Incident response",
-      "source": "Associated Press",
-      "date": "Oct 27, 2026",
-      "url": "https://apnews.com/article/7a3593f8a3cee4ca895774ab1574919f",
-      "summary": "A cybersecurity incident on October 26 forced ambulance diversions and canceled appointments at more than 30 clinics. The system operates New Mexico's only Level 1 trauma center. Operations began gradually resuming later Monday. Investigators have not established the attack's root cause or confirmed claims of stolen data. The incident highlights the availability and patient-safety impact of cyber disruptions."
+      "title": "Warp discloses breach exposing AI agent logs, user telemetry data",
+      "url": "https://www.bleepingcomputer.com/news/security/warp-discloses-breach-exposing-ai-agent-logs-user-telemetry-data/",
+      "summary": "Agent decision logs and telemetry data belonging to Warp agentic development environment users were exposed in an attack on a third-party vendor in the project's infrastructure. [...]",
+      "source": "BleepingComputer",
+      "category": "Threats & Incidents",
+      "date": "Oct 27, 2026"
     },
     {
-      "title": "PHP2Shell honeypots recorded 35 shell executions on October 24",
-      "category": "Offensive security research",
+      "title": "Tailscale Rushes Patches After Uncoordinated Disclosure of ‘Tailworm’ Flaws",
+      "url": "https://www.securityweek.com/tailscale-rushes-patches-after-uncoordinated-disclosure-of-tailworm-flaws/",
+      "summary": "Tailscale is preparing a patch for Tailscale SSH flaws whose details went public over the weekend, before any fixes had been released. The post Tailscale Rushes Patches After Uncoordinated Disclosure of ‘Tailworm’ Flaws appeared first on SecurityWeek .",
       "source": "SecurityWeek",
-      "date": "Oct 26, 2026",
-      "url": "https://www.securityweek.com/php2shell-exploitation-moves-from-probes-to-working-shells/",
-      "summary": "Researchers observed a multi-request exploitation chain involving memory exhaustion, information disclosure and command execution against three controlled PHP honeypots. The researcher warned that a favorable single-worker mod_php setup does not establish exploit success in other environments. No second-stage malware download was seen in that study."
+      "category": "Enterprise Security",
+      "date": "Oct 27, 2026"
     },
     {
-      "title": "Arista VeloCloud Orchestrator SQL injection threatens privileged network management",
-      "category": "Network security",
-      "source": "Arista Security Advisory",
-      "date": "Oct 2026",
-      "url": "https://www.arista.com/ko/support/advisories-notices/security-advisory/24838-security-advisory-0199",
-      "summary": "CVE-2026-114625 allows an authenticated account, potentially one with limited rights, to cross an authorization boundary and obtain operator-level privileges on affected on-premises Orchestrator deployments. The vendor reports exploitation. Review fixed versions, limit access to management interfaces, and investigate unexpected operator actions and configuration changes."
+      "title": "Tailscale warns of SSH flaws allowing root privilege escalation",
+      "url": "https://www.bleepingcomputer.com/news/security/tailscale-warns-of-serious-ssh-flaws-allowing-root-privilege-escalation/",
+      "summary": "The Tailscale security team is working to patch almost a dozen security vulnerabilities that could be exploited to steal credentials, crash servers, gain root privileges, and more. [...]",
+      "source": "BleepingComputer",
+      "category": "Threats & Incidents",
+      "date": "Oct 27, 2026"
     },
     {
-      "title": "CISA KEV: PHP2Shell and VeloCloud require priority remediation",
-      "category": "Vulnerability management",
-      "source": "CISA KEV catalog",
-      "date": "Oct 27, 2026",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-      "summary": "CISA's KEV catalog is a prioritization signal for vulnerabilities with evidence of exploitation. CVE-2026-109618 and CVE-2026-109619 were added October 26, with an October 29 federal deadline; CVE-2026-114625 was added October 23. Inventory affected systems and verify patches and compensating controls."
+      "title": "The Huntress Tragic Quadrant: Ranking Threats Hitting Businesses Hardest",
+      "url": "https://www.bleepingcomputer.com/news/security/the-huntress-tragic-quadrant-ranking-threats-hitting-businesses-hardest/",
+      "summary": "Attackers are increasingly abusing legitimate IT tools, Microsoft 365 sessions, and everyday workflows to compromise businesses without triggering traditional defenses. Huntress Labs ranks the threats hitting organizations hardest, highlighting which attack techniques deserve immediate attention and which remain emerging risks. [...]",
+      "source": "BleepingComputer",
+      "category": "Threats & Incidents",
+      "date": "Oct 27, 2026"
+    },
+    {
+      "title": "GoAhead TLS Flaws Allow Revoked Client Certificates and Enable Session Decryption",
+      "url": "https://thehackernews.com/2026/10/goahead-tls-flaws-allow-revoked-client.html",
+      "summary": "The GoAhead embedded web server loaded a certificate revocation list into its default TLS backend but never turned revocation checking on, so a revoked client certificate could still pass login on affected setups. The flaw is in builds that use the OpenSSL backend with mutual-TLS, where the server checks a client certificate and vice versa, and a revocation list is configured to block revoked",
+      "source": "The Hacker News",
+      "category": "Offensive & Vulnerabilities",
+      "date": "Oct 27, 2026"
+    },
+    {
+      "title": "Apple Backports Fix for Exploited CoreGraphics Flaw to Older iPhones and iPads",
+      "url": "https://thehackernews.com/2026/10/apple-backports-fix-for-exploited.html",
+      "summary": "Apple on Monday backported fixes for a high-severity security flaw that was exploited in real-world cyber attacks to older devices. The vulnerability, tracked as CVE-2026-86950 (CVSS score: 8.8), is an out-of-bounds write affecting CoreGraphics that could result in arbitrary code execution when processing a maliciously crafted file. Patches for the flaw were released last month by Apple in",
+      "source": "The Hacker News",
+      "category": "Offensive & Vulnerabilities",
+      "date": "Oct 27, 2026"
+    },
+    {
+      "title": "Vendor Key Leak Puts Data of 238,000 Denver Health Plan Members at Risk",
+      "url": "https://www.securityweek.com/vendor-key-leak-puts-data-of-238000-denver-health-plan-members-at-risk/",
+      "summary": "A leaked SquareML access key could have been used to access a database containing personal and health information. The post Vendor Key Leak Puts Data of 238,000 Denver Health Plan Members at Risk appeared first on SecurityWeek .",
+      "source": "SecurityWeek",
+      "category": "Enterprise Security",
+      "date": "Oct 27, 2026"
+    },
+    {
+      "title": "HPE Patches Dozens of Critical Flaws in Networking Products",
+      "url": "https://www.securityweek.com/hpe-patches-dozens-of-critical-flaws-in-networking-products/",
+      "summary": "Eight max-severity security defects could lead to remote code execution and authentication bypass. The post HPE Patches Dozens of Critical Flaws in Networking Products appeared first on SecurityWeek .",
+      "source": "SecurityWeek",
+      "category": "Enterprise Security",
+      "date": "Oct 27, 2026"
+    },
+    {
+      "title": "Microsoft Authenticator Flaw Let Permissionless Android Apps Steal Work Account Tokens",
+      "url": "https://thehackernews.com/2026/10/microsoft-authenticator-flaw-let.html",
+      "summary": "Microsoft has fixed a flaw in its Authenticator app for Android that let a malicious app with no permissions pose as a trusted Microsoft app, such as Teams, and collect sign-in tokens for a victim's work account. Microsoft tracks the flaw as CVE-2026-80097 and fixed it in Authenticator for Android version 6.2606.4246, so anyone using the app should update. In the researchers' tests,",
+      "source": "The Hacker News",
+      "category": "Offensive & Vulnerabilities",
+      "date": "Oct 27, 2026"
+    },
+    {
+      "title": "Unexplained DreamHost Incident Prompts Email, FTP Password Resets",
+      "url": "https://www.securityweek.com/unexplained-dreamhost-incident-prompts-email-ftp-password-resets/",
+      "summary": "The company says it reacted to an issue affecting some of its systems, including DreamHost webmail. The post Unexplained DreamHost Incident Prompts Email, FTP Password Resets appeared first on SecurityWeek .",
+      "source": "SecurityWeek",
+      "category": "Enterprise Security",
+      "date": "Oct 27, 2026"
+    },
+    {
+      "title": "iOS, macOS 27.2 Patch 286 Bugs; Fix for Exploited Flaw Backported to iOS 18",
+      "url": "https://www.securityweek.com/ios-macos-27-2-patch-286-bugs-fix-for-exploited-flaw-backported-to-ios-18/",
+      "summary": "Apple patched 286 vulnerabilities in iOS and macOS 27.2 and brought the fix for an exploited CoreGraphics zero-day to older iPhones. The post iOS, macOS 27.2 Patch 286 Bugs; Fix for Exploited Flaw Backported to iOS 18 appeared first on SecurityWeek .",
+      "source": "SecurityWeek",
+      "category": "Enterprise Security",
+      "date": "Oct 27, 2026"
+    },
+    {
+      "title": "Keystone to Destroy 18,835 Hardware Wallets After Hackers Steal Device Verification Key",
+      "url": "https://thehackernews.com/2026/10/keystone-to-destroy-18835-hardware.html",
+      "summary": "An attacker who gained access to Keystone's website obtained the key that its hardware wallets use to prove they are genuine, the company said in a statement on October 26. Someone with that key could build counterfeit devices that pass the online check owners use to verify a Keystone. A buyer who trusted a counterfeit could have their crypto stolen, but the incident did not involve",
+      "source": "The Hacker News",
+      "category": "Offensive & Vulnerabilities",
+      "date": "Oct 27, 2026"
+    },
+    {
+      "title": "AI-Generated Fake Login Pages Are Making Account Takeovers Easier",
+      "url": "https://thehackernews.com/2026/10/ai-generated-fake-login-pages-are.html",
+      "summary": "Fake login pages are nothing new, but generative AI is making them easier to build and more convincing. Attackers can recreate familiar login screens, impersonate trusted brands and tailor phishing attempts to specific employees or organizations. Some fake login pages go beyond stealing passwords. They can also capture MFA codes or hijack authenticated sessions, allowing attackers to gain",
+      "source": "The Hacker News",
+      "category": "Offensive & Vulnerabilities",
+      "date": "Oct 27, 2026"
+    },
+    {
+      "title": "Lazarus Abuses South Korean Security Software to Deploy Malware Using Post-Quantum Encryption",
+      "url": "https://thehackernews.com/2026/10/lazarus-abuses-south-korean-security.html",
+      "summary": "The North Korea-linked Lazarus Group has been attributed to a cyber espionage campaign dubbed Operation FlashHole targeting at least three organizations in South Korea spanning the construction, software, and wire-communication equipment manufacturing sectors. According to Russian cybersecurity company Kaspersky, the campaign has been active since at least July 2025. It's assessed to pick up",
+      "source": "The Hacker News",
+      "category": "Offensive & Vulnerabilities",
+      "date": "Oct 27, 2026"
+    },
+    {
+      "title": "Risks Spelled Out for Anthropic Investors Include Possible Harms From Runaway AI",
+      "url": "https://www.securityweek.com/risks-spelled-out-for-anthropic-investors-include-possible-harms-from-runaway-ai/",
+      "summary": "Anthropic presents its own initial public offering as a step toward mitigating the risks it believes AI poses. The post Risks Spelled Out for Anthropic Investors Include Possible Harms From Runaway AI appeared first on SecurityWeek .",
+      "source": "SecurityWeek",
+      "category": "Enterprise Security",
+      "date": "Oct 27, 2026"
+    },
+    {
+      "title": "Apple backports CoreGraphics zero-day patches to older iPhones",
+      "url": "https://www.bleepingcomputer.com/news/apple/apple-backports-coregraphics-zero-day-patches-to-older-iphones/",
+      "summary": "​Apple has backported security patches released last month to older iPhones and iPads, addressing a zero-day bug exploited in \"extremely sophisticated\" targeted attacks on iOS devices. [...]",
+      "source": "BleepingComputer",
+      "category": "Threats & Incidents",
+      "date": "Oct 27, 2026"
+    },
+    {
+      "title": "This is Fine: What NetScaler Zero-Days Tell Us About the New Normal",
+      "url": "https://www.securityweek.com/this-is-fine-what-netscaler-zero-days-tell-us-about-the-new-normal/",
+      "summary": "Keep your patch management pipelines primed in case another round of Citrix NetScaler patches get released soon. The post This is Fine: What NetScaler Zero-Days Tell Us About the New Normal appeared first on SecurityWeek .",
+      "source": "SecurityWeek",
+      "category": "Enterprise Security",
+      "date": "Oct 27, 2026"
     }
   ]
 }
