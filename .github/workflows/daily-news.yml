@@ -1,0 +1,31 @@
+name: Publish Morning Security News
+on:
+  schedule:
+    - cron: '15 12 * * *' # 08:15 EDT / 07:15 EST; UTC does not follow DST
+    - cron: '15 13 * * *' # 08:15 EST / 09:15 EDT
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    if: github.event_name == 'workflow_dispatch' || (github.event.schedule == '15 12 * * *' && format('{0}', 'placeholder') != '') || github.event.schedule == '15 13 * * *'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check New York publication hour
+        id: time
+        run: |
+          if [ "$(TZ=America/New_York date +%H)" = "08" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then echo "run=true" >> "$GITHUB_OUTPUT"; fi
+      - name: Build latest issue
+        if: steps.time.outputs.run == 'true'
+        run: python3 scripts/build_news.py
+      - name: Commit updated news
+        if: steps.time.outputs.run == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add news.json
+          if ! git diff --cached --quiet; then git commit -m "news: refresh daily security headlines"; git push; fi
