@@ -8,7 +8,6 @@ permissions:
   contents: write
 jobs:
   publish:
-    if: github.event_name == 'workflow_dispatch' || (github.event.schedule == '15 12 * * *' && format('{0}', 'placeholder') != '') || github.event.schedule == '15 13 * * *'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,5 +26,5 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add news.json
+          git add news.json news-archive.json news/
           if ! git diff --cached --quiet; then git commit -m "news: refresh daily security headlines"; git push; fi
