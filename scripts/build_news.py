@@ -2,6 +2,7 @@
 """Build a source-linked daily news desk from publisher RSS feeds. No invented analysis."""
 import datetime as dt, email.utils, html, json, re, urllib.request, xml.etree.ElementTree as ET
 from pathlib import Path
+from zoneinfo import ZoneInfo
 SOURCES=[
  ("CISA Alerts","Advisories","https://www.cisa.gov/cybersecurity-advisories/all.xml"),
  ("BleepingComputer","Threats & Incidents","https://www.bleepingcomputer.com/feed/"),
@@ -48,7 +49,7 @@ def main():
  edition={'updated_at':now.isoformat(),'articles':selected}
  payload=json.dumps(edition,indent=2,ensure_ascii=False)+'\\n'
  Path('news.json').write_text(payload,encoding='utf-8')
- date=now.astimezone(dt.timezone(dt.timedelta(hours=-4))).date().isoformat()
+ date=now.astimezone(ZoneInfo('America/New_York')).date().isoformat()
  archive_dir=Path('news');archive_dir.mkdir(exist_ok=True)
  (archive_dir/(date+'.json')).write_text(payload,encoding='utf-8')
  manifest=Path('news-archive.json')
