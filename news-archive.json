@@ -1,6 +1,12 @@
 {
   "issues": [
     {
+      "date": "2026-11-01",
+      "title": "November 1, 2026 — The Security Intelligence Magazine",
+      "summary": "Cloud credential exposure, airline third-party data incident, CISA KEV deadlines, VPN defense and an authorized threat-hunting lab.",
+      "count": 6
+    },
+    {
       "date": "2026-10-27",
       "title": "October 27, 2026 — Morning Security Intelligence",
       "summary": "Daily cybersecurity headlines: vulnerabilities, threat intelligence, network security and incidents.",
