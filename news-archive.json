@@ -1,6 +1,12 @@
 {
   "issues": [
     {
+      "date": "2026-11-02",
+      "title": "November 2, 2026 — The Security Intelligence Magazine",
+      "summary": "European refrigeration cyber incidents, FBI Binance attribution, Microsoft AD CS attacks, Langflow flaws, Ivanti KEV, SysGoRAT and SOC lab.",
+      "count": 10
+    },
+    {
       "date": "2026-11-01",
       "title": "November 1, 2026 — The Security Intelligence Magazine",
       "summary": "Cloud credential exposure, airline third-party data incident, CISA KEV deadlines, VPN defense and an authorized threat-hunting lab.",
