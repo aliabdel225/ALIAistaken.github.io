@@ -342,7 +342,7 @@
               </div>
               <div class="project-body">
                 <h2>Rogue DHCP Server Mitigation — DHCP Snooping</h2>
-                <p>Designed a segmented Cisco Packet Tracer lab, enforced trusted DHCP server ports, demonstrated rogue DHCP OFFER suppression, and validated client leases and connectivity with packet-level evidence.</p>
+                <p>Built a Cisco Packet Tracer network to examine how unauthorized DHCP servers can disrupt client connectivity and redirect traffic. Configured trusted switch ports and DHCP snooping, tested rogue DHCP responses, and verified that legitimate clients still received valid leases. The lab demonstrates a practical Layer 2 defense and how to validate it with network evidence.</p>
                 <div class="tech-list"><span>Cisco Packet Tracer</span><span>DHCP Snooping</span><span>VLANs</span><span>Layer 2 Security</span></div>
                 <span class="project-link">View Full Project <i class="fa-solid fa-arrow-right"></i></span>
               </div>
@@ -358,7 +358,7 @@
               </div>
               <div class="project-body">
                 <h2>Nexus — Linux Penetration Test</h2>
-                <p>Independently traced an attack path from web discovery and exposed credentials to a CRM shell, SSH access, and root through a vulnerable scheduled template synchronization workflow.</p>
+                <p>Conducted an independent Linux penetration test to understand how separate weaknesses can combine into a complete compromise. Began with service and web enumeration, used discovered credentials to access a CRM environment, and progressed through shell access and SSH. Investigated a scheduled Gitea template synchronization workflow that enabled privilege escalation to root, then documented the attack chain and its security implications.</p>
                 <div class="tech-list">
                   <span>Linux</span><span>Burp Suite</span><span>SSH</span><span>systemd</span><span>Gitea</span>
                 </div>
@@ -375,7 +375,7 @@
               </div>
               <div class="project-body">
                 <h2>Dancing — Windows SMB Share Assessment</h2>
-                <p>Enumerated a Windows lab host, tested SMB share access without a supplied password, and documented a readable share with screenshot-backed evidence.</p>
+                <p>Assessed a Windows SMB service to determine whether network shares exposed data without appropriate authentication. Enumerated services, inspected available shares using SMB tools, and confirmed access to a readable share without supplying a password. Recorded command output and screenshots to show the access-control issue and why restricting anonymous share access matters.</p>
                 <div class="tech-list">
                   <span>SMB</span><span>Nmap</span><span>smbclient</span><span>Windows</span><span>Access Control</span>
                 </div>
@@ -392,7 +392,7 @@
               </div>
               <div class="project-body">
                 <h2>Hunting for Stuxbot</h2>
-                <p>Investigated file staging, registry persistence, and PowerShell Remoting activity using Elastic telemetry and structured threat-hunting queries.</p>
+                <p>Used Elastic SIEM telemetry to investigate suspicious Windows activity and practice evidence-driven threat hunting. Examined file staging, registry-based persistence indicators, and PowerShell Remoting activity across host and network logs. The investigation demonstrates how correlating events and structured queries helps analysts reconstruct potential attacker behavior rather than relying on a single alert.</p>
                 <div class="tech-list">
                   <span>Elastic</span><span>Kibana</span><span>Sysmon</span><span>KQL</span><span>MITRE ATT&CK</span>
                 </div>
@@ -409,7 +409,7 @@
               </div>
               <div class="project-body">
                 <h2>Network Scanning & Wireshark Analysis</h2>
-                <p>Simulated Nmap reconnaissance and analyzed the resulting traffic to identify SYN scanning behavior and protocol-level evidence.</p>
+                <p>Simulated network reconnaissance with Nmap and captured the resulting packets in Wireshark to understand how scanning appears on the wire. Analyzed TCP SYN behavior and related protocol details to distinguish discovery traffic from normal connections. Documented packet evidence and findings to demonstrate network troubleshooting, traffic interpretation, and detection fundamentals.</p>
                 <div class="tech-list">
                   <span>Wireshark</span><span>Nmap</span><span>TCP/IP</span><span>Linux</span><span>T1595</span>
                 </div>
@@ -427,7 +427,7 @@
               </div>
               <div class="project-body">
                 <h2>Vulnerability Assessment — Metasploitable</h2>
-                <p>Assessed an intentionally vulnerable Linux target from Kali Linux, enumerated exposed services, researched vsftpd 2.3.4, validated CVE-2011-2523, and documented risk, impact, remediation, and lessons learned.</p>
+                <p>Performed a vulnerability assessment against an intentionally vulnerable Metasploitable host to practice identifying and prioritizing exposed services. Used Nmap to enumerate software versions, researched the risks associated with vsftpd 2.3.4 and CVE-2011-2523, and documented validation steps, potential impact, and remediation guidance. The project shows how technical findings can be translated into actionable security recommendations.</p>
                 <div class="tech-list">
                   <span>Kali Linux</span><span>Nmap</span><span>SearchSploit</span><span>Metasploit</span><span>CVE-2011-2523</span>
                 </div>
@@ -445,7 +445,7 @@
               </div>
               <div class="project-body">
                 <h2>Task Force — Windows SIEM Threat Hunt</h2>
-                <p>Investigated a suspicious scheduled task in Elastic SIEM, pivoted to an unusual SQL-themed executable path, and correlated process and RDP telemetry while documenting gaps in the available logs.</p>
+                <p>Investigated suspicious Windows scheduled-task activity in Elastic SIEM to understand how persistence may appear in incomplete enterprise logs. Narrowed the event set, examined an unusual SQL-themed executable path, and correlated available process and RDP records. Documented both supporting evidence and visibility gaps to distinguish investigative leads from conclusions the data cannot prove.</p>
                 <div class="tech-list">
                   <span>Elastic SIEM</span><span>Kibana</span><span>KQL</span><span>Windows Logs</span><span>MITRE ATT&amp;CK</span>
                 </div>
@@ -462,7 +462,7 @@
               </div>
               <div class="project-body">
                 <h2>PhantomRing — Linux Malware Static Analysis</h2>
-                <p>Reverse-engineered a Linux ELF command agent to document its io_uring-based I/O, C2 configuration, discovery commands, tracing interference, and self-deletion behavior.</p>
+                <p>Performed static analysis of a Linux ELF command agent to understand its command-and-control behavior and evasion techniques without executing it in a production environment. Examined embedded configuration, supported commands, io_uring-related behavior, discovery routines, tracing interference, and self-deletion logic. Summarized how these features affect detection and incident investigation.</p>
                 <div class="tech-list">
                   <span>ELF64</span><span>Linux</span><span>io_uring</span><span>objdump</span><span>Static Analysis</span>
                 </div>
@@ -479,7 +479,7 @@
               </div>
               <div class="project-body">
                 <h2>Phantom — Linux Rootkit Investigation</h2>
-                <p>Analyzed a Linux memory image with Volatility 3, identified the concealed unsigned singularity module, mapped its tracepoint and ftrace hooks, and correlated three suspicious shell sessions with outbound connections.</p>
+                <p>Investigated a Linux memory image with Volatility 3 to identify indicators of a concealed kernel-level threat. Located the suspicious unsigned singularity module, examined tracepoint and ftrace hooks, and correlated suspicious shell sessions with outbound network activity. The analysis illustrates why memory forensics is valuable when malicious activity may be hidden from ordinary system inspection.</p>
                 <div class="tech-list">
                   <span>Volatility 3</span><span>Linux</span><span>Memory Forensics</span><span>Rootkit Analysis</span><span>Incident Response</span>
                 </div>
