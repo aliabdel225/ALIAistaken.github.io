@@ -55,6 +55,24 @@ dialog{width:min(96vw,1600px);max-height:96vh;padding:0;border:1px solid #4a4a50
 </div>
 </section>
 
+<section class="section" id="technical-walkthrough">
+<span class="section-kicker">Technical walkthrough</span>
+<h2>How I built, secured, and validated the environment</h2>
+<p>This project follows an administrator-to-analyst workflow: first establish a functioning Windows domain, then apply security controls, deliberately test them, and examine the resulting evidence. The existing screenshots below document the implementation and validation.</p>
+<div class="steps">
+<div class="step"><b>1. Build an isolated enterprise network</b><p>I used Oracle VirtualBox and the HOME-WORLD-NET NAT network (10.10.10.0/24) to connect the Windows Server 2025 domain controller, Windows 11 client, and a Kali Linux testing machine. Isolation made it possible to test security controls without targeting production systems.</p><code>HW-DC01: 10.10.10.10 | HW-CLIENT01: 10.10.10.20 | Kali: 10.10.10.5</code></div>
+<div class="step"><b>2. Configure Active Directory and DNS</b><p>I configured Active Directory Domain Services and DNS on HW-DC01 for HOMEWORLD.LOCAL. Centralized domain services allow administrators to manage identities and computers from one place rather than maintaining unrelated local accounts on each workstation.</p></div>
+<div class="step"><b>3. Join the workstation and verify Group Policy</b><p>I joined HW-CLIENT01 to the domain, organized identities using departmental Organizational Units and groups, and checked policy delivery with <code>gpresult</code>. This demonstrated domain enrollment, central configuration, and practical troubleshooting of applied policies.</p><code>gpresult /r</code></div>
+<div class="step"><b>4. Enforce password and account lockout controls</b><p>I configured a 15-character minimum password length, password history of 24, complexity requirements, and account lockout after 10 failed attempts. I tested the threshold with a lab account, verified the lockout state and Event ID 4740, then unlocked the account and checked that the counters reset. This connected policy configuration to observable security behavior.</p></div>
+<div class="step"><b>5. Enable and investigate Windows auditing</b><p>I examined authentication and security records in Windows Event Viewer, including successful logons (4624), failed logons (4625), account lockouts (4740), and process creation auditing (4688). I also worked with PowerShell script block logging (4104). These records provide the evidence needed to investigate account misuse and suspicious execution.</p></div>
+<div class="step"><b>6. Test network exposure and access controls</b><p>From the authorized Kali machine, I used network reconnaissance to inspect services in the isolated subnet. I also tested SMB shares, access restrictions, SMB hardening, and Windows Defender Firewall controls. The objective was to verify that permitted access worked and unauthorized access was restricted.</p></div>
+</div>
+<div class="finding"><strong>Project outcome:</strong> A working Windows domain with tested identity, workstation, authentication, auditing, and network-access controls. The value of the project is the repeatable sequence of configuration, controlled testing, and documented verification—not merely the installation of Active Directory.</div>
+<h3>How to read the evidence below</h3>
+<p>For each evidence item, look for four things: the configuration or command, the security or business reason for it, the test performed, and the observed result. The original screenshots remain available at full resolution and should be treated as the primary proof of implementation.</p>
+<p><strong>Scope note:</strong> This report documents Windows-native auditing and endpoint controls. My Elastic/Sysmon SIEM work is a related lab effort; it is not presented here as verified HOME-WORLD telemetry unless supported by specific screenshots or logs.</p>
+</section>
+
 <section class="section" id="evidence">
 <span class="section-kicker">Evidence gallery</span>
 <h2>What I configured, how I tested it, and what the evidence proves</h2>
